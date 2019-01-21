@@ -14,3 +14,6 @@ Entidades:
   Favoritos
   Categoria de comercio
   Oferta
+  
+ Servicio interno:
+ mandar ofertas por email, imprimir ofertas, acceder a las diferentes bases de datos
