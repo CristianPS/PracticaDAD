@@ -17,3 +17,16 @@ Entidades:
   
  Servicio interno:
  mandar ofertas por email, imprimir ofertas, acceder a las diferentes bases de datos
+
+ Alumnos:
+  Cristian Posada Santos
+  c.posada@alumnos.urjc.es
+  CristianPS
+  
+  Carlos Gil Sabrido
+  c.gilsab@alumnos.urjc.es
+  carls52
+  
+  Jose Ignacio Díaz Errejón
+  ji.diaze@alumnos.urjc.es
+  sito22
