@@ -18,7 +18,7 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
   
  ## Servicios internos:
  * Mandar ofertas por email. 
- * Imprimir ofertas. 
+ * Generar PDF con oferta (para imprimir o guardar en el equipo)
  * Acceder a las diferentes bases de datos.
 
  ## Alumnos:
