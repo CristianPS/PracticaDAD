@@ -6,27 +6,30 @@ La web tendrá dos zonas bien diferenciadas, la correspondiente a los dueños o 
 La parte de los usuarios será publica, aunque tendrán también opción a loguearse para poder tener ciertas ventaja, como poder guardar sus sitios favoritos, recibir publicidad con las mejores ofertas, obtener puntos, etc.
 La parte de los establecimientos será completamente privada. En ella podrán añadir ofertas, dar los datos del bar, usar las diferentes opciones de promoción, etc.
 
-Entidades:
-  Usuario
-  Comercio
-  Valoracion
-  Comentario
-  Favoritos
-  Categoria de comercio
-  Oferta
-  
- Servicio interno:
- mandar ofertas por email, imprimir ofertas, acceder a las diferentes bases de datos
+## Entidades:
 
- Alumnos:
-  Cristian Posada Santos
-  c.posada@alumnos.urjc.es
-  CristianPS
+  * Usuario
+  * Comercio
+  * Valoracion
+  * Comentario
+  * Favoritos
+  * Categoria de comercio
+  * Oferta
   
-  Carlos Gil Sabrido
-  c.gilsab@alumnos.urjc.es
-  carls52
+ ## Servicios internos:
+ * Mandar ofertas por email. 
+ * Imprimir ofertas. 
+ * Acceder a las diferentes bases de datos.
+
+ ## Alumnos:
+   Cristian Posada Santos
+  * c.posada@alumnos.urjc.es
+  * https://github.com/CristianPS
   
-  Jose Ignacio Díaz Errejón
-  ji.diaze@alumnos.urjc.es
-  sito22
+   Carlos Gil Sabrido
+  * c.gilsab@alumnos.urjc.es
+  * https://github.com/carls52
+  
+   Jose Ignacio Díaz Errejón
+  * ji.diaze@alumnos.urjc.es
+  * https://github.com/sito22
