@@ -5,5 +5,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WebController {
 	
-	public String webController
+	public String WebController()
+	{
+		return"index.html";
+	}
 }
