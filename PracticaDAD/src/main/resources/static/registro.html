@@ -2,9 +2,41 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Registro</title>
+<link rel="/styles/stylesheet" href="registrostyle.css">
+<script src="/scripts/registroscript.js"></script>
 </head>
-<body>
 
+<body>
+	<ul>
+		<li><img class="logo" src="https://logosmarcas.com/wp-content/uploads/2018/05/Twitter-logo.png"/></li>
+		<li><a href="index.html">Inicio</a></li>
+		<li><a href="ofertas.html">Ofertas</a></li>
+		<li><a href="registro.html">Login</a></li>
+	</ul>
+	
+	<form action="https://www.aulavirtual.urjc.es">
+		<h3>REGISTRO</h3>
+		<p>Nombre:</p>
+		<input type="text" id="username" />
+		
+		<p>E-mail:</p>
+		<input type="text" id="email" />
+		
+		<p>Contraseña:</p>
+		<div>
+			<input type="password" id="password" />
+			<img onclick="showPassword()" src="https://image.flaticon.com/icons/png/512/63/63372.png" />
+		</div>
+		
+		<p>Confirmar contraseña:</p>
+		<div>
+			<input type="password" id="confirmpassword" />
+			<img onclick="showConfirmedPassword()" src="https://image.flaticon.com/icons/png/512/63/63372.png" />
+		</div>
+		
+		<button>Terminar</button>
+	</form>
 </body>
+
 </html>

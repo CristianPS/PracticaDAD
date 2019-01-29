@@ -1,0 +1,104 @@
+@charset "ISO-8859-1";
+
+form{
+	border-radius: 8px;
+	box-shadow:0 0 40px -10px #000;
+	width: 300px;
+	height: 530px;
+	background: #faf5fc;
+	padding: 20px 30px;
+	position: relative;
+	max-width: calc(100vw - 40px);
+	margin: calc(50vh - 240px) auto;
+	font-family:'Montserrat',sans-serif;
+}
+
+button{
+	padding:8px 12px;
+	margin-top: 30px;
+	border:2px solid #78788c;
+	background:0;
+	color:#5a5a6e;
+	cursor:pointer;
+	margin-left: 100px;
+	font-family:'Montserrat',sans-serif;
+}
+
+button:hover{
+	background:#7a90f0;
+	color:#fff;
+}
+
+input{
+	width:90%;
+	padding:10px;
+	box-sizing:border-box;
+	background:none;
+	outline:none;
+	resize:none;
+	border:0;
+	border-bottom:2px solid #bebed2;
+	font-family:'Montserrat',sans-serif;
+}
+
+input:focus{
+	border-bottom:2px solid #78788c;
+}
+
+p {
+	margin-top: 30px;
+	color: #78788c;
+}
+
+h3{
+	color: #78788c;
+	text-align: center;
+}
+
+img{
+	width: 25px;
+	height: 25px;
+}
+
+ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li{
+	float: left;
+}
+
+li a{
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover{
+	background-color: #111;
+}
+
+body{
+	margin: 0;
+	background: -moz-radial-gradient(50% 50%, #000000, #5471f0); 
+	background: -webkit-radial-gradient(50% 50%, #000000, #5471f0); 
+	background: -o-radial-gradient(50% 50%, #000000, #5471f0); 
+	background: -ms-radial-gradient(50% 50%, #000000, #5471f0); 
+	background: radial-gradient(50% 50%, #000000, #5471f0);
+}
+
+.active {
+  background-color: #7a90f0;
+}
+
+img.logo{
+	height: 30px;
+	width: 50px;
+	margin-top: 7px;
+}
