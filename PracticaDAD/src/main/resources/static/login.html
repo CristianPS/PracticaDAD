@@ -3,13 +3,35 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="loginstyle.css">
+<script src="script.js"></script>
 </head>
 
 <body>
-	<form action="registro.html">
+	<ul>
+		<li><img class="logo" src="https://logosmarcas.com/wp-content/uploads/2018/05/Twitter-logo.png"/></li>
+		<li><a class="active" href="index.html">Inicio</a></li>
+		<li><a href="ofertas.html">Ofertas</a></li>
+		<li><a href="registro.html">Login</a></li>
+	</ul>
+	
+	<form id="form">
+		<h3>INICIO DE SESION</h3>
+		<p>Nombre:</p>
 		<input type="text" id="username" />
-		<input type="password" id="password" />
-		<input type="submit" value="Iniciar" />
+		
+		<p>Contraseña:</p>
+		<div>
+			<input type="password" id="password" />
+			<img onclick="showPassword()" src="https://image.flaticon.com/icons/png/512/63/63372.png" />
+		</div>
+		
+		<p align="center">¿No recuerdas tu contraseña?<p/>
+		
+		<div>
+			<button class="iniciar">Iniciar sesion</button>
+			<button class="registrar" onclick="registro()">Registrarse</button>
+		</div>
 	</form>
 </body>
 </html>
