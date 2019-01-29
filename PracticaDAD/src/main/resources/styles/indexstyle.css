@@ -8,8 +8,10 @@ img.oferta{
 
 img.logo{
 	height: 30px;
-	width: 50px;
+	width: 30px;
 	margin-top: 7px;
+	margin-left: 15px;
+	margin-right: 15px;
 }
 
 img.city{
