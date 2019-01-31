@@ -26,12 +26,22 @@
 			<img class="ojo" onclick="showPassword()" src="../images/ojo.png" />
 		</div>
 		
+		<div class="switch" align="center">
+            <input type="radio" class="switch-input" name="view" value="alumno" id="alumno" checked>
+            <label for="alumno" class="switch-label switch-label-off">Usuario</label>
+            <input type="radio" class="switch-input" name="view" value="profesor" id="profesor">
+            <label for="profesor" class="switch-label switch-label-on">Empresa</label>
+            <span class="switch-selection"></span>
+        </div>
+		
+		
 		<p align="center">¿No recuerdas tu contraseña?<p/>
 		
 		<div>
 			<button class="iniciar">Iniciar sesion</button>
 			<button class="registrar" onclick="registro()">Registrarse</button>
 		</div>
+		
 	</form>
 </body>
 </html>
