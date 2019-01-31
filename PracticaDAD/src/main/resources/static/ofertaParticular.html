@@ -3,35 +3,35 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./styles/ofertaparticularstyle.css">
 </head>
 <body>
 	<ul>
-		<li><img class="logo" src="https://logosmarcas.com/wp-content/uploads/2018/05/Twitter-logo.png"/></li>
-		<li><a class="active" href="index.html">Inicio</a></li>
+		<li><img class="logo" src="./images/cocktail.png"/></li>
+		<li><a href="index.html">Inicio</a></li>
 		<li><a href="ofertas.html">Ofertas</a></li>
 		<li><a href="registro.html">Login</a></li>
 	</ul>
-	
-	<div id >
-		<h2 id="nombreOferta">Nombre de la oferta</h2>		
-	</div>
-	<div>
-		<img src="../images/imagenoferta.jpg" alt="description" height="200" width="200">
-		<div>
+	<div class="fullOffer">
+	<h1 class="nombreoferta">Nombre de la oferta</h1>	
+	<div class="oferta">
+		<div class="imgclass"><img id="imgOferta" src="./images/imagenoferta.jpg" alt="description"></div>
+		<div class="infoOferta">
 			<p>Local: </p>
 			<p>Ciudad: </p>
 			<p>Precio: </p>
 			<p>Fecha: </p>
 			<a href="masinformacion.html">Más información</a>
 		</div>
+	
+		
 	</div>
-	<div>
-		<h3>Descripción de la oferta</h3>		
-	</div>
-	<div>
-		<textarea readonly>
+	<div class="descripcion">
+		<h2>Descripción de la oferta</h2>				
+		<p>
 			Aquí va la descripción de cada oferta.
-		</textarea>
+		</p>
+	</div>
 	</div>
 </body>
 </html>
