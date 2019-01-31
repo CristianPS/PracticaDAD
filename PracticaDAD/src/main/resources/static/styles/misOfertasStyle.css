@@ -7,7 +7,7 @@ img.logo{
 	margin-right: 15px;
 }
 
-ul{
+ul.menu{
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -15,11 +15,11 @@ ul{
 	background-color: #333;
 }
 
-li{
+li.menuItem{
 	float: left;
 }
 
-li a{
+li.menuItem a{
 	display: block;
 	color: white;
 	text-align: center;
@@ -27,7 +27,7 @@ li a{
 	text-decoration: none;
 }
 
-li a:hover{
+li.menuItem a:hover{
 	background-color: #ddd;
 }
 
@@ -40,9 +40,19 @@ body{
 	background: radial-gradient(50% 50%, #000000, #5471f0);
 }
 
+#misOfertas{
+	margin-left: 40%;
+	/*margin-right: 40%;*/
+	background-color: rgba(165,165,165,0.7);
+	text-align: center;
+	border: 2px solid black;
+	height: 20%;
+	width: 20%
+}
+
 img#imgOferta{
-	width: 250px;
-	height: 250px;
+	width: 150px;
+	height: 150px;
 	border-radius: 7px;
 	height: 100%;
 	float:left;
@@ -51,19 +61,28 @@ img#imgOferta{
 .infoOferta{
 	float:left;
 	margin-left: 30px;
-	font-size: 20px;
+	font-size: 12px;
 }
 
 .descripcion{
 	margin-left: 20px;
-	padding-bottom: 100px;
+	/*padding-bottom: 100px;*/
+	
+}
+
+#offerDescription{
+	font-size: 12px;
+}
+
+#button{	
+	float: right;
 }
 
 #nombreoferta{
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-bottom: 20px;
-	margin-right: 20px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
 	text-align: center;
 }
 
@@ -81,12 +100,11 @@ img#imgOferta{
 
 .fullOffer{
 	background: rgba(255,255,255,0.3);
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-bottom: 20px;
-	margin-right: 20px;
+	margin-top: 10px;
+	margin-left: 2%;
+	margin-bottom: 10px;
+	margin-right: 2%;
 	border-radius: 7px;
-	border: 2px solid black;
-	height: 100%;
+	border: 2px solid black;	
 	width: 96%;
 }

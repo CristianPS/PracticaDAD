@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="styles/misOfertasStyle.css">
+</head>
+<body>
+	<ul class="menu">
+		<li class="menuItem"><img class="logo" src="./images/cocktail.png"/></li>
+		<li class="menuItem"><a href="index.html">Inicio</a></li>
+		<li class="menuItem"><a href="ofertas.html">Ofertas</a></li>
+		<li class="menuItem" style="float:right"><a href="registro.html">Login</a></li>
+	</ul>
+	
+	<h1 id="misOfertas"><b>Mis ofertas</b></h1>
+	
+	<ul>
+		<li>
+			<div class="fullOffer">
+				<h2 id="nombreoferta">{{offerName}}</h2><hr color="black">
+				<div class="oferta">
+					<div><img id="imgOferta" src="./images/imagenoferta.jpg" alt="description"></div>
+					<div class="infoOferta">
+						<p style="padding-top:20px">Local: {{local}}</p>
+						<p>Ciudad: {{city}}</p>
+						<p>Precio: {{price}}</p>
+						<p>Fecha: {{date}}</p>		
+									
+					</div>		
+					<button id="button" onClick="mostrarEstadisticas()">Estadísticas</button>	
+				</div>
+				
+				<div class="descripcion">
+					<h3>Descripción de la oferta</h3>
+					<p id="offerDescription">
+						Aquí va la descripción de cada oferta.
+					</p>
+								
+				</div>
+			</div>
+			<div class="fullOffer">
+				<h2 id="nombreoferta">{{offerName}}</h2><hr color="black">
+				<div class="oferta">
+					<div><img id="imgOferta" src="./images/imagenoferta.jpg" alt="description"></div>
+					<div class="infoOferta">
+						<p style="padding-top:20px">Local: {{local}}</p>
+						<p>Ciudad: {{city}}</p>
+						<p>Precio: {{price}}</p>
+						<p>Fecha: {{date}}</p>
+						<button id="boton" onClick="mostrarEstadisticas()">Estadísticas</button>
+					</div>		
+				</div>
+				<div class="descripcion">
+					<h2>Descripción de la oferta</h2>
+					<p id="offerDescription">
+						Aquí va la descripción de cada oferta.
+					</p>
+				</div>
+			</div>
+		</li>
+		
+	</ul>
+</body>
+</html>
