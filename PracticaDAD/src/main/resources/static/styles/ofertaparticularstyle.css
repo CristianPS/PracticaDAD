@@ -26,13 +26,15 @@ img#imgOferta{
 
 .descripcion{
 	margin-left: 20px;
+	padding-bottom: 100px;
 }
 
-.nombreoferta{
+#nombreoferta{
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-bottom: 20px;
 	margin-right: 20px;
+	text-align: center;
 }
 
 .oferta{

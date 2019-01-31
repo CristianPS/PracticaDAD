@@ -10,25 +10,22 @@
 		<li><img class="logo" src="./images/cocktail.png"/></li>
 		<li><a href="index.html">Inicio</a></li>
 		<li><a href="ofertas.html">Ofertas</a></li>
-		<li><a href="registro.html">Login</a></li>
+		<li style="float:right"><a href="registro.html">Login</a></li>
 	</ul>
 	<div class="fullOffer">
-	<h1 class="nombreoferta">Nombre de la oferta</h1>	
+	<h1 id="nombreoferta">Nombre de la oferta</h1><hr color="black">	
 	<div class="oferta">
 		<div class="imgclass"><img id="imgOferta" src="./images/imagenoferta.jpg" alt="description"></div>
 		<div class="infoOferta">
-			<p>Local: </p>
-			<p>Ciudad: </p>
-			<p>Precio: </p>
-			<p>Fecha: </p>
-			<a href="masinformacion.html">Más información</a>
-		</div>
-	
-		
+			<p style="padding-top:20px">Local: {{local}}</p>
+			<p>Ciudad: {{city}}</p>
+			<p>Precio: {{price}}</p>
+			<p>Fecha: {{date}}</p>			
+		</div>		
 	</div>
 	<div class="descripcion">
-		<h2>Descripción de la oferta</h2>				
-		<p>
+		<h2>Descripción de la oferta</h2>
+		<p id="offerDescription">
 			Aquí va la descripción de cada oferta.
 		</p>
 	</div>
