@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="styles/user.css">
+<script src="scripts/loginscript.js"></script>
+</head>
+
+<body>
+	<ul>
+		<li><img class="logo" src="images/cocktail.png"/></li>
+		<li><a href="index.html">Inicio</a></li>
+		<li><a>Ofertas</a></li>
+		<li style="float:right"><a class="active" href="login.html">Login</a></li>
+	</ul>
+	
+	<form>
+	<h1>TU PERFIL</h1>
+	
+	  <div class="row"> 
+	    <div class="izqda">
+		  <p>Nombre:</p>
+		  <input type="text" id="username" />
+		</div><div class="dcha">
+		  <p>Apellidos:</p>
+		  <input type="text" id="username" />
+		</div>
+	  </div>
+	  
+	  <div class="row"> 
+	    <div class="izqda">
+		  <p>Correo electrónico:</p>
+		  <input type="text" id="username" />
+		</div><div class="dcha">
+		  <p>Género:</p>
+		  <select id="genero" name="genero">
+        	<option value="Hombre">Hombre</option>
+        	<option value="Mujer">Mujer</option>
+        	<option value="Otro">Otro</option>
+      </select>
+		</div>
+	  </div>
+	  
+	  <div class="row"> 
+	    <div class="izqda">
+		  <p>Ciudad:</p>
+		  <input type="text" id="username" />
+		</div><div class="dcha">
+		  <p>Fecha de nacimiento:</p>
+		  <input type="date" id="username" />
+		</div>
+	  </div>
+	  
+	  <div class="row"> 
+	    <div class="izqda">
+		    <p>Contraseña:</p>
+			<input type="password" id="password" />
+			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
+		</div>
+		<div class="dcha">
+		    <p>Contraseña nueva:</p>
+			<input type="password" id="passwordNew" />
+			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />			
+		</div>  
+	  </div>
+	
+	<button class="guardar">Guardar</button>
+	</form>
+	
+</body>
+</html>
