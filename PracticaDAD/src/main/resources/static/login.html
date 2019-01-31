@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
 <link rel="stylesheet" href="../styles/loginstyle.css">
 <script src="../scripts/loginscript.js"></script>
 </head>
@@ -15,33 +15,42 @@
 		<li style="float:right"><a class="active" href="login.html">Login</a></li>
 	</ul>
 	
-	<form id="form">
-		<h3>INICIO DE SESION</h3>
-		<p>Nombre:</p>
-		<input type="text" id="username" />
-		
-		<p>Contraseña:</p>
-		<div>
-			<input type="password" id="password" />
-			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
-		</div>
-		
-		<div class="switch" align="center">
-            <input type="radio" class="switch-input" name="view" value="alumno" id="alumno" checked>
-            <label for="alumno" class="switch-label switch-label-off">Usuario</label>
-            <input type="radio" class="switch-input" name="view" value="profesor" id="profesor">
-            <label for="profesor" class="switch-label switch-label-on">Empresa</label>
-            <span class="switch-selection"></span>
-        </div>
-		
-		
-		<p align="center">¿No recuerdas tu contraseña?<p/>
-		
-		<div>
-			<button class="iniciar">Iniciar sesion</button>
-			<button class="registrar" onclick="registro()">Registrarse</button>
-		</div>
-		
-	</form>
+	<div id="form-main">
+	  	<div id="form-div">
+	  
+	  		<h3>INICIO DE SESION</h3>
+	    	<form class="form" id="form">
+	      
+	      	<p class="name">
+	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre" id="name" />
+	      	</p>
+	      
+	      	<p class="password">
+	        	<input name="email" type="password" class="feedback-input" id="password" placeholder="Contraseña" />
+	      	</p>
+	      	
+	      	<div>
+	      		<label><input name="cb" type="checkbox" id="cb" onclick="showPassword()" /> Mostrar contraseña</label>
+	      	</div>
+	      	
+	      	<div class="switch" align="center">
+	            <input type="radio" class="switch-input" name="view" value="usuario" id="usuario" checked>
+	            <label for="usuario" class="switch-label switch-label-off">Usuario</label>
+	            <input type="radio" class="switch-input" name="view" value="empresa" id="empresa">
+	            <label for="empresa" class="switch-label switch-label-on">Empresa</label>
+	            <span class="switch-selection"></span>
+	        </div>
+	      
+			<p align="center">¿No recuerdas tu contraseña?<p/>
+	      
+	      	<div class="submit">
+	        	<input type="submit" value="INICIAR SESION" id="button-blue""/>
+	        	<input type="submit" value="REGISTRO" id="button-white" onclick="registro()"/>
+	        	<div class="ease"></div>
+	      	</div>
+	      
+	    	</form>
+	  	</div>
+	</div>
 </body>
 </html>
