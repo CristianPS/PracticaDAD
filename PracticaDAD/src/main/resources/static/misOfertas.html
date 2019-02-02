@@ -4,6 +4,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="styles/misOfertasStyle.css">
+<script src="../scripts/misOfertasScript.js"></script>
 </head>
 <body>
 	<ul class="menu">
@@ -15,8 +16,7 @@
 	
 	<h1 id="misOfertas"><b>Mis ofertas</b></h1>
 	
-	<ul>
-		<li>
+
 			<div class="fullOffer">
 				<h2 id="nombreoferta">{{offerName}}</h2><hr color="black">
 				<div class="oferta">
@@ -26,9 +26,9 @@
 						<p>Ciudad: {{city}}</p>
 						<p>Precio: {{price}}</p>
 						<p>Fecha: {{date}}</p>		
-									
+						<button id="button" onClick="showStatistics">Estadísticas</button>				
 					</div>		
-					<button id="button" onClick="mostrarEstadisticas()">Estadísticas</button>	
+						
 				</div>
 				
 				<div class="descripcion">
@@ -38,6 +38,21 @@
 					</p>
 								
 				</div>
+				
+					
+				<div id="statistics" class="modal">
+				<div class="statistics-content">
+					<div class="statistics-header">
+						<span class="close" onClick="closeStatistics()">&times;</span>
+						<h2>Estadísticas</h2>				
+					</div>
+					<div class="statistics-body">
+						<p>Visitas: {{visits}}</p>
+						<p>Nº de Usos: {{nUses}}</p>						
+					</div>
+				</div>
+			</div>
+	
 			</div>
 			<div class="fullOffer">
 				<h2 id="nombreoferta">{{offerName}}</h2><hr color="black">
@@ -48,7 +63,7 @@
 						<p>Ciudad: {{city}}</p>
 						<p>Precio: {{price}}</p>
 						<p>Fecha: {{date}}</p>
-						<button id="boton" onClick="mostrarEstadisticas()">Estadísticas</button>
+						<button id="button" onClick="showStatistics()">Estadísticas</button>
 					</div>		
 				</div>
 				<div class="descripcion">
@@ -58,8 +73,20 @@
 					</p>
 				</div>
 			</div>
-		</li>
-		
-	</ul>
+				
+			<div id="statistics" class="modal">
+				<div class="statistics-content">
+					<div class="statistics-header">
+						<span class="close" onClick="closeStatistics()">&times;</span>
+						<h2>Estadísticas</h2>				
+					</div>
+					<div class="statistics-body">
+						<p>Visitas: {{visits}}</p>
+						<p>Nº de Usos: {{nUses}}</p>						
+					</div>
+				</div>
+			</div>
+	
+
 </body>
 </html>
