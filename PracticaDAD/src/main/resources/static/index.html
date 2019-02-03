@@ -7,69 +7,67 @@
 </head>
 
 <body>
-	<ul>
-		<li><img class="logo"src="../images/cocktail.png"/></li>
-		<li><a class="active" href="index.html">Inicio</a></li>
-		<li><a href="perfil_usuario.html">Perfil (provisional)</a></li>
-		<li><a>Ofertas</a></li>
-		
-		<li style="float:right"><a href="login.html">Login</a></li>
-	</ul>
+	<nav>
+		<ul>
+			<li><img class="logo"src="../images/cocktail.png"/></li>
+			<li><a class="active" href="index.html">Inicio</a></li>
+			<li><a href="perfil_usuario.html">Perfil (provisional)</a></li>
+			<li><a>Ofertas</a></li>
+			
+			<li style="float:right"><a href="login.html">Login</a></li>
+		</ul>
+	</nav>
 	
-	<img class="city" src="https://www.bain.com/contentassets/c2f6214e1b664bfeb98db4853ab8f7bd/local-office-images-madrid-1950x650.jpg" />
+	<div id="main">
 	
-	<h1>Aqui tienes nuestras mejores ofertas</h1>	
+		<img class="city" src="https://www.bain.com/contentassets/c2f6214e1b664bfeb98db4853ab8f7bd/local-office-images-madrid-1950x650.jpg" />
+		
+		<h2>Aqui tienes nuestras mejores ofertas</h2>
+		
+	  	<section class="columns">
 	
-	<div class="grid-container">
-		<div class="grid-item">
-			<img class="oferta" src="https://s4.eestatic.com/2017/12/15/ciencia/Alimentacion-Nutricion-Alcohol-Vino-Ciencia_269735512_57791988_1024x576.jpg" />
-			<p>2x1 en copas</p>
-			<p>Mostoles (Madrid)</p>
-			<form action="http://facebook.com">
-				<button>Acceder</button>
-			</form>
-		</div>
-		
-		<div class="grid-item">
-			<img class="oferta" src="https://media-cdn.tripadvisor.com/media/photo-s/07/05/bc/c8/fabrik.jpg" />
-			<p>Entrada - 10 Euros</p>
-			<p>Humanes de Madrid (Madrid)</p>
-			<form action="http://facebook.com">
-				<button>Acceder</button>
-			</form>
-		</div>
-		
-		<div class="grid-item">
-			<img class="oferta" src="https://pbs.twimg.com/profile_images/570149038122803200/vGDCY6dD.jpeg" />
-			<p>Entrada + 1 copa - 9 Euros</p>
-			<p>Madrid</p>
-			<form action="http://facebook.com">
-				<button>Acceder</button>
-			</form>
-		</div>
-		
-		<div class="grid-item">
-			<img class="oferta" src="http://2.bp.blogspot.com/-mM60u7QxECU/VDPrY-zybAI/AAAAAAAAAGg/S7nOydoLtlE/s1600/teteria-y-restaurante.jpg" />
-			<p>Cachimba premium - 11 Euros</p>
-			<p>Madrid</p>
-			<form action="http://facebook.com">
-				<button>Acceder</button>
-			</form>
-		</div>
-		
-		<div class="grid-item">
-			<img class="oferta" src="https://s4.eestatic.com/2017/12/15/ciencia/Alimentacion-Nutricion-Alcohol-Vino-Ciencia_269735512_57791988_1024x576.jpg" />
-			<form action="http://facebook.com">
-				<button>Acceder</button>
-			</form>
-		</div>
-		
-		<div class="grid-item">
-			<img class="oferta" src="https://s4.eestatic.com/2017/12/15/ciencia/Alimentacion-Nutricion-Alcohol-Vino-Ciencia_269735512_57791988_1024x576.jpg" />
-			<form action="http://facebook.com">
-				<button>Acceder</button>
-			</form>
-		</div>
+			<div class="column">
+				<img class="oferta" src="https://s4.eestatic.com/2017/12/15/ciencia/Alimentacion-Nutricion-Alcohol-Vino-Ciencia_269735512_57791988_1024x576.jpg" />
+				<p class="bold">Bar Pachamama</p>
+				<p>2x1 en copas</p>
+				<p>Mostoles (Madrid)</p>
+				<form action="http://facebook.com">
+					<button id="button-blue">Acceder</button>
+				</form>
+			</div>
+			
+			<div class="column">
+				<img class="oferta" src="https://media-cdn.tripadvisor.com/media/photo-s/07/05/bc/c8/fabrik.jpg" />
+				<p class="bold">Fabrik</p>
+				<p>Entrada - 10 Euros</p>
+				<p>Humanes de Madrid (Madrid)</p>
+				<form action="http://facebook.com">
+					<button id="button-blue">Acceder</button>
+				</form>
+			</div>
+		  
+		  	<div class="column">
+				<img class="oferta" src="https://pbs.twimg.com/profile_images/570149038122803200/vGDCY6dD.jpeg" />
+				<p class="bold">Teatro Kapital</p>
+				<p>Entrada + 1 copa - 9 Euros</p>
+				<p>Madrid</p>
+				<form action="http://facebook.com">
+					<button id="button-blue">Acceder</button>
+				</form>
+			</div>
+			
+			<div class="column">
+				<img class="oferta" src="http://2.bp.blogspot.com/-mM60u7QxECU/VDPrY-zybAI/AAAAAAAAAGg/S7nOydoLtlE/s1600/teteria-y-restaurante.jpg" />
+				<p class="bold">Cocteleria Anubis</p>
+				<p>Cachimba premium - 11 Euros</p>
+				<p>C.C.Xanadu (Arroyomolinos, Madrid)</p>
+				<form action="http://facebook.com">
+					<button id="button-blue">Acceder</button>
+				</form>
+			</div>
+			
+		</section>
+	
 	</div>
 </body>
 </html>
