@@ -15,16 +15,3 @@ function closeStatistics(){
 	var statistics = document.getElementById("statistics");
 	statistics.style.display ="none";
 }
-/*btn.onclick = function() {
-	statistics.style.display = "block";
-}
-
-span.onclick = function() {
-	statistics.style.display = "none";
-}
-
-window.onclick = funcion(event) {
-	if (event.target == statistics) {
-		statistics.style.display = "none";
-	}
-}*/

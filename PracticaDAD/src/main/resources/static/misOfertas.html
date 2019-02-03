@@ -26,7 +26,7 @@
 						<p>Ciudad: {{city}}</p>
 						<p>Precio: {{price}}</p>
 						<p>Fecha: {{date}}</p>		
-						<button id="button" onClick="showStatistics">Estadísticas</button>				
+						<button id="button" onClick="showStatistics()">Estadísticas</button>				
 					</div>		
 						
 				</div>
@@ -40,7 +40,7 @@
 				</div>
 				
 					
-				<div id="statistics" class="modal">
+				 <div id="statistics" class="modal">
 				<div class="statistics-content">
 					<div class="statistics-header">
 						<span class="close" onClick="closeStatistics()">&times;</span>
@@ -50,10 +50,17 @@
 						<p>Visitas: {{visits}}</p>
 						<p>Nº de Usos: {{nUses}}</p>						
 					</div>
-				</div>
+				</div>  
+				<!--
+				<div id="statistics" class="modal">
+					<div class="statistics-content">
+						<span class="close" onClick="closeStatistics()">&times;</span>
+						<p>Visitas: {{visits}}</p>
+						<p>Nº de Usos: {{nUses}}</p>
+					</div>
+				</div>-->
 			</div>
-	
-			</div>
+		<!-- 
 			<div class="fullOffer">
 				<h2 id="nombreoferta">{{offerName}}</h2><hr color="black">
 				<div class="oferta">
@@ -74,7 +81,7 @@
 				</div>
 			</div>
 				
-			<div id="statistics" class="modal">
+			<!-- <div id="statistics" class="modal">
 				<div class="statistics-content">
 					<div class="statistics-header">
 						<span class="close" onClick="closeStatistics()">&times;</span>
@@ -86,7 +93,16 @@
 					</div>
 				</div>
 			</div>
-	
+				
+				
+			<div id="statistics" class="modal">
+				<div class="statistics-content">
+					<span class="close" onClick="closeStatistics()">&times;</span>
+					<p>Visitas: {{visits}}</p>
+					<p>Nº de Usos: {{nUses}}</p>
+				</div>
+			</div>
+	 -->
 
 </body>
 </html>
