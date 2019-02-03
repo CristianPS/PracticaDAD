@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Nueva Oferta</title>
+<link rel="stylesheet" href="../styles/nuevaOfertaStyle.css">
+<script src="../scripts/registroscript.js"></script>
+</head>
+
+<body>
+	<ul>
+		<li><img class="logo" src="../images/cocktail.png"/></li>
+		<li><a href="index.html">Inicio</a></li>
+		<li><a>Ofertas</a></li>
+		<li style="float:right"><a class="active" href="login.html">Login</a></li>
+	</ul>
+	
+	<div id="form-main">
+	  	<div id="form-div">
+	  
+	  		<h3>Crear Nueva Oferta</h3>
+	    	<form class="form" id="form">
+	      
+	      	<p class="name">
+	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre de Oferta" id="username" />
+	      	</p>
+	      
+	      	<p class="local">
+	        	<input name="local" type="text" class="feedback-input" placeholder="Local" id="local" />
+	      	</p>
+	      	
+	      	<p class="city">
+	        	<input name="city" type="text" class="feedback-input" placeholder="Ciudad" id="city" />
+	      	</p>
+	      
+	      	<p class="price">
+	        	<input name="price" type="number" class="feedback-input" id="number" placeholder="Precio" />
+	      	</p>
+	      	
+	      	<p>Fecha de validez</p>
+	      	
+	      	<p class="date">
+	        	<input name="date" type="date" class="feedback-input" id="date" />
+	      	</p>	      	
+	      	
+			<p class="image">						
+		      	<form>
+				 	Selecciona una imagen <input type="file" name="img">				 	
+				</form>
+			</p>
+	      
+	      	<div class="submit">
+	        	<input type="submit" value="TERMINAR" id="button-blue2"/>
+	        	<div class="ease"></div>
+	      	</div>
+	      
+	    	</form>
+	  	</div>
+	</div>
+</body>
+
+</html>

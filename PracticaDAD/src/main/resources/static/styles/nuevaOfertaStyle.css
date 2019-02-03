@@ -1,0 +1,237 @@
+@charset "ISO-8859-1";
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+#feedback-page{
+	text-align:center;
+}
+
+#form-main{
+	width:100%;
+	float:left;
+	padding-top:0px;
+}
+
+#form-div {
+	box-shadow:0 0 40px -10px #000;
+	background-color: #fff;
+	padding-left:35px;
+	padding-right:35px;
+	padding-top:20px;
+	padding-bottom:50px;
+	width: 450px;
+	float: left;
+	left: 50%;
+	position: absolute;
+  	margin-top:4%;
+	margin-left: -260px;
+  	-moz-border-radius: 7px;
+  	-webkit-border-radius: 7px;
+  	margin-bottom: 10%;
+}	
+
+.feedback-input {
+	box-sizing:border-box;
+	border:2px solid #bebed2;
+	color:#3c3c3c;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  	font-weight:500;
+	font-size: 18px;
+	border-radius: 0;
+	line-height: 22px;
+	background-color: #fbfbfb;
+	padding: 13px 13px 13px 13px;
+	margin-bottom: 10px;
+	width:100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+.feedback-input:focus{
+	background: #fff;
+	box-shadow: 0;
+	border: 3px solid #3498db;
+	color: #3498db;
+	outline: none;
+  	padding: 13px 13px 13px 13pxpx;
+}
+
+.focused{
+	color:#30aed6;
+	border:#30aed6 solid 3px;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    line-height: 150%;
+    resize:vertical;
+}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus {
+	background-color:white;
+}
+
+#button-blue{
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	float:left;
+	width: 45%;
+	border: #bebed2 solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:16px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  	margin-top:-4px;
+  	font-weight:700;
+}
+
+#button-blue:hover{
+	background-color: rgba(0,0,0,0);
+	color: #3498db;
+}
+
+#button-blue2{
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	float:left;
+	width: 100%;
+	border: #bebed2 solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:16px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  	margin-top:5%;
+  	font-weight:700;
+}
+
+#button-blue2:hover{
+	background-color: rgba(0,0,0,0);
+	color: #3498db;
+}
+
+#button-white{
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	float:right;
+	width: 45%;
+	border: #bebed2 solid 4px;
+	cursor:pointer;
+	background-color: white;
+	color:#3498db;
+	font-size:16px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  	margin-top:-4px;
+  	font-weight:700;
+}
+
+#button-white:hover{
+	background-color: #3498db;
+	color: white;
+}
+	
+.submit:hover {
+	color: #3498db;
+}
+	
+.ease {
+	width: 0px;
+	height: 74px;
+	background-color: #fbfbfb;
+	-webkit-transition: .3s ease;
+	-moz-transition: .3s ease;
+	-o-transition: .3s ease;
+	-ms-transition: .3s ease;
+	transition: .3s ease;
+}
+
+.submit:hover .ease{
+  width:100%;
+  background-color:white;
+}
+
+ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #000000;
+}
+
+li{
+	float: left;
+}
+
+li a{
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover{
+	background-color: #111;
+}
+
+.active {
+  background-color: #3498db;
+}
+
+img.logo{
+	height: 30px;
+	width: 30px;
+	margin-top: 7px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+body{
+	margin: 0;
+	background-color: #333;
+}
+
+h3{
+	color: #78788c;
+	text-align: center;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-size:24px;
+}
+
+p{
+	font-size: 18px;
+	margin-top: 30px;
+	color: #78788c;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+label{
+	font-size: 14px;
+	color: #78788c;
+	position: relative;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+@media only screen and (max-width: 580px) {
+	#form-div{
+		left: 3%;
+		margin-right: 3%;
+		width: 88%;
+		margin-left: 0;
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+}
