@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="styles/user.css">
+<link rel="stylesheet" href="styles/UserStyle.css">
 <script src="scripts/loginscript.js"></script>
 </head>
 
@@ -16,39 +16,40 @@
 	</ul>
 	
 	<form action="/guardar">
-	<h1>USERNAME</h1>
+	<h1>{{Username}}</h1>
 	
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Nombre:</p>
-		  <input type="text" id="username" />
+		  <input type="text" id="Nombre" value={{nombre}} />
 		</div><div class="dcha">
 		  <p>Apellidos:</p>
-		  <input type="text" id="username" />
+		  <input type="text" id="Apellidos" value={{apellidos}} />
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Correo electrónico:</p>
-		  <input type="text" id="username" />
-		</div><div class="dcha">
+		  <input type="text" id="correo" value={{correo}} />
+		</div>
+		<div class="dcha">
 		  <p>Género:</p>
 		  <select id="genero" name="genero">
         	<option value="Hombre">Hombre</option>
         	<option value="Mujer">Mujer</option>
         	<option value="Otro">Otro</option>
-      </select>
+          </select>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Ciudad:</p>
-		  <input type="text" id="username" />
+		  <input type="text" id="Ciudad" value={{ciudad}} />
 		</div><div class="dcha">
 		  <p>Fecha de nacimiento:</p>
-		  <input type="date" id="username" />
+		  <input type="date" id="Fecha" />
 		</div>
 	  </div>
 	  
