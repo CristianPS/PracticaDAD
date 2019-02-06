@@ -24,10 +24,10 @@
 	left: 50%;
 	position: absolute;
   	margin-top:10%;
+  	margin-bottom: 10%;
 	margin-left: -260px;
   	-moz-border-radius: 7px;
   	-webkit-border-radius: 7px;
-  	margin-bottom: 10%;
 }	
 
 .feedback-input {
@@ -181,6 +181,8 @@ li a{
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-size: 16px;
 }
 
 li a:hover{
