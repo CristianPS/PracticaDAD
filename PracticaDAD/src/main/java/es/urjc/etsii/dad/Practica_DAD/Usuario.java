@@ -25,9 +25,8 @@ public class Usuario {
 	
 	public Usuario() {}
 	
-	public Usuario(long id, String username, String name, String surname, String borndate, String city, String password, String gender, String email)
+	public Usuario(String username, String name, String surname, String borndate, String city, String password, String gender, String email)
 	{
-		this.id = id;
 		this.username = username;
 		this.name = name;
 		this.surname = surname;

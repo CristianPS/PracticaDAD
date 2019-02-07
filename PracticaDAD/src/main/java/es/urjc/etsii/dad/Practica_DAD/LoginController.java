@@ -11,7 +11,7 @@ public class LoginController {
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
 
-		model.addAttribute("name", name);
+		model.addAttribute("username", name);
 
 		return "inicioConUsuario";
 	}
