@@ -17,7 +17,7 @@ public class RegistroController {
 
 		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
 		
-		Usuario u = new Usuario(username, name, apellidos, "gola", city, password, genero, email);
+		Usuario u = new Usuario(username, name, apellidos, fecha, city, password, genero, email);
 		
 		userRepository.save(u);
 		
