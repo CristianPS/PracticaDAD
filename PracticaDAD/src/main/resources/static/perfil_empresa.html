@@ -3,17 +3,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="styles/user.css">
+<link rel="stylesheet" href="styles/GeneralStyle.css">
+<link rel="stylesheet" href="styles/UserStyle.css">
 <script src="scripts/loginscript.js"></script>
 </head>
 
 <body>
-	<ul>
-		<li><img class="logo" src="images/cocktail.png"/></li>
-		<li><a href="index.html">Inicio</a></li>
-		<li><a>Ofertas</a></li>
-		<li style="float:right"><a class="active" href="login.html">Login</a></li>
-	</ul>
+	<nav>
+		<ul class="menu">
+			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
+			
+			<li class="menuItem btn btn-1"><a href="index.html">Inicio</a></li>
+			<li class="menuItem btn btn-1"><a href="ofertas.html">Ofertas</a></li>
+			
+			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="login.html">Login</a></li>
+		</ul>
+	</nav>
 	
 	<form action="/guardar">
 	<h1>USERNAME</h1>
@@ -62,6 +67,10 @@
 	
 	<button class="guardar" type=submit>Guardar</button>
 	</form>
-	
+			<footer>
+  		<div class="copyright">
+    		Fiesta Paga-Na - 2019 - Jose Ignacio Diaz, Carlos Gil y Cristian Posada
+  		</div>
+	</footer>
 </body>
 </html>
