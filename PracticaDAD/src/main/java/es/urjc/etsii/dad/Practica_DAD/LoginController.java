@@ -15,4 +15,5 @@ public class LoginController {
 
 		return "inicioConUsuario";
 	}
+	
 }
