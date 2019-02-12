@@ -1,5 +1,5 @@
 @charset "ISO-8859-1";
-img.logo{
+/*img.logo{
 	height: 30px;
 	width: 30px;
 	margin-top: 7px;
@@ -39,7 +39,7 @@ body{
 	background: -ms-radial-gradient(50% 50%, #000000, #5471f0); 
 	background: radial-gradient(50% 50%, #000000, #5471f0);
 }
-
+*/
 #misOfertas{
 	margin-left: 40%;
 	/*margin-right: 40%;*/

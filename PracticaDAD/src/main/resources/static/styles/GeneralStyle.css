@@ -42,6 +42,15 @@ img.logo{
 	cursor: pointer;
 }
 
+img.logoDown{
+	height:60px;
+	width: 60px;
+	margin-top: 1%;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-bottom: 3%;
+
+}
 
 body{
 	margin: 0;
@@ -55,14 +64,17 @@ footer {
   width: 100%;
   display: inline-block;
   margin:  5% 0% 0% 0% ;
-  height: 7%;
-  background-color: #fff;
+
+  background-color: #555;
   
 }
  .copyright {
-  	color: #000 !important;
+  	color: #fff !important;
     width: 50%;
     float: left;
+    margin-top:3%;
+    margin-bottom:3%;
+    margin-left:3%;
 }
    
    
