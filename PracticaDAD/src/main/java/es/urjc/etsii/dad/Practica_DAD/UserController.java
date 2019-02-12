@@ -21,7 +21,7 @@ public class UserController {
 	@Autowired
 	private ComercioRepository comercioRepository;
 	
-	@PostConstruct
+	/*@PostConstruct
 	public void init()
 	{
 		userRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
@@ -49,7 +49,7 @@ public class UserController {
 		c1.getAnuncios().add(a1);
 		c2.getAnuncios().add(a2);
 		
-	}
+	}*/
 
 	@RequestMapping("/registroUsuario")
 	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password) {
@@ -91,6 +91,24 @@ public class UserController {
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model)
 	{
-		return "hola";
+		List<Anuncio> anuncios = anuncioRepository.findAll();
+		model.addAttribute("anuncios", anuncios);
+		return "ofertas";
+	}
+	
+	@RequestMapping("/mostrarAnuncio")
+	public String mostrarAnuncio(Model model, @RequestParam String title)
+	{
+		Anuncio a = anuncioRepository.getByTitle(title);
+		
+		model.addAttribute("ent", a.getLocal().getEntName());
+		model.addAttribute("description", a.getDescription());
+		model.addAttribute("title",title);
+		model.addAttribute("city", a.getLocal().getCity());
+		model.addAttribute("address", a.getLocal().getAddress());
+		model.addAttribute("email", a.getLocal().getEmail());
+		model.addAttribute("telephone", a.getLocal().getTelephone());
+		
+		return "ofertaParticular";
 	}
 }

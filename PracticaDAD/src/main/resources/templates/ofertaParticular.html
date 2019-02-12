@@ -13,20 +13,21 @@
 		<li style="float:right"><a href="registro.html">Login</a></li>
 	</ul>
 		<div class="fullOffer">
-		<h1 id="nombreoferta">Nombre de la oferta</h1><hr color="black">	
+		<h1 id="nombreoferta">{{title}}</h1><hr color="black">	
 		<div class="oferta">
 			<div class="imgclass"><img id="imgOferta" src="./images/imagenoferta.jpg" alt="description"></div>
 			<div class="infoOferta">
-				<p style="padding-top:20px">Local: {{local}}</p>
+				<p style="padding-top:20px">Nombre del comercio: {{ent}}</p>
 				<p>Ciudad: {{city}}</p>
-				<p>Precio: {{price}}</p>
-				<p>Fecha: {{date}}</p>
+				<p>E-mail: {{email}}</p>
+				<p>Direccion: {{address}}</p>
+				<p>Telefono: {{telephone}}</p>
 			</div>		
 		</div>
 		<div class="descripcion">
-			<h2>Descripción de la oferta</h2>
+			<h2>Descripcion de la oferta</h2>
 			<p id="offerDescription">
-				Aquí va la descripción de cada oferta.
+				{{description}}
 			</p>
 		</div>
 	</div>

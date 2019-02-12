@@ -21,9 +21,9 @@
 	</nav>
    
       
-<div class="container">
+<!--  <div class="container">	-->
 
-    <div class="well">
+    <!--  <div class="well">
         <strong>Display</strong>
         <div class="btn-group">
             <a href="#" id="list" class="btn-default btn-sm" onClick="list()">List</a> 
@@ -100,8 +100,24 @@
              </div>
              </div> 
 
-    </div>
-</div>
+    </div> -->
+    
+    <p>Anuncios: </p>
+    
+    <ul>
+    {{#anuncios}}
+    	<li>
+    		<p>{{local.entName}}</p>
+    		<p>{{title}}</p>
+   			<p>{{local.city}}</p>
+   			<form action="/mostrarAnuncio?title={{title}}" method="post">
+   				<input type="submit" value="Acceder" >
+   			</form>
+    	</li>
+    {{/anuncios}}
+    </ul>
+    
+<!--  </div>	-->
       
       <footer>
   		<div class="copyright">
