@@ -31,17 +31,24 @@ public class UserController {
 		comercioRepository.save(new Comercio("JorgePRG","comercio","Anubis","Arroyomolinos","CC.Xanadu","j.prietogo@alumnos.urjc.es","918146753"));
 		
 		Comercio c1 = comercioRepository.getByUsername("CarlosGil");
+		Comercio c2 = comercioRepository.getByUsername("JorgePRG");
 		
 		Anuncio a1 = new Anuncio();
 		a1.setTitle("Entrada-10Euros");
 		a1.setDescription("XXX");
 		a1.setLocal(c1);
+		
+		Anuncio a2 = new Anuncio();
+		a2.setTitle("CachimbaPremium-11Euros");
+		a2.setDescription("XXX");
+		a2.setLocal(c2);
 			
 		anuncioRepository.save(a1);
+		anuncioRepository.save(a2);
 		
-		List<Anuncio> anuncios = new LinkedList<>();
-		anuncios.add(a1);
-		c1.setAnuncios(anuncios);
+		c1.getAnuncios().add(a1);
+		c2.getAnuncios().add(a2);
+		
 	}
 
 	@RequestMapping("/registroUsuario")
@@ -79,5 +86,11 @@ public class UserController {
 		model.addAttribute("password", u.getPassword());
 		
 		return "perfil_usuario";
+	}
+	
+	@RequestMapping("/mostrarAnuncios")
+	public String mostrarAnuncios(Model model)
+	{
+		return "hola";
 	}
 }

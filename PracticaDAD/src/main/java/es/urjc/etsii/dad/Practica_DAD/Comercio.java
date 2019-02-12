@@ -1,5 +1,6 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,7 +28,10 @@ public class Comercio {
 	private List<Anuncio> anuncios; 
 	
 	//Constructors
-	public Comercio() {}
+	public Comercio() 
+	{
+		anuncios = new LinkedList<>();
+	}
 	
 	public Comercio(/*long id,*/ String username, String password, String entName, String city, String address, String email, String telephone)
 	{
