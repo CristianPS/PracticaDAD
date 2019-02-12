@@ -1,9 +1,12 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Comercio {
@@ -20,12 +23,15 @@ public class Comercio {
 	private String email;
 	private String telephone;
 	
+	@OneToMany(mappedBy="local")
+	private List<Anuncio> anuncios; 
+	
 	//Constructors
 	public Comercio() {}
 	
-	public Comercio(long id, String username, String password, String entName, String city, String address, String email, String telephone)
+	public Comercio(/*long id,*/ String username, String password, String entName, String city, String address, String email, String telephone)
 	{
-		this.id=id;
+		//this.id=id;
 		this.username=username;
 		this.password=password;
 		this.entName=entName;
@@ -37,10 +43,10 @@ public class Comercio {
 	
 	//Setters
 	
-	public void setId(long id)
+	/*public void setId(long id)
 	{
 		this.id=id;
-	}
+	}*/
 	
 	public void setUsername(String username)
 	{
@@ -77,6 +83,11 @@ public class Comercio {
 		this.telephone=telephone;
 	}
 	
+	public void setAnuncios(List<Anuncio> anuncios)
+	{
+		this.anuncios = anuncios;
+	}
+	
 	//Getters
 	
 	public String getUsername()
@@ -84,10 +95,10 @@ public class Comercio {
 		return username;
 	}
 	
-	public long getId()
+	/*public long getId()
 	{
 		return id;
-	}
+	}*/
 	
 	public String getPassword()
 	{
@@ -117,5 +128,10 @@ public class Comercio {
 	public String getTelephone()
 	{
 		return telephone;
+	}
+	
+	public List<Anuncio> getAnuncios()
+	{
+		return this.anuncios;
 	}
 }

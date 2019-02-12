@@ -19,23 +19,26 @@ public class Anuncio {
 	
 	private String title;
 	private String description;
+	
 	@ManyToOne
 	private Comercio local;
 	//private List<Image> images;
 	
-	public Anuncio(long id, String title, String description, Comercio local, List<Image> images)
+	public Anuncio() {}
+	
+	public Anuncio(/*long id,*/ String title, String description, Comercio local/*, List<Image> images*/)
 	{
-		this.id=id;
+		/*this.id=id;*/
 		this.title=title;
 		this.description=description;
 		this.local=local;
 		//this.images=images;
 	}
 	
-	public void setId(long id)
+	/*public void setId(long id)
 	{
 		this.id=id;
-	}
+	}*/
 	
 	public void setTitle(String title)
 	{
@@ -57,10 +60,10 @@ public class Anuncio {
 		this.images=images;
 	}*/
 	
-	public long getId()
+	/*public long getId()
 	{
 		return id;
-	}
+	}*/
 	
 	public String getTitle()
 	{
