@@ -21,40 +21,6 @@ public class UserController {
 	@Autowired
 	private ComercioRepository comercioRepository;
 	
-	public String convertirFecha(String fecha)
-	{
-		String day = "";
-		String month = "";
-		String year = "";
-		String aux = "";
-		int numGuiones = 0;
-		
-		for(int i=0; i<fecha.length(); i++)
-		{
-			if(numGuiones == 1)
-			{
-				if(fecha.charAt(i) != '-')
-					month = month + fecha.charAt(i);
-				else
-					numGuiones++;
-			}
-			else if(numGuiones == 2)
-			{
-				day = day + fecha.charAt(i);		
-			}
-			else
-			{
-				if(fecha.charAt(i) != '-')
-					year = year + fecha.charAt(i);
-				else
-					numGuiones++;
-			}
-		}
-		
-		aux = day + "-" + month + "-" + year;
-		return aux;
-	}
-	
 	/*@PostConstruct
 	public void init()
 	{
@@ -88,9 +54,9 @@ public class UserController {
 	@RequestMapping("/registroUsuario")
 	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password) {
 
-		String aux = convertirFecha(fecha);	
+		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
 		
-		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email);
+		Usuario u = new Usuario(username, name, apellidos, fecha, city, password, genero, email);
 		
 		userRepository.save(u);
 		
@@ -112,16 +78,12 @@ public class UserController {
 	{
 		Usuario u = userRepository.getByUsername(username);
 		
-		System.out.println(u.getCity());
-		
 		model.addAttribute("username", u.getUsername());
 		model.addAttribute("nombre", u.getName());
 		model.addAttribute("apellidos", u.getSurname());
 		model.addAttribute("correo", u.getEmail());
 		model.addAttribute("ciudad", u.getCity());
 		model.addAttribute("password", u.getPassword());
-		model.addAttribute("fecha", u.getBornDate());
-		model.addAttribute("gender", u.getGender());
 		
 		return "perfil_usuario";
 	}

@@ -24,11 +24,11 @@ public class Comentario {
 	
 	public void setUser(Usuario user)
 	{
-		this.user = user;
+		this.user=user;
 	}
 	
-	public void setComment(String comment)
+	public void setComment()
 	{
-		this.comment = comment;
+		this.comment=comment;
 	}
 }
