@@ -2,6 +2,8 @@ package es.urjc.etsii.dad.Practica_DAD;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -23,6 +25,7 @@ public class Anuncio {
 	@ManyToOne
 	private Comercio local;
 	//private List<Image> images;
+	private List<Comentario> comments;
 	
 	public Anuncio() {}
 	
@@ -32,6 +35,7 @@ public class Anuncio {
 		this.title=title;
 		this.description=description;
 		this.local=local;
+		this.comments=new LinkedList<>();
 		//this.images=images;
 	}
 	
@@ -53,6 +57,11 @@ public class Anuncio {
 	public void setLocal(Comercio local)
 	{
 		this.local=local;
+	}
+	
+	public void setComments(List<Comentario> comments)
+	{
+		this.comments=comments;
 	}
 	/*
 	public void setImages(List<Image> images)
@@ -78,6 +87,11 @@ public class Anuncio {
 	public Comercio getLocal()
 	{
 		return local;
+	}
+	
+	public List<Comentario> getComments()
+	{
+		return comments;
 	}
 	/*
 	public List<Image> getImages()
