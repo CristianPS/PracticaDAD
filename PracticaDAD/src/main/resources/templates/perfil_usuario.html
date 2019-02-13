@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="styles/UserStyle.css">
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <script src="scripts/loginscript.js"></script>
+
 </head>
 
 <body>
@@ -21,22 +22,30 @@
 	</nav>
 	
 	<form action="/guardar">
-	<h1>{{username}}</h1>
-	
+
+	  <div class="row"> 
+	    <div class="izqda">
+		  <h1>{{username}}</h1>
+		</div>
+		<div class="dcha">
+		  <span class="btn-blue" style="width:20%; float:right;text-align: center;" onclick="editarA()">Editar</span>
+		</div>
+	  </div>
+
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Nombre:</p>
-		  <textarea rows="1" cols="30" id="nombre">{{nombre}}</textarea>
+		  <textarea rows="1" cols="30" id="nombre" disabled>{{nombre}}</textarea>
 		</div><div class="dcha">
 		  <p>Apellidos:</p>
-		  <textarea rows="1" cols="30" id="apellidos">{{apellidos}}</textarea>
+		  <textarea rows="1" cols="30" id="apellidos" disabled>{{apellidos}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Correo electrónico:</p>
-		  <textarea rows="1" cols="30" id="correo">{{correo}}</textarea>
+		  <textarea rows="1" cols="30" id="correo" disabled>{{correo}}</textarea>
 		</div>
 		<div class="dcha">
 		  <p>Género:</p>
@@ -45,34 +54,34 @@
         	<option value="Mujer">Mujer</option>
         	<option value="Otro">Otro</option>
           </select> -->
-          <textarea rows="1" cols="30" id="gender">{{gender}}</textarea>
+          <textarea rows="1" cols="30" id="gender" disabled>{{gender}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Ciudad:</p>
-		  <textarea rows="1" cols="30" id="ciudad">{{ciudad}}</textarea>
+		  <textarea rows="1" cols="30" id="ciudad" disabled>{{ciudad}}</textarea>
 		</div><div class="dcha">
 		  <p>Fecha de nacimiento:</p>
-		  <textarea rows="1" cols="30" id="fecha">{{fecha}}</textarea>
+		  <textarea rows="1" cols="30" id="fecha" disabled>{{fecha}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
-	    <div class="izqda">
+	    <div id="pass" class="izqda invisible">
 		    <p>Contraseña:</p>
 			<input type="password" id="password" value="{{password}}" />
 			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
 		</div>
-		<div class="dcha">
+		<div id="newPass" class="dcha invisible">
 		    <p>Contraseña nueva:</p>
-			<input type="password" id="passwordNew" />
-			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />			
+			<input type="password" id="passwordNew"/>
+			<img class="ojo" onclick="showPassword()" src="images/ojo.png"  />			
 		</div>  
 	  </div>
 	
-	<button class="guardar" type=submit>Guardar</button>
+	<button class="guardar" type="submit">Guardar</button>
 	</form>
 		<footer>
   		<div class="copyright">
