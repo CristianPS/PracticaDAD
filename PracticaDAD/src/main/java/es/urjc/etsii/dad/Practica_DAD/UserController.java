@@ -51,12 +51,48 @@ public class UserController {
 		
 	}*/
 
+	public String convertirFecha(String fecha)
+	{
+		String day = "";
+		String month = "";
+		String year = "";
+		String aux = "";
+		int numGuiones = 0;
+		
+		for(int i=0; i<fecha.length(); i++)
+		{
+			if(numGuiones == 1)
+			{
+				if(fecha.charAt(i) != '-')
+					month = month + fecha.charAt(i);
+				else
+					numGuiones++;
+			}
+			else if(numGuiones == 2)
+			{
+				day = day + fecha.charAt(i);		
+			}
+			else
+			{
+				if(fecha.charAt(i) != '-')
+					year = year + fecha.charAt(i);
+				else
+					numGuiones++;
+			}
+		}
+		
+		aux = day + "-" + month + "-" + year;
+		return aux;
+	}
+	
 	@RequestMapping("/registroUsuario")
 	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password) {
 
 		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
 		
-		Usuario u = new Usuario(username, name, apellidos, fecha, city, password, genero, email);
+		String aux = convertirFecha(fecha);
+		
+		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email);
 		
 		userRepository.save(u);
 		
@@ -84,6 +120,8 @@ public class UserController {
 		model.addAttribute("correo", u.getEmail());
 		model.addAttribute("ciudad", u.getCity());
 		model.addAttribute("password", u.getPassword());
+		model.addAttribute("gender", u.getGender());
+		model.addAttribute("fecha", u.getBornDate());
 		
 		return "perfil_usuario";
 	}

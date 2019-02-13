@@ -14,7 +14,7 @@
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 			
 			<li class="menuItem btn btn-1"><a href="index.html">Inicio</a></li>
-			<li class="menuItem btn btn-1"><a href="ofertas.html">Ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarAnuncios">Ofertas</a></li>
 			
 			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="login.html">Login</a></li>
 		</ul>
@@ -26,35 +26,36 @@
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Nombre:</p>
-		  <input type="text" id="Nombre" value={{nombre}} />
+		  <textarea rows="1" cols="30" id="nombre">{{nombre}}</textarea>
 		</div><div class="dcha">
 		  <p>Apellidos:</p>
-		  <input type="text" id="Apellidos" value={{apellidos}} />
+		  <textarea rows="1" cols="30" id="apellidos">{{apellidos}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Correo electrónico:</p>
-		  <input type="text" id="correo" value={{correo}} />
+		  <textarea rows="1" cols="30" id="correo">{{correo}}</textarea>
 		</div>
 		<div class="dcha">
 		  <p>Género:</p>
-		  <select id="genero" name="genero">
+		  <!--  <select id="genero" name="genero">
         	<option value="Hombre">Hombre</option>
         	<option value="Mujer">Mujer</option>
         	<option value="Otro">Otro</option>
-          </select>
+          </select> -->
+          <textarea rows="1" cols="30" id="gender">{{gender}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Ciudad:</p>
-		  <input type="text" id="Ciudad" value={{ciudad}} />
+		  <textarea rows="1" cols="30" id="ciudad">{{ciudad}}</textarea>
 		</div><div class="dcha">
 		  <p>Fecha de nacimiento:</p>
-		  <input type="date" id="Fecha" />
+		  <textarea rows="1" cols="30" id="fecha">{{fecha}}</textarea>
 		</div>
 	  </div>
 	  
