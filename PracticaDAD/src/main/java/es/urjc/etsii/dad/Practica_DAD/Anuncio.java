@@ -25,7 +25,7 @@ public class Anuncio {
 	@ManyToOne
 	private Comercio local;
 	//private List<Image> images;
-	private List<Comentario> comments;
+	//private List<Comentario> comments;
 	
 	public Anuncio() {}
 	
@@ -35,7 +35,7 @@ public class Anuncio {
 		this.title=title;
 		this.description=description;
 		this.local=local;
-		this.comments=new LinkedList<>();
+	//	this.comments=new LinkedList<>();
 		//this.images=images;
 	}
 	
@@ -61,7 +61,7 @@ public class Anuncio {
 	
 	public void setComments(List<Comentario> comments)
 	{
-		this.comments=comments;
+	//	this.comments=comments;
 	}
 	/*
 	public void setImages(List<Image> images)
@@ -89,10 +89,10 @@ public class Anuncio {
 		return local;
 	}
 	
-	public List<Comentario> getComments()
-	{
-		return comments;
-	}
+	//public List<Comentario> getComments()
+//	{
+//		return comments;
+//	}
 	/*
 	public List<Image> getImages()
 	{
