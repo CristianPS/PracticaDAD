@@ -1,46 +1,7 @@
 @charset "ISO-8859-1";
-img.logo{
-	height: 30px;
-	width: 30px;
-	margin-top: 7px;
-	margin-left: 15px;
-	margin-right: 15px;
-}
 
-ul{
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #333;
-}
 
-li{
-	float: left;
-}
-
-li a{
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-}
-
-li a:hover{
-	background-color: #ddd;
-}
-
-body{	
-	margin: 0;
-	background: -moz-radial-gradient(50% 50%, #000000, #5471f0); 
-	background: -webkit-radial-gradient(50% 50%, #000000, #5471f0); 
-	background: -o-radial-gradient(50% 50%, #000000, #5471f0); 
-	background: -ms-radial-gradient(50% 50%, #000000, #5471f0); 
-	background: radial-gradient(50% 50%, #000000, #5471f0);
-}
-
-img#imgOferta{
+img.imgOferta{
 	width: 250px;
 	height: 250px;
 	border-radius: 7px;
@@ -80,7 +41,7 @@ img#imgOferta{
 }
 
 .fullOffer{
-	background: rgba(255,255,255,0.3);
+	background: #fff;
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-bottom: 20px;
@@ -89,4 +50,88 @@ img#imgOferta{
 	border: 2px solid black;
 	height: 100%;
 	width: 96%;
+}
+.misOfertas{
+	margin-left: 40%;
+	/*margin-right: 40%;
+	background-color: rgba(165,165,165,0.7);
+	text-align: center;
+	border: 2px solid black;*/
+	color: #fff;
+	height: 20%;
+	width: 20%
+}
+
+
+#statistics{
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	heigth: 100%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
+	-webkit-animation-name: fadeIn;
+	-webkit-animation-duration: 0.4s;
+	animation-name: fadeIn;
+	animation-duration: 0.4s;
+}
+
+.statistics-content{
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #8c8cd9;
+	background-color: #fefefe;
+	width: 80%;
+	-webkit-animation-name: slideIn;
+	-webkit-animation-duration: 0.4s;
+	animation-name: slideIn;
+	animation-duration: 0.4s;
+}
+
+.close{
+	color: black;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus{
+	color: grey;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.statistics-header{
+	padding: 2px 16px;
+	background-color: #3498db;
+	color: white;
+}
+
+.statistics-body{
+	padding: 2px 16px;
+}
+
+@-webkit-keyframes slideIn{
+	from bottom: -300px; opacity: 0}
+	to {bottom: 0; opacity: 1}	
+}
+
+@keyframes slideIn{
+	from {bottom: -300px; opacity: 0}
+	to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+@keyframes fadeIn{
+	from {opacity: 0}
+	to {opacity: 1}
 }
