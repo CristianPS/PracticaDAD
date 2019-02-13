@@ -149,4 +149,26 @@ public class UserController {
 		
 		return "ofertaParticular";
 	}
+	
+	@RequestMapping("/guardar")
+	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew)
+	{
+		Usuario u = userRepository.getByUsername(username);
+		userRepository.delete(u);
+		
+		if(passwordNew.equals(""))
+		{
+			u = new Usuario(username, nombre, apellidos, fecha, ciudad, password, gender, correo);
+		}
+		else
+		{
+			u = new Usuario(username, nombre, apellidos, fecha, ciudad, passwordNew, gender, correo);
+		}
+		
+		userRepository.save(u);
+		
+		model.addAttribute("username", username);
+		
+		return inicioUsuario(model, username);
+	}
 }

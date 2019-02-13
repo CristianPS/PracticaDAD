@@ -32,7 +32,7 @@ function registro()
 	document.getElementById("form").method = "";
 }
 
-function editarA() {
+function editar() {
 	document.getElementById("pass").classList.remove("invisible");
 	document.getElementById("newPass").classList.remove("invisible");
 	document.getElementById('nombre').disabled = false;
@@ -41,5 +41,5 @@ function editarA() {
 	document.getElementById('ciudad').disabled = false;
 	document.getElementById('fecha').disabled = false;
 	document.getElementById('correo').disabled = false;
-
+	document.getElementById("password").disabled = true;
 }
