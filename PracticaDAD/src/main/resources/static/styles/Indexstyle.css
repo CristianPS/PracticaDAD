@@ -10,6 +10,7 @@
 }
 
 .column {
+
 	flex: 1;
 	margin: 20px;
 	padding: 10px;
@@ -33,11 +34,6 @@
 .focused{
 	color:#30aed6;
 	border:#30aed6 solid 3px;
-}
-
-#button-blue:hover{
-	background-color: rgba(0,0,0,0);
-	color: #3498db;
 }
 
 .submit:hover {
@@ -79,26 +75,7 @@ label{
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
-#button-blue{
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-	float:left;
-	width: 80%;
-	border: #bebed2 solid 4px;
-	cursor:pointer;
-	background-color: #3498db;
-	color:white;
-	font-size:16px;
-	padding-top:18px;
-	padding-bottom:18px;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
-  	margin-top: 7%;
-  	margin-bot: 7%;
-  	margin-left: 9%;
-  	margin-right: 9%;
-  	font-weight:700;
-}
+
 
 h2{
 	color: #fff;
@@ -121,10 +98,14 @@ p{
 	font-weight: bold;
 }
 
-img.oferta{
-	height: 150px;
-	width: 100%;
-	border-radius: 7px;
+
+img.oferta {
+    height: 40%;
+    width: 80%;
+    border-radius: 7px;
+    margin: 0 10% 0 10%;
+    border: solid 2px black;
+
 }
 
 img.city{
