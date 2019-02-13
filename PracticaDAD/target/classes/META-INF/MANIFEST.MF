@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Practica_DAD
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Carlos Gil Sabrido
+Built-By: Cristian
 Implementation-Vendor-Id: es.urjc.etsii.dad
-Build-Jdk: 1.8.0_201
+Build-Jdk: 1.8.0_111
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/Practica_DAD
 Created-By: Maven Integration for Eclipse
