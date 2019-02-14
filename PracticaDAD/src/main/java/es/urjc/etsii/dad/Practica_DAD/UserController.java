@@ -165,9 +165,11 @@ public class UserController {
 	}
 
 	@RequestMapping("/mostrarAnuncio")
-	public String mostrarAnuncio(Model model, @RequestParam String title)
+	public String mostrarAnuncio(Model model, @RequestParam String title, @RequestParam String username)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
+		
+		model.addAttribute("username", username);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
@@ -210,7 +212,7 @@ public class UserController {
 		return "nuevaOferta";
 	}
 	
-	@RequestMapping("/valorar")
+	/*@RequestMapping("/valorar")
 	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
@@ -227,7 +229,7 @@ public class UserController {
 		anuncioRepository.save(a);
 		
 		return mostrarAnuncio(model, title);
-	}
+	}*/
 
 	/*@RequestMapping("/crearOferta")
 	public String crearOferta(Model model, @RequestParam String title, @RequestParam Image imagen)

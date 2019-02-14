@@ -11,11 +11,11 @@
 	<nav>
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
-			
-			<li class="menuItem btn btn-1"><a class="active" href="/">Inicio</a></li>
-			<li class="menuItem btn btn-1"><a href="login.html">Ofertas</a></li>
+						
+			<li class="menuItem btn btn-1"><a href="/inicioComercio?name={{username}}">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a href="login.html">Login</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li> <!-- TO DO -->
 		</ul>
 	</nav>
 	
