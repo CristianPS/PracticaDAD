@@ -185,6 +185,21 @@ public class UserController {
 
 		return "ofertaParticular";
 	}
+	@RequestMapping("/mostrarAnuncioPropio")
+	public String mostrarAnuncioPropio(Model model, @RequestParam String title)
+	{
+		Anuncio a = anuncioRepository.getByTitle(title);
+
+		model.addAttribute("ent", a.getLocal().getEntName());
+		model.addAttribute("description", a.getDescription());
+		model.addAttribute("title",title);
+		model.addAttribute("city", a.getLocal().getCity());
+		model.addAttribute("address", a.getLocal().getAddress());
+		model.addAttribute("email", a.getLocal().getEmail());
+		model.addAttribute("telephone", a.getLocal().getTelephone());
+
+		return "OfertaPropia";
+	}
 
 	@RequestMapping("/guardar")
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
