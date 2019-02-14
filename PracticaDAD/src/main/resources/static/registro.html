@@ -26,21 +26,23 @@
 	  		<h3>REGISTRO</h3>
 	    	<form class="form" id="form">
 	      		<div class="switch" align="center">
-	            	<input type="radio" class="switch-input" name="view" value="usuario" id="usuario" checked>
-	            	<label for="usuario" class="switch-label switch-label-off">Usuario</label>
-	            	<input type="radio" class="switch-input" name="view" value="empresa" id="empresa">
-	            	<label for="empresa" class="switch-label switch-label-on">Empresa</label>
+	            	<input type="radio" class="switch-input" name="view" value="usuario" id="usuario" checked onclick="usuario()">
+	            	<label for="usuario" class="switch-label switch-label-off" onclick="usuario()">Usuario</label>
+	            	<input type="radio" class="switch-input" name="view" value="empresa" id="empresa" onclick="empresa()">
+	            	<label for="empresa" class="switch-label switch-label-on" onclick="empresa()">Empresa</label>
 	            	<span class="switch-selection"></span>
 	        	</div>
 		      	<p class="username">
-		        	<input name="username" type="text" class="feedback-input" placeholder="Nombre de Usuario" id="username" />
+		        	<input name="username" type="text" class="feedback-input" placeholder="Nombre de Usuario" id="username"/>
 		      	</p>
 		      
 		      	<p class="name">
+		      		<input name="name" type="text" class="feedback-input disappear" placeholder="Nombre de la empresa" id="nameEmpresa" />	
 		        	<input name="name" type="text" class="feedback-input" placeholder="Nombre" id="name" />
 		      	</p>
 		      	
 		      	<p class="apellidos">
+		      		<input name="telefono" type="text" class="feedback-input disappear" placeholder="Telefono" id="telefono" />	
 		        	<input name="apellidos" type="text" class="feedback-input" placeholder="Apellidos" id="apellidos" />
 		      	</p>
 		      
@@ -48,13 +50,14 @@
 		        	<input name="email" type="text" class="feedback-input" id="email" placeholder="E-mail" />
 		      	</p>
 		      	
-		      	<p>Fecha de nacimiento</p>
+		      	<p id="fechaTitulo">Fecha de nacimiento</p>
 		      	
 		      	<p class="fecha">
+		      		<input name="dir" type="text" class="feedback-input disappear" id="dir" placeholder="Dirección"/>
 		        	<input name="fecha" type="date" class="feedback-input" id="fecha" />
 		      	</p>
 		      	
-		      	<p>Genero</p>
+		      	<p id="generoTitulo">Genero</p>
 		      	
 		      	<select id="genero" name="genero">
 		        	<option value="Hombre">Hombre</option>
