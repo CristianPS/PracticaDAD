@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +22,10 @@ public class UserController {
 	private AnuncioRepository anuncioRepository;
 	@Autowired
 	private ComercioRepository comercioRepository;
+	@Autowired
+	private ComentarioRepository comentarioRepository;
+	
+	private String usuarioActual;
 
 	/*@PostConstruct
 	public void init()
@@ -98,6 +103,8 @@ public class UserController {
 		userRepository.save(u);
 
 		model.addAttribute("username", username);
+		
+		usuarioActual = username;
 
 		return "inicioConUsuario";
 	}
@@ -121,6 +128,7 @@ public class UserController {
 
 		model.addAttribute("username", name);
 
+		usuarioActual = name;
 		return "inicioConUsuario";
 	}
 
@@ -176,16 +184,16 @@ public class UserController {
 	{
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
-		model.addAttribute("username",username);
+		model.addAttribute("username", username);
 		return "ofertas";
 	}
 
 	@RequestMapping("/mostrarAnuncio")
-	public String mostrarAnuncio(Model model, @RequestParam String title, @RequestParam String username)
+	public String mostrarAnuncio(Model model, @RequestParam String title)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		model.addAttribute("username", username);
+		model.addAttribute("username", usuarioActual);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
@@ -199,8 +207,12 @@ public class UserController {
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
 		else
 			model.addAttribute("valoracion", a.getValoracion());
+		
+		List<Comentario> comentarios = a.getComments();
+		
+		model.addAttribute("comentarios", comentarios);
 
-		return "ofertaParticular";
+		return "ofertaParticular"; 
 	}
 	
 	@RequestMapping("/mostrarAnuncioPropio")
@@ -257,7 +269,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/valorar")
-	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion, @RequestParam String username)
+	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
@@ -272,12 +284,43 @@ public class UserController {
 		
 		anuncioRepository.save(a);
 		
-		return mostrarAnuncio(model, title, username);
+		return mostrarAnuncio(model, title);
+	}
+	
+	@RequestMapping("/añadirComentario")
+	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment)
+	{
+		Usuario u = userRepository.getByUsername(usuarioActual);
+		Anuncio a = anuncioRepository.getByTitle(title);
+		Comentario c = new Comentario(u, addComment, a);
+		comentarioRepository.save(c);
+		
+		
+		/*model.addAttribute("username", usuarioActual);
+
+		model.addAttribute("ent", a.getLocal().getEntName());
+		model.addAttribute("description", a.getDescription());
+		model.addAttribute("title",title);
+		model.addAttribute("city", a.getLocal().getCity());
+		model.addAttribute("address", a.getLocal().getAddress());
+		model.addAttribute("email", a.getLocal().getEmail());
+		model.addAttribute("telephone", a.getLocal().getTelephone());
+		
+		if(a.getNumValoraciones() != 0)
+			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
+		else
+			model.addAttribute("valoracion", a.getValoracion());*/
+		
+		return mostrarAnuncio(model, title);
 	}
 
-	/*@RequestMapping("/crearOferta")
-	public String crearOferta(Model model, @RequestParam String title, @RequestParam Image imagen)
+	@RequestMapping("/crearOferta")
+	public String crearOferta(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String username)
 	{
-
-	}*/
+		Comercio c = comercioRepository.getByUsername(username);
+		Anuncio a = new Anuncio(title, description, c);
+		anuncioRepository.save(a);
+		return inicioComercio(model, username);
+			
+	}
 }

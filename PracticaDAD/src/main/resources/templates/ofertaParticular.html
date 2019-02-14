@@ -19,35 +19,56 @@
 	</nav>
 	
 		<div class="fullOffer" style="margin-top:3%">
-		<h1 id="nombreoferta">{{title}}</h1><hr color="black">	
-		<div class="oferta">
-			<div class="imgclass">
-				<img class="imgOferta" src="./images/imagenoferta.jpg" alt="description">
+			<h1 id="nombreoferta">{{title}}</h1><hr color="black">	
+			<div class="oferta">
+				<div class="imgclass">
+					<img class="imgOferta" src="./images/imagenoferta.jpg" alt="description">
+				</div>
+				<div class="infoOferta">
+					<p style="padding-top:20px"><b>Nombre del comercio:</b> {{ent}}</p>
+					<p><b>Ciudad:</b> {{city}}</p>
+					<p><b>E-mail:</b> {{email}}</p>
+					<p><b>Direccion:</b> {{address}}</p>
+					<p><b>Telefono:</b> {{telephone}}</p>
+				</div>		
 			</div>
-			<div class="infoOferta">
-				<p style="padding-top:20px"><b>Nombre del comercio:</b> {{ent}}</p>
-				<p><b>Ciudad:</b> {{city}}</p>
-				<p><b>E-mail:</b> {{email}}</p>
-				<p><b>Direccion:</b> {{address}}</p>
-				<p><b>Telefono:</b> {{telephone}}</p>
-			</div>		
+			
+			<div class="descripcion">
+				<h2>Descripcion de la oferta</h2>
+				<p id="offerDescription">
+					{{description}}
+				</p>
+			</div>
+			
+			<p>Valoracion actual: {{valoracion}} sobre 5</p>
+			
+			<h3>Valora esta oferta del 1 al 5:</h3>
+			<form action="/valorar?title={{title}}&username={{username}}" method="post">
+				<input type="number" name="valoracion">
+				<input type="submit" name="button" value="VALORAR" >
+			</form>
+			
+			<div class="comentario">
+				<p>Añada su comentario: </p>
+				<form action="/añadirComentario?title={{title}}" method="post">
+					<textarea rows="7" cols="60" id="addComment" name="addComment" placeholder="Comentario"></textarea>
+					<input type="submit" value="Comentar" id="button-blue2"/>
+				</form>
+				
+			</div>
+			
+			<div id="comentarios" style="margin-top:3%">
+				<h2>Comentarios</h2>
+				<hr color="black">
+				{{#comentarios}}
+					<div id="comment" class="commentList">
+						<h4 class="user">{{user.username}}</h4>
+						<p class="comment">{{comment}}</p>
+						<hr color="black">
+					</div>
+				{{/comentarios}}
+			</div>
 		</div>
-		
-		<div class="descripcion">
-			<h2>Descripcion de la oferta</h2>
-			<p id="offerDescription">
-				{{description}}
-			</p>
-		</div>
-		
-		<p>Valoracion actual: {{valoracion}} sobre 5</p>
-		
-		<h3>Valora esta oferta del 1 al 5:</h3>
-		<form action="/valorar?title={{title}}&username={{username}}" method="post">
-			<input type="number" name="valoracion">
-			<input type="submit" name="button" value="VALORAR" >
-		</form>
-	</div>
 	<footer>
   		<div class="copyright">
     		&copy; Fiesta Paga-Na  - 2019 - Jose Ignacio Diaz, Carlos Gil y Cristian Posada

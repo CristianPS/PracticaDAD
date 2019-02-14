@@ -9,4 +9,6 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Long>{
 	List<Anuncio> findByTitle(String title);
 	
 	Anuncio getByTitle(String title);
+	
+	
 }
