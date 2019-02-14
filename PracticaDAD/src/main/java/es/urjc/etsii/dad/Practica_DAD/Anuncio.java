@@ -21,6 +21,8 @@ public class Anuncio {
 	
 	private String title;
 	private String description;
+	private int valoracion;
+	private int numValoraciones;
 	
 	@ManyToOne
 	private Comercio local;
@@ -35,6 +37,8 @@ public class Anuncio {
 		this.title=title;
 		this.description=description;
 		this.local=local;
+		this.valoracion = 0;
+		this.numValoraciones = 0;
 	//	this.comments=new LinkedList<>();
 		//this.images=images;
 	}
@@ -57,6 +61,16 @@ public class Anuncio {
 	public void setLocal(Comercio local)
 	{
 		this.local=local;
+	}
+	
+	public void setValoracion(int val)
+	{
+		this.valoracion = val;
+	}
+	
+	public void setNumValoraciones(int val)
+	{
+		this.numValoraciones = val;
 	}
 	
 	public void setComments(List<Comentario> comments)
@@ -87,6 +101,16 @@ public class Anuncio {
 	public Comercio getLocal()
 	{
 		return local;
+	}
+	
+	public int getValoracion()
+	{
+		return this.valoracion;
+	}
+	
+	public int getNumValoraciones()
+	{
+		return this.numValoraciones;
 	}
 	
 	//public List<Comentario> getComments()

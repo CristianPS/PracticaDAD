@@ -161,11 +161,14 @@ public class UserController {
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
 		model.addAttribute("username",username);
+		
+		System.out.println(username);
+		
 		return "ofertas";
 	}
 
 	@RequestMapping("/mostrarAnuncio")
-	public String mostrarAnuncio(Model model, @RequestParam String title)
+	public String mostrarAnuncio(Model model, @RequestParam String title, @RequestParam String username)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 
@@ -176,6 +179,9 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
+		model.addAttribute("username", username);
+		
+		System.out.println(username);
 
 		return "ofertaParticular";
 	}
@@ -208,6 +214,25 @@ public class UserController {
 	{
 		model.addAttribute("username", name);
 		return "nuevaOferta";
+	}
+	
+	@RequestMapping("/valorar")
+	public String valorar(Model model, @RequestParam String title, @RequestParam String username, @RequestParam int valoracion)
+	{
+		Anuncio a = anuncioRepository.getByTitle(title);
+		int val = a.getValoracion();
+		int numVal = a.getNumValoraciones();
+		String descrip = a.getDescription();
+		Comercio c = a.getLocal();
+		anuncioRepository.delete(a);
+		
+		a = new Anuncio(title,descrip, c);		
+		a.setValoracion(valoracion + val);
+		a.setNumValoraciones(1 + numVal);
+		
+		anuncioRepository.save(a);
+		
+		return mostrarAnuncio(model, title, username);
 	}
 
 	/*@RequestMapping("/crearOferta")
