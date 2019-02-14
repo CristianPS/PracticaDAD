@@ -40,8 +40,10 @@
 			</p>
 		</div>
 		
+		<p>Valoracion actual: {{valoracion}} sobre 5</p>
+		
 		<h3>Valora esta oferta del 1 al 5:</h3>
-		<form action="/valorar?title={{title}}" method="post">
+		<form action="/valorar?title={{title}}&username={{username}}" method="post">
 			<input type="number" name="valoracion">
 			<input type="submit" name="button" value="VALORAR" >
 		</form>

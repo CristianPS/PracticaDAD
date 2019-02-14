@@ -178,6 +178,11 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
+		
+		if(a.getNumValoraciones() != 0)
+			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
+		else
+			model.addAttribute("valoracion", a.getValoracion());
 
 		return "ofertaParticular";
 	}
@@ -196,6 +201,11 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
+		
+		if(a.getNumValoraciones() != 0)
+			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
+		else
+			model.addAttribute("valoracion", a.getValoracion());
 
 		return "OfertaPropia";
 	}
@@ -230,8 +240,8 @@ public class UserController {
 		return "nuevaOferta";
 	}
 	
-	/*@RequestMapping("/valorar")
-	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion)
+	@RequestMapping("/valorar")
+	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion, @RequestParam String username)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
@@ -246,8 +256,8 @@ public class UserController {
 		
 		anuncioRepository.save(a);
 		
-		return mostrarAnuncio(model, title);
-	}*/
+		return mostrarAnuncio(model, title, username);
+	}
 
 	/*@RequestMapping("/crearOferta")
 	public String crearOferta(Model model, @RequestParam String title, @RequestParam Image imagen)
