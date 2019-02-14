@@ -26,6 +26,7 @@ public class UserController {
 	private ComentarioRepository comentarioRepository;
 	
 	private String usuarioActual;
+	private String comercioActual;
 
 	/*@PostConstruct
 	public void init()
@@ -43,11 +44,13 @@ public class UserController {
 		a1.setTitle("Entrada-10Euros");
 		a1.setDescription("XXX");
 		a1.setLocal(c1);
+		a1.setDate("01/07/1997");
 
 		Anuncio a2 = new Anuncio();
 		a2.setTitle("CachimbaPremium-11Euros");
 		a2.setDescription("XXX");
 		a2.setLocal(c2);
+		a2.setDate("02/08/1998");
 
 		anuncioRepository.save(a1);
 		anuncioRepository.save(a2);
@@ -119,6 +122,8 @@ public class UserController {
 		comercioRepository.save(c);
 		
 		model.addAttribute("username", username);
+		
+		comercioActual = username;
 
 		return "misOfertas";
 	}
@@ -142,6 +147,8 @@ public class UserController {
 		model.addAttribute("anuncios", anuncios);
 
 		model.addAttribute("username", name);
+		
+		comercioActual = name;
 
 		return "misOfertas";
 	}
@@ -202,6 +209,7 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
+		model.addAttribute("date", a.getDate());
 		
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
@@ -216,11 +224,11 @@ public class UserController {
 	}
 	
 	@RequestMapping("/mostrarAnuncioPropio")
-	public String mostrarAnuncioPropio(Model model, @RequestParam String title, @RequestParam String username)
+	public String mostrarAnuncioPropio(Model model, @RequestParam String title)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		model.addAttribute("username", username);
+		model.addAttribute("username", comercioActual);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
@@ -229,6 +237,7 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
+		model.addAttribute("date", a.getDate());
 		
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
@@ -298,11 +307,12 @@ public class UserController {
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
 		int numVal = a.getNumValoraciones();
+		String date = a.getDate();
 		String descrip = a.getDescription();
 		Comercio c = a.getLocal();
 		anuncioRepository.delete(a);
 		
-		a = new Anuncio(title,descrip, c);		
+		a = new Anuncio(title,descrip, c, date);		
 		a.setValoracion(valoracion + val);
 		a.setNumValoraciones(1 + numVal);
 		
@@ -339,11 +349,15 @@ public class UserController {
 	}
 
 	@RequestMapping("/crearOferta")
-	public String crearOferta(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String username)
+	public String crearOferta(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String username, @RequestParam String date)
 	{
+		String aux = convertirFecha(date);
+		
 		Comercio c = comercioRepository.getByUsername(username);
-		Anuncio a = new Anuncio(title, description, c);
+		Anuncio a = new Anuncio(title, description, c, aux);
+		
 		anuncioRepository.save(a);
+		
 		return inicioComercio(model, username);
 			
 	}

@@ -24,6 +24,7 @@ public class Anuncio {
 	private String description;
 	private int valoracion;
 	private int numValoraciones;
+	private String date;
 	
 	@ManyToOne
 	private Comercio local;
@@ -33,7 +34,7 @@ public class Anuncio {
 	
 	public Anuncio() {}
 	
-	public Anuncio(/*long id,*/ String title, String description, Comercio local/*, List<Image> images*/)
+	public Anuncio(/*long id,*/ String title, String description, Comercio local, String date/*, List<Image> images*/)
 	{
 		/*this.id=id;*/
 		this.title=title;
@@ -42,6 +43,7 @@ public class Anuncio {
 		this.valoracion = 0;
 		this.numValoraciones = 0;
 		this.comments=new LinkedList<>();
+		this.date = date;
 		//this.images=images;
 	}
 	
@@ -78,6 +80,11 @@ public class Anuncio {
 	public void setComments(List<Comentario> comments)
 	{
 		this.comments=comments;
+	}
+	
+	public void setDate(String date)
+	{
+		this.date = date;
 	}
 	/*
 	public void setImages(List<Image> images)
@@ -118,6 +125,11 @@ public class Anuncio {
 	public List<Comentario> getComments()
 	{
 		return comments;
+	}
+	
+	public String getDate()
+	{
+		return this.date;
 	}
 	/*
 	public List<Image> getImages()

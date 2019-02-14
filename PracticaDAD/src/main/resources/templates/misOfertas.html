@@ -31,9 +31,10 @@
 	                <img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
 	                <h1 class="title">{{local.entName}}</h1>
 	                <h4 class="rest">{{title}}</h4>
-	   				<h5 class="rest">{{local.city}}</h5>	
+	   				<h5 class="rest">{{local.city}}</h5>
+	   				<h5 class="rest">Hasta el {{date}}</h5>
 	            </div>
-	            <form action="/mostrarAnuncioPropio?title={{title}}&username={{username}}" method="post" id="form" style="display:grid; float:right; margin-right:2%">
+	            <form action="/mostrarAnuncioPropio?title={{title}}" method="post" id="form" style="display:grid; float:right; margin-right:2%">
 	   				<input class="btn-blue-esp" style="width:90%; float:right; margin-top: -4%"  type="submit" value="ACCEDER" >
 	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
 	   			</form>
