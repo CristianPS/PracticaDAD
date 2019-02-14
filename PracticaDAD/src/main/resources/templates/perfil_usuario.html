@@ -69,18 +69,28 @@
 		</div>
 	  </div>
 	  
+	  <h4 id="texto" class="invisible">¿Deseas cambiar tu contraseña?</h4>
+	  
 	  <div class="row"> 
 	    <div id="pass" class="izqda invisible">
-		    <p>Contraseña:</p>
-			<input type="password" id="password" name="password" value="{{password}}" />
+		    <p>Contraseña antigua:</p>
+			<input type="password" id="password" name="password" />
 			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
 		</div>
 		<div id="newPass" class="dcha invisible">
 		    <p>Contraseña nueva:</p>
-			<input type="password" id="confirmpassword" name="passwordNew"/>
-			<img class="ojo" onclick="showConfirmedPassword()" src="images/ojo.png"  />			
-		</div>  
+			<input type="password" id="newpassword" name="passwordNew"/>
+			<img class="ojo" onclick="showNewPassword()" src="images/ojo.png"  />			
+		</div>
 	  </div>
+	  <div class="row">  
+		<div id="confPass" class="dcha invisible">
+		    <p>Confirmar nueva contraseña:</p>
+			<input type="password" id="confirmpassword" name="confirmPassword"/>
+			<img class="ojo" onclick="showConfirmedPassword()" src="images/ojo.png"  />			
+		</div> 
+	 </div>
+	  
 	
 	<button class="guardar" type="submit">Guardar</button>
 	</form>

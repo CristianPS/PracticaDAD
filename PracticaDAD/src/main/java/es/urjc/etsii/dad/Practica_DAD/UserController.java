@@ -167,18 +167,19 @@ public class UserController {
 	}
 	
 	@RequestMapping("/guardar")
-	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew)
+	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
 	{
 		Usuario u = userRepository.getByUsername(username);
 		userRepository.delete(u);
 		
 		if(passwordNew.equals(""))
 		{
-			u = new Usuario(username, nombre, apellidos, fecha, ciudad, password, gender, correo);
+			u = new Usuario(username, nombre, apellidos, fecha, ciudad, u.getPassword(), gender, correo);
 		}
 		else
 		{
-			u = new Usuario(username, nombre, apellidos, fecha, ciudad, passwordNew, gender, correo);
+			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
+				u = new Usuario(username, nombre, apellidos, fecha, ciudad, passwordNew, gender, correo);
 		}
 		
 		userRepository.save(u);

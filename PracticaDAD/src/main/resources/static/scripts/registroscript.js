@@ -14,6 +14,18 @@ function showPassword()
 	}
 }
 
+function showNewPassword()
+{
+	if(document.getElementById("newpassword").type == "password")
+	{
+		document.getElementById("newpassword").type = "text";
+	}
+	else
+	{
+		document.getElementById("newpassword").type = "password";
+	}
+}
+
 function showConfirmedPassword()
 {
 	if(document.getElementById("confirmpassword").type == "password")
