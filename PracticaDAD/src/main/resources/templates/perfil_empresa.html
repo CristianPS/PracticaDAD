@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <link rel="stylesheet" href="styles/UserStyle.css">
@@ -12,11 +12,11 @@
 	<nav>
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
-			
-			<li class="menuItem btn btn-1"><a href="index.html">Inicio</a></li>
-			<li class="menuItem btn btn-1"><a href="ofertas.html">Ofertas</a></li>
-			
-			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="login.html">Login</a></li>
+						
+			<li class="menuItem btn btn-1"><a href="/inicioComercio?name={{username}}">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar SesiÃ³n</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li>
 		</ul>
 	</nav>
 	
@@ -37,18 +37,18 @@
 		  <input type="text" id="username" />
 		</div>
 		<div class="dcha">
-		  <p>Dirección:</p>
+		  <p>DirecciÃ³n:</p>
 		  <input type="text" id="username" />
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
-		  <p>Correo electrónico:</p>
+		  <p>Correo electrÃ³nico:</p>
 		  <input type="text" id="username" />
 		</div>
 		<div class="dcha">
-		  <p>Teléfono:</p>
+		  <p>TelÃ©fono:</p>
 		  <input type="text" id="username" />
 		</div>
 	  </div>
@@ -62,12 +62,12 @@
 	  
 	  <div class="row"> 
 	    <div class="izqda">
-		    <p>Contraseña:</p>
+		    <p>ContraseÃ±a:</p>
 			<input type="password" id="password" />
 			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
 		</div>
 		<div class="dcha">
-		    <p>Contraseña nueva:</p>
+		    <p>ContraseÃ±a nueva:</p>
 			<input type="password" id="passwordNew" />
 			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />			
 		</div>  

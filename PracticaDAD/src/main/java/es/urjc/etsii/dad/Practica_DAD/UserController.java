@@ -21,35 +21,35 @@ public class UserController {
 	private AnuncioRepository anuncioRepository;
 	@Autowired
 	private ComercioRepository comercioRepository;
-	
+
 	/*@PostConstruct
 	public void init()
 	{
 		userRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
 		userRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
-		
+
 		comercioRepository.save(new Comercio("CarlosGil","comercio","Fabrik","Madrid","C/AlcaldeMostoles,5","c.gilsab@alumnos.urjc.es","918170864"));
 		comercioRepository.save(new Comercio("JorgePRG","comercio","Anubis","Arroyomolinos","CC.Xanadu","j.prietogo@alumnos.urjc.es","918146753"));
-		
+
 		Comercio c1 = comercioRepository.getByUsername("CarlosGil");
 		Comercio c2 = comercioRepository.getByUsername("JorgePRG");
-		
+
 		Anuncio a1 = new Anuncio();
 		a1.setTitle("Entrada-10Euros");
 		a1.setDescription("XXX");
 		a1.setLocal(c1);
-		
+
 		Anuncio a2 = new Anuncio();
 		a2.setTitle("CachimbaPremium-11Euros");
 		a2.setDescription("XXX");
 		a2.setLocal(c2);
-			
+
 		anuncioRepository.save(a1);
 		anuncioRepository.save(a2);
-		
+
 		c1.getAnuncios().add(a1);
 		c2.getAnuncios().add(a2);
-		
+
 	}*/
 
 	public String convertirFecha(String fecha)
@@ -59,7 +59,7 @@ public class UserController {
 		String year = "";
 		String aux = "";
 		int numGuiones = 0;
-		
+
 		for(int i=0; i<fecha.length(); i++)
 		{
 			if(numGuiones == 1)
@@ -71,7 +71,7 @@ public class UserController {
 			}
 			else if(numGuiones == 2)
 			{
-				day = day + fecha.charAt(i);		
+				day = day + fecha.charAt(i);
 			}
 			else
 			{
@@ -81,27 +81,27 @@ public class UserController {
 					numGuiones++;
 			}
 		}
-		
+
 		aux = day + "-" + month + "-" + year;
 		return aux;
 	}
-	
+
 	@RequestMapping("/registroUsuario")
 	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password) {
 
 		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
-		
+
 		String aux = convertirFecha(fecha);
-		
+
 		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email);
-		
+
 		userRepository.save(u);
-		
+
 		model.addAttribute("username", username);
 
 		return "inicioConUsuario";
 	}
-	
+
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
 
@@ -109,26 +109,26 @@ public class UserController {
 
 		return "inicioConUsuario";
 	}
-	
+
 	@RequestMapping("/inicioComercio")
 	public String inicioComercio(Model model, @RequestParam String name) {
 
 		Comercio c = comercioRepository.getByUsername(name);
-		
+
 		List<Anuncio> anuncios = c.getAnuncios();
-		
+
 		model.addAttribute("anuncios", anuncios);
-		
+
 		model.addAttribute("username", name);
 
 		return "misOfertas";
 	}
-	
+
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, @RequestParam String username)
 	{
 		Usuario u = userRepository.getByUsername(username);
-		
+
 		model.addAttribute("username", u.getUsername());
 		model.addAttribute("nombre", u.getName());
 		model.addAttribute("apellidos", u.getSurname());
@@ -137,10 +137,10 @@ public class UserController {
 		model.addAttribute("password", u.getPassword());
 		model.addAttribute("gender", u.getGender());
 		model.addAttribute("fecha", u.getBornDate());
-		
+
 		return "perfil_usuario";
 	}
-	
+
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model, @RequestParam String username)
 	{
@@ -149,12 +149,12 @@ public class UserController {
 		model.addAttribute("username",username);
 		return "ofertas";
 	}
-	
+
 	@RequestMapping("/mostrarAnuncio")
 	public String mostrarAnuncio(Model model, @RequestParam String title)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
-		
+
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
 		model.addAttribute("title",title);
@@ -162,16 +162,17 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
-		
+
 		return "ofertaParticular";
 	}
-	
+
 	@RequestMapping("/guardar")
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
 	{
+		System.out.println(username + " " + nombre+ " " + apellidos+ " " + correo+ " " + ciudad+ " " + fecha+ " " + gender + " " + password+ " " + passwordNew);
 		Usuario u = userRepository.getByUsername(username);
 		userRepository.delete(u);
-		
+
 		if(passwordNew.equals(""))
 		{
 			u = new Usuario(username, nombre, apellidos, fecha, ciudad, u.getPassword(), gender, correo);
@@ -181,14 +182,21 @@ public class UserController {
 			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
 				u = new Usuario(username, nombre, apellidos, fecha, ciudad, passwordNew, gender, correo);
 		}
-		
+
 		userRepository.save(u);
-		
+
 		model.addAttribute("username", username);
-		
+
 		return inicioUsuario(model, username);
 	}
-	
+
+	@RequestMapping("/nuevaOferta")
+	public String nuevaOferta(Model model, @RequestParam String name)
+	{
+		model.addAttribute("username", name);
+		return "nuevaOferta";
+	}
+
 	/*@RequestMapping("/crearOferta")
 	public String crearOferta(Model model, @RequestParam String title, @RequestParam Image imagen)
 	{
