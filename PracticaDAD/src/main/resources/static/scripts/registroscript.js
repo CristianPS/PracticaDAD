@@ -77,7 +77,7 @@ function usuario() {
 	document.getElementById("dir").classList.add("disappear");
 	document.getElementById("telefono").classList.add("disappear");
 }
-function iniciarregistrar()
+function registrar()
 {
 
 		if(document.getElementById("usuario").checked == true)
@@ -91,7 +91,7 @@ function iniciarregistrar()
 			}
 			else
 			{
-				document.getElementById("form").action = "/inicioUsuario";
+				document.getElementById("form").action = "/registroUsuario";
 				document.getElementById("form").method = "post";
 			}
 		}
@@ -106,7 +106,7 @@ function iniciarregistrar()
 			}
 			else
 			{
-			document.getElementById("form").action = "/inicioComercio";
+			document.getElementById("form").action = "/registroComercio";
 			document.getElementById("form").method = "post";
 			}
 		}
