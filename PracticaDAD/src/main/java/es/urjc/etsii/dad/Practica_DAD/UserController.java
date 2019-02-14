@@ -169,7 +169,6 @@ public class UserController {
 	@RequestMapping("/guardar")
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
 	{
-		System.out.println(username + " " + nombre+ " " + apellidos+ " " + correo+ " " + ciudad+ " " + fecha+ " " + gender + " " + password+ " " + passwordNew);
 		Usuario u = userRepository.getByUsername(username);
 		userRepository.delete(u);
 
