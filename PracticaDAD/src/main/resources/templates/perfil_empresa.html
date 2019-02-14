@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <link rel="stylesheet" href="styles/UserStyle.css">
 <script src="scripts/loginscript.js"></script>
+<script src="scripts/Editar.js"></script>
+<script src="scripts/registroscript.js"></script>
 </head>
 
 <body>
@@ -20,60 +22,68 @@
 		</ul>
 	</nav>
 	
-	<form action="/guardar">
+	<form action="/guardarEmpresa?username={{username}}" method="post">
 	
 	<div class="row"> 
 	    <div class="izqda">
 		  <h1>{{username}}</h1>
 		</div>
 		<div class="dcha">
-		  <span class="btn-blue" style="width:20%; float:right;text-align: center;" onclick="editarA()">Editar</span>
+		  <span id="editar" class="btn-blue" style="width:20%; float:right;text-align: center;" onclick="editarEmpresa()">Editar</span>
 		</div>
 	  </div>
 	
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Nombre:</p>
-		  <input type="text" id="username" />
+		  <textarea rows="1" cols="30" id="nombre" name="nombre" disabled>{{nombre}}</textarea>
 		</div>
 		<div class="dcha">
 		  <p>Dirección:</p>
-		  <input type="text" id="username" />
+		  <textarea rows="1" cols="30" id="direccion" name="direccion" disabled>{{direccion}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Correo electrónico:</p>
-		  <input type="text" id="username" />
+		  <textarea rows="1" cols="30" id="correo" name="correo" disabled>{{correo}}</textarea>
 		</div>
 		<div class="dcha">
 		  <p>Teléfono:</p>
-		  <input type="text" id="username" />
+		   <textarea rows="1" cols="30" id="telephone" name="telephone" disabled>{{telephone}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
 		  <p>Ciudad:</p>
-		  <input type="text" id="username" />
+		  <textarea rows="1" cols="30" id="ciudad" name="ciudad" disabled>{{ciudad}}</textarea>
 		</div>
 	  </div>
-	  
-	  <div class="row"> 
-	    <div class="izqda">
-		    <p>Contraseña:</p>
-			<input type="password" id="password" />
+	  <h4 id="texto" class="disappear">¿Deseas cambiar tu contraseña?</h4>
+	  <div class="row">
+	    <div id="pass" class="izqda disappear">
+		    <p>Contraseña antigua:</p>
+			<input type="password" id="password" name="password" />
 			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
 		</div>
-		<div class="dcha">
+		<div id="newPass" class="dcha disappear">
 		    <p>Contraseña nueva:</p>
-			<input type="password" id="passwordNew" />
-			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />			
-		</div>  
+			<input type="password" id="newpassword" name="passwordNew"/>
+			<img class="ojo" onclick="showNewPassword()" src="images/ojo.png"  />
+		</div>
 	  </div>
+	  <div class="row">
+		<div id="confPass" class="dcha disappear">
+		    <p>Confirmar nueva contraseña:</p>
+			<input type="password" id="confirmpassword" name="confirmPassword"/>
+			<img class="ojo" onclick="showConfirmedPassword()" src="images/ojo.png"  />
+		</div>
+	 </div>
+
 	
-	<button class="guardar" type=submit>Guardar</button>
+	<button id="guardar" class="guardar disappear" type=submit>Guardar</button>
 	</form>
 	<footer>
   		<div class="copyright">

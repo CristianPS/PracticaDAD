@@ -260,6 +260,30 @@ public class UserController {
 
 		return inicioUsuario(model, username);
 	}
+	@RequestMapping("/guardarEmpresa")
+	public String guardarEmpresa(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String direccion,
+			@RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, 
+			@RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
+	{
+		Comercio u = comercioRepository.getByUsername(username);
+		comercioRepository.delete(u);
+
+		if(passwordNew.equals(""))
+		{
+			u = new Comercio(username, u.getPassword(),nombre, ciudad, direccion, correo, telephone);
+		}
+		else
+		{
+			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
+				u = new Comercio(username, passwordNew,nombre, ciudad, direccion, correo, telephone);
+		}
+
+		comercioRepository.save(u);
+
+		model.addAttribute("username", username);
+
+		return inicioComercio(model, username);
+	}
 
 	@RequestMapping("/nuevaOferta")
 	public String nuevaOferta(Model model, @RequestParam String name)
