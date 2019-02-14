@@ -101,6 +101,20 @@ public class UserController {
 
 		return "inicioConUsuario";
 	}
+	@RequestMapping("/registroComercio")
+	public String registroComercio(Model model, @RequestParam String username, @RequestParam String nameEmpresa, @RequestParam String dir, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String password) {
+
+		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
+		
+		
+		Comercio c = new Comercio(username, password, nameEmpresa, city, dir, email, telefono);
+		
+		comercioRepository.save(c);
+		
+		model.addAttribute("username", username);
+
+		return "misOfertas";
+	}
 
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
