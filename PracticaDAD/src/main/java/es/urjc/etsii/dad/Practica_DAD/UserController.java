@@ -1,5 +1,6 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+import java.awt.Image;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -109,6 +110,20 @@ public class UserController {
 		return "inicioConUsuario";
 	}
 	
+	@RequestMapping("/inicioComercio")
+	public String inicioComercio(Model model, @RequestParam String name) {
+
+		Comercio c = comercioRepository.getByUsername(name);
+		
+		List<Anuncio> anuncios = c.getAnuncios();
+		
+		model.addAttribute("anuncios", anuncios);
+		
+		model.addAttribute("username", name);
+
+		return "misOfertas";
+	}
+	
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, @RequestParam String username)
 	{
@@ -127,10 +142,11 @@ public class UserController {
 	}
 	
 	@RequestMapping("/mostrarAnuncios")
-	public String mostrarAnuncios(Model model)
+	public String mostrarAnuncios(Model model, @RequestParam String username)
 	{
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
+		model.addAttribute("username",username);
 		return "ofertas";
 	}
 	
@@ -171,4 +187,10 @@ public class UserController {
 		
 		return inicioUsuario(model, username);
 	}
+	
+	/*@RequestMapping("/crearOferta")
+	public String crearOferta(Model model, @RequestParam String title, @RequestParam Image imagen)
+	{
+
+	}*/
 }

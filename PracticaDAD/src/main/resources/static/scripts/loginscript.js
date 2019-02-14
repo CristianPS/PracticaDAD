@@ -21,8 +21,16 @@ function iniciar()
 	}
 	else
 	{
-		document.getElementById("form").action = "/inicioUsuario";
-		document.getElementById("form").method = "post";
+		if(document.getElementById("usuario").checked == true)
+		{
+			document.getElementById("form").action = "/inicioUsuario";
+			document.getElementById("form").method = "post";
+		}
+		else if(document.getElementById("empresa").checked == true)
+		{
+			document.getElementById("form").action = "/inicioComercio";
+			document.getElementById("form").method = "post";
+		}
 	}
 }
 
