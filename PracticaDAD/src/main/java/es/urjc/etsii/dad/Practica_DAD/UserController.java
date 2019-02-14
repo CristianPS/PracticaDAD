@@ -161,14 +161,11 @@ public class UserController {
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
 		model.addAttribute("username",username);
-		
-		System.out.println(username);
-		
 		return "ofertas";
 	}
 
 	@RequestMapping("/mostrarAnuncio")
-	public String mostrarAnuncio(Model model, @RequestParam String title, @RequestParam String username)
+	public String mostrarAnuncio(Model model, @RequestParam String title)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 
@@ -179,26 +176,8 @@ public class UserController {
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
-		model.addAttribute("username", username);
-		
-		System.out.println(username);
 
 		return "ofertaParticular";
-	}
-	@RequestMapping("/mostrarAnuncioPropio")
-	public String mostrarAnuncioPropio(Model model, @RequestParam String title)
-	{
-		Anuncio a = anuncioRepository.getByTitle(title);
-
-		model.addAttribute("ent", a.getLocal().getEntName());
-		model.addAttribute("description", a.getDescription());
-		model.addAttribute("title",title);
-		model.addAttribute("city", a.getLocal().getCity());
-		model.addAttribute("address", a.getLocal().getAddress());
-		model.addAttribute("email", a.getLocal().getEmail());
-		model.addAttribute("telephone", a.getLocal().getTelephone());
-
-		return "OfertaPropia";
 	}
 
 	@RequestMapping("/guardar")
@@ -232,7 +211,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/valorar")
-	public String valorar(Model model, @RequestParam String title, @RequestParam String username, @RequestParam int valoracion)
+	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
@@ -247,7 +226,7 @@ public class UserController {
 		
 		anuncioRepository.save(a);
 		
-		return mostrarAnuncio(model, title, username);
+		return mostrarAnuncio(model, title);
 	}
 
 	/*@RequestMapping("/crearOferta")
