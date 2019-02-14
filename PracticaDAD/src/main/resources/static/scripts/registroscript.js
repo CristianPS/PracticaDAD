@@ -38,3 +38,27 @@ function terminar()
 		document.getElementById("form").method = "post";
 	}
 }
+function empresa() {
+	document.getElementById("name").classList.add("disappear");
+	document.getElementById("apellidos").classList.add("disappear");
+	document.getElementById("fecha").classList.add("disappear");
+	document.getElementById("fechaTitulo").classList.add("disappear");
+	document.getElementById("genero").classList.add("disappear");
+	document.getElementById("generoTitulo").classList.add("disappear");
+	document.getElementById("fecha").classList.add("disappear");
+	document.getElementById("nameEmpresa").classList.remove("disappear");
+	document.getElementById("dir").classList.remove("disappear");
+	document.getElementById("telefono").classList.remove("disappear");
+}
+function usuario() {
+	document.getElementById("name").classList.remove("disappear");
+	document.getElementById("apellidos").classList.remove("disappear");
+	document.getElementById("fecha").classList.remove("disappear");
+	document.getElementById("fechaTitulo").classList.remove("disappear");
+	document.getElementById("genero").classList.remove("disappear");
+	document.getElementById("generoTitulo").classList.remove("disappear");
+	document.getElementById("fecha").classList.remove("disappear");
+	document.getElementById("nameEmpresa").classList.add("disappear");
+	document.getElementById("dir").classList.add("disappear");
+	document.getElementById("telefono").classList.add("disappear");
+}
