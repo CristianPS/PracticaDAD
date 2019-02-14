@@ -169,15 +169,18 @@ public class UserController {
 	@RequestMapping("/guardar")
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String fecha, @RequestParam String gender, @RequestParam String password, @RequestParam String passwordNew)
 	{
+		System.out.println(username + " " + nombre+ " " + apellidos+ " " + correo+ " " + ciudad+ " " + fecha+ " " + gender + " " + password+ " " + passwordNew);
 		Usuario u = userRepository.getByUsername(username);
 		userRepository.delete(u);
 		
 		if(passwordNew.equals(""))
 		{
+			System.out.println(username + " " + nombre+ " " + apellidos+ " " + correo+ " " + ciudad+ " " + fecha+ " " + gender + " " + password+ " " + passwordNew);
 			u = new Usuario(username, nombre, apellidos, fecha, ciudad, password, gender, correo);
 		}
 		else
 		{
+			System.out.println(username + " " + nombre+ " " + apellidos+ " " + correo+ " " + ciudad+ " " + fecha+ " " + gender + " " + password+ " " + passwordNew);
 			u = new Usuario(username, nombre, apellidos, fecha, ciudad, passwordNew, gender, correo);
 		}
 		
@@ -186,6 +189,13 @@ public class UserController {
 		model.addAttribute("username", username);
 		
 		return inicioUsuario(model, username);
+	}
+	
+	@RequestMapping("/nuevaOferta")
+	public String nuevaOferta(Model model, @RequestParam String name)
+	{
+		model.addAttribute("username", name);
+		return "nuevaOferta";
 	}
 	
 	/*@RequestMapping("/crearOferta")

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Nueva Oferta</title>
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <link rel="stylesheet" href="styles/nuevaOfertaStyle.css">
@@ -12,11 +12,11 @@
 	<nav>
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
-			
-			<li class="menuItem btn btn-1"><a href="index.html">Inicio</a></li>
-			<li class="menuItem btn btn-1"><a href="ofertas.html">Ofertas</a></li>
-			
-			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="login.html">Login</a></li>
+						
+			<li class="menuItem btn btn-1"><a href="/inicioComercio?name={{username}}">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1" class="active"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a  href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li>
 		</ul>
 	</nav>
 	
@@ -27,7 +27,7 @@
 	    	<form class="form" id="form">
 	      
 	      	<p class="name">
-	        	<input name="title" type="text" class="feedback-input" placeholder="Nombre de Oferta" id="username" />
+	        	<input name="title" type="text" class="feedback-input" placeholder="Nombre de Oferta y Precio" id="title" />
 	      	</p>
 	      
 	      	<p class="local">
@@ -36,10 +36,10 @@
 	      	
 	      	<p class="city">
 	        	<input name="city" type="text" class="feedback-input" placeholder="Ciudad" id="city" />
-	      	</p>
-	      
-	      	<p class="price">
-	        	<input name="price" type="number" class="feedback-input" id="number" placeholder="Precio" />
+	      	</p>	      
+	      	
+	      	<p class="description">
+	      		<textarea rows="5" cols="30" class=feedback-input id="description" name="description" placeholder="Descripción"></textarea>
 	      	</p>
 	      	
 	      	<p>Fecha de validez</p>
@@ -50,7 +50,7 @@
 	      	
 			<p class="image">						
 		      	<form>
-				 	Selecciona una imagen <input type="file" name="img">				 	
+				 	Selecciona una imagen <input type="file" name="img">
 				</form>
 			</p>
 	      
