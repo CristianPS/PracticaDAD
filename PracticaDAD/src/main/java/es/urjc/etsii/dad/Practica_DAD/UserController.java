@@ -154,6 +154,22 @@ public class UserController {
 
 		return "perfil_usuario";
 	}
+	
+	@RequestMapping("/mostrarPerfilComercio")
+	public String mostrarPerfilComercio(Model model, @RequestParam String username)
+	{
+		Comercio c = comercioRepository.getByUsername(username);
+
+		model.addAttribute("username", c.getUsername());
+		model.addAttribute("nombre", c.getEntName());
+		model.addAttribute("direccion", c.getAddress());
+		model.addAttribute("correo", c.getEmail());
+		model.addAttribute("ciudad", c.getCity());
+		model.addAttribute("password", c.getPassword());
+		model.addAttribute("telephone", c.getTelephone());
+
+		return "perfil_empresa";
+	}
 
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model, @RequestParam String username)
