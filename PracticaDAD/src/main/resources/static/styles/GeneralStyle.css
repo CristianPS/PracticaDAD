@@ -18,7 +18,7 @@
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	/*font-family: 'Montserrat', Arial, Helvetica, sans-serif;*/
 	font-size: 16px;
 	
 	margin-top: 7px;
@@ -55,6 +55,7 @@ img.logoDown{
 body{
 	margin: 0;
 	background-color: #333;
+	font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;
 }
 
 
@@ -91,7 +92,7 @@ footer {
 
 
 .btn-blue{
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	/*font-family: 'Montserrat', Arial, Helvetica, sans-serif;*/
 	float:left;
 	width: 80%;
 	border: #bebed2 solid 4px;
@@ -117,4 +118,15 @@ footer {
 }
 .disappear{
 	display: none !important;
+}
+btn-in{
+	-webkit-appearance: none !important;
+    border: #bebed2 solid 4px;
+    color: white;
+    background-color: #3498db;
+    font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;
+}
+.btn-in:hover{
+	background-color: white;
+	color: #3498db;
 }

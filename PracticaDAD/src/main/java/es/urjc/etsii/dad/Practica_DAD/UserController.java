@@ -244,6 +244,10 @@ public class UserController {
 		else
 			model.addAttribute("valoracion", a.getValoracion());
 
+		List<Comentario> comentarios = a.getComments();
+		
+		model.addAttribute("comentarios", comentarios);
+		
 		return "OfertaPropia";
 	}
 

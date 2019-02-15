@@ -29,3 +29,13 @@ function editarEmpresa() {
 	document.getElementById("ciudad").disabled = false;
 	document.getElementById("correo").disabled = false;
 }
+function editarOferta() {
+	document.getElementById("title").classList.remove("disappear");
+	document.getElementById("date").classList.remove("disappear");
+	document.getElementById("description").classList.remove("disappear");
+	document.getElementById("guardar").classList.remove("disappear");
+	document.getElementById("nombreoferta").classList.add("disappear");
+	document.getElementById("expDate").classList.add("disappear");
+	document.getElementById("offerDescription").classList.add("disappear");
+	document.getElementById("editar").classList.add("disappear");
+}

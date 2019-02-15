@@ -74,7 +74,7 @@ img.image-list{
     margin-bottom: 10px;
     position: relative;
     padding: 10px 15px;
-    border: 1px solid #ddd;
+    border: black 1px solid ;
     min-height: 1px;
     font-size: 100%;
     font: inherit;
@@ -83,6 +83,7 @@ img.image-list{
         display: table;
     content: " ";
     box-sizing: border-box;
+    
 }
 
 .boton{
