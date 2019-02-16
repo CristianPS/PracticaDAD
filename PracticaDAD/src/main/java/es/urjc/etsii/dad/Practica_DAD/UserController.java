@@ -1,6 +1,8 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
 import java.awt.Image;
+
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -139,6 +141,33 @@ public class UserController {
 	public String eliminar(Model model, @RequestParam String title)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
+		
+		//a.deleteComments();
+		
+		List <Comentario> c = comentarioRepository.findByAnuncio(a);
+		
+		Iterator<Comentario> it = c.iterator();
+		 
+		while (it.hasNext()) {
+			comentarioRepository.delete(it.next());
+		}
+		
+		anuncioRepository.delete(a);
+		
+		model.addAttribute("username" ,comercioActual);
+		
+		
+
+		
+		// si el anuncio tiene comentarios no va y a veces no te manda a la pagina de inicio
+		return inicioComercio(model,comercioActual);
+		//return "misOfertas";
+	}
+	
+	/*@RequestMapping("/eliminar")
+	public String eliminar(Model model, @RequestParam String title)
+	{
+		Anuncio a = anuncioRepository.getByTitle(title);
 		anuncioRepository.delete(a);
 		
 		model.addAttribute("username" ,comercioActual);
@@ -147,7 +176,7 @@ public class UserController {
 		// si el anuncio tiene comentarios no va y a veces no te manda a la pagina de inicio
 		return inicioComercio(model,comercioActual);
 		//return "misOfertas";
-	}
+	}*/
 	
 	@RequestMapping("/guardar")
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, 
