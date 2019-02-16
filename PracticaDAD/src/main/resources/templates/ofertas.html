@@ -33,16 +33,16 @@
     <div id="products" style="margin-top:3%">   
     {{#anuncios}}       
             <div id="item" class="itemList">
-            <div class="thumbnail">
-                <img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
-                    <h1 class="title" style="color:#3498db">{{local.entName}}</h1>
-                    <h4 class="rest">{{title}}</h4>
-   					<h4 class="rest">{{local.city}}</h4>
-   					<h4 class="rest">Hasta el {{date}}</h4>
-             </div>
-             		<form action="/mostrarAnuncio?title={{title}}" method="post">
-   						<input class="btn-blue-esp" style="width:20%; float:right; margin-top: -4%"  type="submit" value="ACCEDER" >
-   					</form>
+	            <div class="thumbnail">
+	                <img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
+	                    <h1 class="title" style="color:#3498db">{{title}}</h1>
+	                	<h4 class="rest">{{local.entName}}</h4>
+	   					<h4 class="rest">{{local.city}}</h4>
+	   					<h4 class="rest">Hasta el {{date}}</h4>
+	             </div>
+             	 <form action="/mostrarAnuncio?title={{title}}" method="post">
+   					<input class="btn-blue-esp" style="width:20%; float:right; margin-top: -4%"  type="submit" value="ACCEDER" >
+   				 </form>
              </div> 
       {{/anuncios}}
             <!--   

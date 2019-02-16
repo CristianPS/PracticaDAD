@@ -106,10 +106,34 @@ footer {
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
   	margin-top: 7%;
-  	margin-bot: 7%;
   	margin-left: 9%;
   	margin-right: 9%;
   	font-weight:700;
+}
+
+.btn-red{
+	/*font-family: 'Montserrat', Arial, Helvetica, sans-serif;*/
+	float:left;
+	width: 80%;
+	border: #bebed2 solid 4px;
+	cursor:pointer;
+	background-color:#e74c3c;
+	color:white;
+	font-size:16px;
+	padding-top:18px;
+	padding-bottom:18px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  	margin-top: 7%;
+  	margin-left: 9%;
+  	margin-right: 9%;
+  	font-weight:700;
+}
+
+.btn-red:hover{
+	background-color: rgba(0,0,0,0);
+	color: #e74c3c;
 }
 
 .btn-blue:hover{

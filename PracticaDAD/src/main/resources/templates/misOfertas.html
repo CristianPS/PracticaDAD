@@ -29,19 +29,18 @@
             <div id="item" class="itemList">
 	            <div class="thumbnail">
 	                <img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
-	                <h1 class="title" style="color:#3498db">{{local.entName}}</h1>
-	                <h4 class="rest">{{title}}</h4>
+	                <h1 class="title" style="color:#3498db">{{title}}</h1>
+	                <h4 class="rest">{{local.entName}}</h4>
 	   				<h4 class="rest">{{local.city}}</h4>
 	   				<h4 class="rest">Hasta el {{date}}</h4>
 	            </div>
 	            <form action="/mostrarAnuncioPropio?title={{title}}" method="post" id="form" style="display:grid; float:right; margin-right:2%">
-	   				<input class="btn-blue-esp" style="width:90%; float:right; margin-top: -4%"  type="submit" value="ACCEDER" >
+	   				<input class="btn-blue-esp" style="width:100%; float:right; margin-top: -4%"  type="submit" value="ACCEDER" >
 	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
 	   			</form>
-	   						
-				
+	   		</div>				
       	{{/anuncios}}
-			</div> 
+			 
 				<div id="statistics" class="modal">
 					<div class="statistics-content">
 						<div class="statistics-header">

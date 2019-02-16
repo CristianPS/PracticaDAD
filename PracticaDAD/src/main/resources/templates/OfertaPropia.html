@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/styles/GeneralStyle.css">
 <link rel="stylesheet" href="/styles/ofertaparticularstyle.css">
+<link rel="stylesheet" href="/styles/NewFile.css">
 <script src="scripts/Editar.js"></script>
 </head>
 <body>
@@ -19,9 +20,24 @@
 		</ul>
 	</nav>
 	
+	
+	<form action="/eliminar?title={{title}}" id="pop-up" class="cd-popup" role="alert" method="post">
+	<div class="cd-popup-container">
+		<p>¿Eliminar el anuncio de forma permanente?</p>
+		
+		<ul class="cd-buttons">
+			<li><input type="submit" value="SI"></li>
+			<li><span onclick="cerrar()">no</span></li>
+		</ul>
+		<a href="#0" class="cd-popup-close img-replace" onclick="cerrar()">Close</a>
+	</div> <!-- cd-popup-container -->
+</form>
+	
+	
 	<div class="fullOffer" style="margin-top:3%">
 		<div style="width:100%;padding-top: 1%; border-radius: 7px;">
-		<button class="btn-blue" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="editarOferta()">Editar</button>	
+		<button id="editar" class="btn-blue" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="editarOferta()">Editar</button>
+		<button id="eliminar" class="btn-red disappear" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="seguro()">Eliminar</button>	
 			<h1 id="nombreoferta">{{title}}</h1>
 			<textarea rows="1" cols="30" id="title" name="title" class="editarTitulo disappear">{{title}}</textarea>			
 			<hr color="black">
