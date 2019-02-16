@@ -141,9 +141,12 @@ public class UserController {
 		Anuncio a = anuncioRepository.getByTitle(title);
 		anuncioRepository.delete(a);
 		
-		model.addAttribute("username" ,usuarioActual);
+		model.addAttribute("username" ,comercioActual);
+
 		
-		return inicioComercio(model,usuarioActual);
+		// si el anuncio tiene comentarios no va y a veces no te manda a la pagina de inicio
+		return inicioComercio(model,comercioActual);
+		//return "misOfertas";
 	}
 	
 	@RequestMapping("/guardar")
@@ -222,7 +225,10 @@ public class UserController {
 
 		model.addAttribute("username", name);
 		
+		
 		comercioActual = name;
+		
+		System.out.println(comercioActual);
 
 		return "misOfertas";
 	}
