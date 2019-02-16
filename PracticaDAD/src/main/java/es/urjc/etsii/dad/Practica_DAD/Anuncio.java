@@ -46,10 +46,7 @@ public class Anuncio {
 		this.date = date;
 		//this.images=images;
 	}
-	public void deleteComments ()
-	{
-		this.comments.clear();
-	}
+
 	/*public void setId(long id)
 	{
 		this.id=id;

@@ -142,10 +142,7 @@ public class UserController {
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		//a.deleteComments();
-		
-		List <Comentario> c = comentarioRepository.findByAnuncio(a);
-		
+		List <Comentario> c = comentarioRepository.findByAnuncio(a);	
 		Iterator<Comentario> it = c.iterator();
 		 
 		while (it.hasNext()) {
@@ -156,12 +153,7 @@ public class UserController {
 		
 		model.addAttribute("username" ,comercioActual);
 		
-		
-
-		
-		// si el anuncio tiene comentarios no va y a veces no te manda a la pagina de inicio
 		return inicioComercio(model,comercioActual);
-		//return "misOfertas";
 	}
 	
 	/*@RequestMapping("/eliminar")
