@@ -122,7 +122,15 @@ public class UserController {
 		
 		return mostrarAnuncio(model, title);
 	}
-
+	@RequestMapping("/eliminarComentario")
+	public String eliminarComentario(Model model, @RequestParam String title, @RequestParam String comment )
+	{
+		//Anuncio a = anuncioRepository.getByTitle(title);
+		Comentario c = comentarioRepository.getByComment(comment);
+		comentarioRepository.delete(c);
+		
+		return mostrarAnuncio(model, title);
+	}
 	@RequestMapping("/crearOferta")
 	public String crearOferta(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String username, @RequestParam String date)
 	{
@@ -155,20 +163,6 @@ public class UserController {
 		
 		return inicioComercio(model,comercioActual);
 	}
-	
-	/*@RequestMapping("/eliminar")
-	public String eliminar(Model model, @RequestParam String title)
-	{
-		Anuncio a = anuncioRepository.getByTitle(title);
-		anuncioRepository.delete(a);
-		
-		model.addAttribute("username" ,comercioActual);
-
-		
-		// si el anuncio tiene comentarios no va y a veces no te manda a la pagina de inicio
-		return inicioComercio(model,comercioActual);
-		//return "misOfertas";
-	}*/
 	
 	@RequestMapping("/guardar")
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, 

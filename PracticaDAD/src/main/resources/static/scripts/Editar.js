@@ -54,3 +54,7 @@ function eliminar(){
 	document.getElementById("pop-up").method = "post";
 	document.getElementById("pop-up").action;
 }
+function mostrarEliminarComentario(u1,u2) {
+	if  (u1 !== u2)
+		document.getElementById("boton").classList.add("disappear");
+}
