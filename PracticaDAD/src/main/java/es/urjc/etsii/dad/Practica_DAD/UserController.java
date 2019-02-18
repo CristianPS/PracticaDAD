@@ -31,6 +31,7 @@ public class UserController {
 	
 	private String usuarioActual;
 	private String comercioActual;
+	private String anuncioActual;
 
 	/*@PostConstruct
 	public void init()
@@ -227,6 +228,20 @@ public class UserController {
 		return inicioUsuario(model, username);
 	}
 	
+	@RequestMapping("/guardarAnuncio")
+	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description)
+	{
+		System.out.println(anuncioActual);
+		System.out.println(title);
+		System.out.println(description);
+		Anuncio a = anuncioRepository.getByTitle(anuncioActual);
+		
+		anuncioRepository.setTitleById(title, a.getId());
+		anuncioRepository.setDescriptionById(description, a.getId());
+		
+		return mostrarAnuncio(model,title);
+	}
+	
 	@RequestMapping("/guardarComercio")
 	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String address,
 			@RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, 
@@ -359,6 +374,8 @@ public class UserController {
 		List<Comentario> comentarios = a.getComments();
 		
 		model.addAttribute("comentarios", comentarios);
+		
+		anuncioActual = title;
 
 		return "ofertaParticular"; 
 	}

@@ -34,10 +34,10 @@
 </form>
 	
 	
-	<div class="fullOffer" style="margin-top:3%">
+	<form class="fullOffer" style="margin-top:3%" method="post" action="/guardarAnuncio">
 		<div style="width:100%;padding-top: 1%; border-radius: 7px;">
-		<button id="editar" class="btn-blue" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="editarOferta()">Editar</button>
-		<button id="eliminar" class="btn-red disappear" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="seguro()">Eliminar</button>	
+		<span id="editar" class="btn-blue" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="editarOferta()">Editar</span>
+		<span id="eliminar" class="btn-red disappear" style="float:right; width:auto; margin: 0 1% 0 0;" onclick="seguro()">Eliminar</span>	
 			<h1 id="nombreoferta">{{title}}</h1>
 			<textarea rows="1" cols="30" id="title" name="title" class="editarTitulo disappear">{{title}}</textarea>			
 			<hr color="black">
@@ -63,13 +63,12 @@
 			<p id="offerDescription">
 				{{description}}
 			</p>
-			<textarea rows="7" cols="60" id="description" placeholder={{description}} class="editarDes disappear"></textarea>
-			<span id="guardar" class="btn-blue disappear" 
-				style="width:20%; margin:1% 35%;text-align: center;">GUARDAR</span>
+			<textarea rows="7" cols="60" id="description" placeholder={{description}} class="editarDes disappear" name="description">{{description}}</textarea>
+			<input type="submit" id="guardar" class="btn-blue disappear" style="width:20%;margin:1% 35%;text-align: center;" value="GUARDAR" />
 		</div>
 
 
-	</div>
+	</form>
 	<div id="comentarios" class="comentarios">
 		<h2 style="color:#3498db; margin-left: 1%;">Comentarios</h2>
 		{{#comentarios}}
