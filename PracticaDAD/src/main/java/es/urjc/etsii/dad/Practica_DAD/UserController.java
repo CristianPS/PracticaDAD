@@ -209,19 +209,25 @@ public class UserController {
 							@RequestParam String passwordNew, @RequestParam String confirmPassword)
 	{
 		Usuario u = userRepository.getByUsername(username);
-		userRepository.delete(u);
+		//userRepository.delete(u);
+		
+		userRepository.setNameByUsername(nombre, username);
+		userRepository.setCityByUsername(ciudad, username);
+		userRepository.setEmailByUsername(correo, username);
+		userRepository.setGenderByUsername(gender, username);
+		userRepository.setSurnameByUsername(apellidos, username);
 
 		if(passwordNew.equals(""))
 		{
-			u = new Usuario(username, nombre, apellidos, fecha, ciudad, u.getPassword(), gender, correo);
+			userRepository.setPasswordByUsername(password, username);
 		}
 		else
 		{
 			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
-				u = new Usuario(username, nombre, apellidos, fecha, ciudad, passwordNew, gender, correo);
+				userRepository.setPasswordByUsername(passwordNew, username);
 		}
 
-		userRepository.save(u);
+		//userRepository.save(u);
 
 		model.addAttribute("username", username);
 
@@ -281,7 +287,7 @@ public class UserController {
 		
 		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
 		anuncios.sort(a);		
-		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 4);		
+		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 2);		
 		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
 		
 		return "inicioConUsuario";
