@@ -124,7 +124,7 @@ public class UserController {
 		
 		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
 		anuncios.sort(a);		
-		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 4);		
+		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 2);		
 		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
 		
 		return "index";
