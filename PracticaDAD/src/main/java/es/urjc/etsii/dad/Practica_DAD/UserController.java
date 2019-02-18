@@ -229,17 +229,15 @@ public class UserController {
 	}
 	
 	@RequestMapping("/guardarAnuncio")
-	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description)
+	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date)
 	{
-		System.out.println(anuncioActual);
-		System.out.println(title);
-		System.out.println(description);
 		Anuncio a = anuncioRepository.getByTitle(anuncioActual);
 		
 		anuncioRepository.setTitleById(title, a.getId());
 		anuncioRepository.setDescriptionById(description, a.getId());
+		anuncioRepository.setDateById(date, a.getId());
 		
-		return mostrarAnuncio(model,title);
+		return mostrarAnuncioPropio2(model, title, description, date);
 	}
 	
 	@RequestMapping("/guardarComercio")
@@ -374,8 +372,6 @@ public class UserController {
 		List<Comentario> comentarios = a.getComments();
 		
 		model.addAttribute("comentarios", comentarios);
-		
-		anuncioActual = title;
 
 		return "ofertaParticular"; 
 	}
@@ -389,7 +385,7 @@ public class UserController {
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
-		model.addAttribute("title",title);
+		model.addAttribute("title", a.getTitle());
 		model.addAttribute("city", a.getLocal().getCity());
 		model.addAttribute("address", a.getLocal().getAddress());
 		model.addAttribute("email", a.getLocal().getEmail());
@@ -404,6 +400,38 @@ public class UserController {
 		List<Comentario> comentarios = a.getComments();
 		
 		model.addAttribute("comentarios", comentarios);
+		
+		anuncioActual = title;
+		
+		return "OfertaPropia";
+	}
+	
+	@RequestMapping("/mostrarAnuncioPropio2")
+	public String mostrarAnuncioPropio2(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date)
+	{
+		Anuncio a = anuncioRepository.getByTitle(title);
+		
+		model.addAttribute("username", comercioActual);
+
+		model.addAttribute("ent", a.getLocal().getEntName());
+		model.addAttribute("description", description);
+		model.addAttribute("title", title);
+		model.addAttribute("city", a.getLocal().getCity());
+		model.addAttribute("address", a.getLocal().getAddress());
+		model.addAttribute("email", a.getLocal().getEmail());
+		model.addAttribute("telephone", a.getLocal().getTelephone());
+		model.addAttribute("date", date);
+		
+		if(a.getNumValoraciones() != 0)
+			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
+		else
+			model.addAttribute("valoracion", a.getValoracion());
+
+		List<Comentario> comentarios = a.getComments();
+		
+		model.addAttribute("comentarios", comentarios);
+		
+		anuncioActual = title;
 		
 		return "OfertaPropia";
 	}
