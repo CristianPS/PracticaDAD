@@ -25,6 +25,7 @@ public class Anuncio {
 	private int valoracion;
 	private int numValoraciones;
 	private String date;
+	private int valoracionMedia;
 	
 	@ManyToOne
 	private Comercio local;
@@ -36,7 +37,6 @@ public class Anuncio {
 	
 	public Anuncio(/*long id,*/ String title, String description, Comercio local, String date/*, List<Image> images*/)
 	{
-		/*this.id=id;*/
 		this.title=title;
 		this.description=description;
 		this.local=local;
@@ -44,14 +44,10 @@ public class Anuncio {
 		this.numValoraciones = 0;
 		this.comments=new LinkedList<>();
 		this.date = date;
+		this.valoracionMedia = 0;
 		//this.images=images;
 	}
 
-	/*public void setId(long id)
-	{
-		this.id=id;
-	}*/
-	
 	public void setTitle(String title)
 	{
 		this.title=title;
@@ -86,15 +82,15 @@ public class Anuncio {
 	{
 		this.date = date;
 	}
+	
+	public void setValoracionMedia(int valoracionMedia)
+	{
+		this.valoracionMedia = valoracionMedia;
+	}
 	/*
 	public void setImages(List<Image> images)
 	{
 		this.images=images;
-	}*/
-	
-	/*public long getId()
-	{
-		return id;
 	}*/
 	
 	public String getTitle()
@@ -130,6 +126,16 @@ public class Anuncio {
 	public String getDate()
 	{
 		return this.date;
+	}
+	
+	public int getValoracionMedia()
+	{
+		return this.valoracionMedia;
+	}
+	
+	public void updateValoracionMedia()
+	{
+		this.valoracionMedia = this.valoracion/this.numValoraciones;
 	}
 	/*
 	public List<Image> getImages()

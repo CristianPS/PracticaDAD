@@ -25,44 +25,18 @@
 	  	<section class="columns">
 	
 			<div class="column">
+			{{#mejoresAnuncios}}
 				<img class="oferta" style="height:20%" src="https://s4.eestatic.com/2017/12/15/ciencia/Alimentacion-Nutricion-Alcohol-Vino-Ciencia_269735512_57791988_1024x576.jpg" />
-				<p class="bold">Bar Pachamama</p>
-				<p>2x1 en copas</p>
-				<p>Mostoles (Madrid)</p>
-				<form action="http://facebook.com">
+				<p class="bold">{{local.entName}}</p>
+				<p>{{title}}</p>
+				<p>{{local.city}}</p>
+				<p>Valoración Media: {{valoracionMedia}}
+				<form action="/mostrarAnuncio?title={{title}}" method="post">
 					<button class="btn-blue">Acceder</button>
 				</form>
+			{{/mejoresAnuncios}}
 			</div>
-			
-			<div class="column">
-				<img class="oferta" style="height:20%" src="https://media-cdn.tripadvisor.com/media/photo-s/07/05/bc/c8/fabrik.jpg" />
-				<p class="bold">Fabrik</p>
-				<p>Entrada - 10 Euros</p>
-				<p>Humanes de Madrid (Madrid)</p>
-				<form action="http://facebook.com">
-					<button class="btn-blue">Acceder</button>
-				</form>
-			</div>
-		  
-		  	<div class="column">
-				<img class="oferta" style="height:20%" src="https://pbs.twimg.com/profile_images/570149038122803200/vGDCY6dD.jpeg" />
-				<p class="bold">Teatro Kapital</p>
-				<p>Entrada + 1 copa - 9 Euros</p>
-				<p>Madrid</p>
-				<form action="http://facebook.com">
-					<button class="btn-blue">Acceder</button>
-				</form>
-			</div>
-			
-			<div class="column">
-				<img class="oferta" style="height:20%" src="http://2.bp.blogspot.com/-mM60u7QxECU/VDPrY-zybAI/AAAAAAAAAGg/S7nOydoLtlE/s1600/teteria-y-restaurante.jpg" />
-				<p class="bold">Cocteleria Anubis</p>
-				<p>Cachimba premium - 11 Euros</p>
-				<p>C.C.Xanadu (Arroyomolinos, Madrid)</p>
-				<form action="http://facebook.com">
-					<button class="btn-blue">Acceder</button>
-				</form>
-			</div>
+					
 			
 		</section>
 	

@@ -1,7 +1,8 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
 import java.awt.Image;
-
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,12 +55,28 @@ public class UserController {
 		a2.setDescription("XXX");
 		a2.setLocal(c2);
 		a2.setDate("02/08/1998");
+		
+		Anuncio a3 = new Anuncio();
+		a3.setTitle("CopaGratis-Resto3€");
+		a3.setDescription("XXX");
+		a3.setLocal(c1);
+		a3.setDate("05/11/2019");
+		
+		Anuncio a4 = new Anuncio();
+		a4.setTitle("Copas5€");
+		a4.setDescription("XXX");
+		a4.setLocal(c2);
+		a4.setDate("03/03/2019");
 
 		anuncioRepository.save(a1);
 		anuncioRepository.save(a2);
+		anuncioRepository.save(a3);
+		anuncioRepository.save(a4);
 
 		c1.getAnuncios().add(a1);
+		c1.getAnuncios().add(a3);
 		c2.getAnuncios().add(a2);
+		c2.getAnuncios().add(a4);
 
 	}*/
 
@@ -96,6 +114,20 @@ public class UserController {
 		return aux;
 	}
 
+	
+	@RequestMapping("/")
+	public String index(Model model)
+	{
+		List<Anuncio> anuncios = anuncioRepository.findAll();
+		
+		
+		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
+		anuncios.sort(a);		
+		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 4);		
+		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
+		
+		return "index";
+	}
 	@RequestMapping("/añadirComentario")
 	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment)
 	{
@@ -226,6 +258,14 @@ public class UserController {
 		model.addAttribute("username", name);
 
 		usuarioActual = name;
+		List<Anuncio> anuncios = anuncioRepository.findAll();
+		
+		
+		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
+		anuncios.sort(a);		
+		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 4);		
+		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
+		
 		return "inicioConUsuario";
 	}
 
@@ -446,6 +486,7 @@ public class UserController {
 		a = new Anuncio(title,descrip, c, date);		
 		a.setValoracion(valoracion + val);
 		a.setNumValoraciones(1 + numVal);
+		a.updateValoracionMedia();
 		
 		anuncioRepository.save(a);
 		
