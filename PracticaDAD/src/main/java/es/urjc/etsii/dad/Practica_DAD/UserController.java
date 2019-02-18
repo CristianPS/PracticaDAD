@@ -125,9 +125,14 @@ public class UserController {
 	@RequestMapping("/eliminarComentario")
 	public String eliminarComentario(Model model, @RequestParam String title, @RequestParam String comment )
 	{
-		//Anuncio a = anuncioRepository.getByTitle(title);
+		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = comentarioRepository.getByComment(comment);
-		comentarioRepository.delete(c);
+		
+		if(usuarioActual.equals(c.getUser().getUsername()))
+		{
+			a.getComments().remove(c);
+			comentarioRepository.delete(c);
+		}
 		
 		return mostrarAnuncio(model, title);
 	}
