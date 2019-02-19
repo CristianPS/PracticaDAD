@@ -24,8 +24,9 @@
 		
 	  	<section class="columns">
 	
-			<div class="column">
+			
 			{{#mejoresAnuncios}}
+			<div class="column">
 				<img class="oferta" style="height:20%" src="http://placehold.it/400x250/000/fff" />
 				<p class="bold">{{local.entName}}</p>
 				<p>{{title}}</p>
@@ -34,8 +35,9 @@
 				<form action="/mostrarAnuncio?title={{title}}" method="post">
 					<button class="btn-blue">Acceder</button>
 				</form>
-			{{/mejoresAnuncios}}
 			</div>
+			{{/mejoresAnuncios}}
+			
 					
 			
 		</section>
