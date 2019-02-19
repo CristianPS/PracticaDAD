@@ -11,4 +11,6 @@ public interface ComentarioRepository extends JpaRepository<Comentario, Long>{
 	Comentario getByAnuncio(Anuncio anuncio);
 	
 	Comentario getByComment(String comment);
+	
+	
 }

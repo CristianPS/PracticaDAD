@@ -9,6 +9,9 @@ public interface ComercioRepository extends JpaRepository<Comercio, Long> {
 
 	Comercio getByOwner(Empresario empresario);
 	
+	Comercio getByEntName(String entName);
+	
+	
 	/*@Modifying @Transactional
 	@Query("update Comercio u set u.entName = ?1 where u.username = ?2")
 	void setEntNameByUsername(String entName, String username);

@@ -13,10 +13,12 @@
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 						
-			<li class="menuItem btn btn-1"><a href="/inicioComercio?name={{username}}">Mis ofertas</a></li>
-			<li class="menuItem btn btn-1"><a class="active" href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>
+			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
+			<!--  <li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>	-->
+			<li class="menuItem btn btn-1"><a href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
+			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Crear Comercio</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a  href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li>
 		</ul>
 	</nav>
 	
@@ -24,7 +26,7 @@
 	  	<div id="form-div">
 	  
 	  		<h3 style="color:#3498db">Crear Nueva Oferta</h3>
-	    	<form action="/crearOferta?username={{username}}" class="form" id="form" method="post">
+	    	<form action="/crearOferta?entName={{entName}}&username={{username}}" class="form" id="form" method="post">
 	      
 	      	<p class="name">
 	        	<input name="title" type="text" class="feedback-input" placeholder="Nombre de Oferta y Precio" id="title" />

@@ -176,12 +176,12 @@ public class UserController {
 		
 		return mostrarAnuncio(model, title);
 	}
-	/*@RequestMapping("/crearOferta")
-	public String crearOferta(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String username, @RequestParam String date)
+	@RequestMapping("/crearOferta")
+	public String crearOferta(Model model, @RequestParam String title, @RequestParam String entName, @RequestParam String description, @RequestParam String username, @RequestParam String date)
 	{
 		String aux = convertirFecha(date);
 		
-		Comercio c = comercioRepository.getByUsername(username);
+		Comercio c = comercioRepository.getByEntName(entName);
 		Anuncio a = new Anuncio(title, description, c, aux);
 		
 		anuncioRepository.save(a);
@@ -190,7 +190,7 @@ public class UserController {
 		
 		return inicioEmpresario(model, username);
 			
-	}*/
+	}
 	
 	@RequestMapping("/crearComercio")
 	public String crearComercio(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String city, @RequestParam String address, @RequestParam String email, @RequestParam String telephone)
@@ -412,6 +412,23 @@ public class UserController {
 		return "misComercios";
 	}
 
+	@RequestMapping("/mostrarComercio")
+	public String mostrarComercio(Model model, @RequestParam String entName)
+	{
+		Comercio c = comercioRepository.getByEntName(entName);
+		
+		model.addAttribute("entName", c.getEntName());
+		model.addAttribute("owner", c.getOwner());
+		model.addAttribute("city", c.getCity());
+		model.addAttribute("email", c.getEmail());
+		model.addAttribute("address", c.getAddress());
+		model.addAttribute("telephone", c.getTelephone());
+		model.addAttribute("username", c.getOwner().getUsername());
+		
+		return "comercioParticular";
+		
+	}
+	
 	@RequestMapping("/mostrarAnuncio")
 	public String mostrarAnuncio(Model model, @RequestParam String title)
 	{
@@ -445,7 +462,7 @@ public class UserController {
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		model.addAttribute("username", comercioActual);
+		model.addAttribute("username", empresarioActual);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
@@ -475,7 +492,7 @@ public class UserController {
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		model.addAttribute("username", comercioActual);
+		model.addAttribute("username", empresarioActual);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", description);
@@ -545,9 +562,10 @@ public class UserController {
 
 
 	@RequestMapping("/nuevaOferta")
-	public String nuevaOferta(Model model, @RequestParam String name)
+	public String nuevaOferta(Model model, @RequestParam String entName)
 	{
-		model.addAttribute("username", name);
+		model.addAttribute("entName", entName);
+		model.addAttribute("username", empresarioActual);
 		return "nuevaOferta";
 	}
 	
