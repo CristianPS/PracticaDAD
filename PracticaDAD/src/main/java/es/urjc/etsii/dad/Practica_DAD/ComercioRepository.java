@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;;
 
 public interface ComercioRepository extends JpaRepository<Comercio, Long> {
 
-	Comercio getByUsername(String username);
+	Comercio getByOwner(Empresario empresario);
 	
-	@Modifying @Transactional
+	/*@Modifying @Transactional
 	@Query("update Comercio u set u.entName = ?1 where u.username = ?2")
 	void setEntNameByUsername(String entName, String username);
 	
@@ -31,5 +31,5 @@ public interface ComercioRepository extends JpaRepository<Comercio, Long> {
 
 	@Modifying @Transactional
 	@Query("update Comercio u set u.password = ?1 where u.username = ?2")
-	void setPasswordByUsername(String password, String username);
+	void setPasswordByUsername(String password, String username);*/
 }

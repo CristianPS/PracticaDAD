@@ -28,7 +28,7 @@ function iniciar()
 		}
 		else if(document.getElementById("empresa").checked == true)
 		{
-			document.getElementById("form").action = "/inicioComercio";
+			document.getElementById("form").action = "/inicioEmpresario";
 			document.getElementById("form").method = "post";
 		}
 	}

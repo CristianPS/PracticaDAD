@@ -28,10 +28,13 @@ public class UserController {
 	private ComercioRepository comercioRepository;
 	@Autowired
 	private ComentarioRepository comentarioRepository;
+	@Autowired
+	private EmpresarioRepository empresarioRepository;
 	
 	private String usuarioActual;
 	private String comercioActual;
 	private String anuncioActual;
+	private String empresarioActual;
 
 	/*@PostConstruct
 	public void init()
@@ -39,8 +42,12 @@ public class UserController {
 		userRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
 		userRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
 
-		comercioRepository.save(new Comercio("CarlosGil","comercio","Fabrik","Madrid","C/AlcaldeMostoles,5","c.gilsab@alumnos.urjc.es","918170864"));
-		comercioRepository.save(new Comercio("JorgePRG","comercio","Anubis","Arroyomolinos","CC.Xanadu","j.prietogo@alumnos.urjc.es","918146753"));
+		Empresario e1 = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre");
+		
+		empresarioRepository.save(e1);
+		
+		comercioRepository.save(new Comercio("Fabrik","Madrid","C/AlcaldeMostoles,5","fabrik@hotmail.es","918170864", e1));
+		comercioRepository.save(new Comercio("Anubis","Arroyomolinos","CC.Xanadu","anubis@hotmail.es","918146753", e1));
 
 		Comercio c1 = comercioRepository.getByUsername("CarlosGil");
 		Comercio c2 = comercioRepository.getByUsername("JorgePRG");
@@ -169,7 +176,7 @@ public class UserController {
 		
 		return mostrarAnuncio(model, title);
 	}
-	@RequestMapping("/crearOferta")
+	/*@RequestMapping("/crearOferta")
 	public String crearOferta(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String username, @RequestParam String date)
 	{
 		String aux = convertirFecha(date);
@@ -179,8 +186,22 @@ public class UserController {
 		
 		anuncioRepository.save(a);
 		
-		return inicioComercio(model, username);
+		//return inicioComercio(model, username);
+		
+		return inicioEmpresario(model, username);
 			
+	}*/
+	
+	@RequestMapping("/crearComercio")
+	public String crearComercio(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String city, @RequestParam String address, @RequestParam String email, @RequestParam String telephone)
+	{
+		Empresario e = empresarioRepository.getByUsername(username);
+		Comercio c = new Comercio(name, city, address, email, telephone, e);
+		
+		e.getComercios().add(c);
+		comercioRepository.save(c);
+		
+		return inicioEmpresario(model, username);
 	}
 	
 	@RequestMapping("/eliminar")
@@ -199,7 +220,9 @@ public class UserController {
 		
 		model.addAttribute("username" ,comercioActual);
 		
-		return inicioComercio(model,comercioActual);
+		//return inicioComercio(model,comercioActual);
+		
+		return inicioEmpresario(model, empresarioActual);
 	}
 	
 	@RequestMapping("/guardar")
@@ -246,7 +269,7 @@ public class UserController {
 		return mostrarAnuncioPropio2(model, title, description, date);
 	}
 	
-	@RequestMapping("/guardarComercio")
+	/*@RequestMapping("/guardarComercio")
 	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String address,
 			@RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, 
 			@RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
@@ -274,7 +297,7 @@ public class UserController {
 
 		//return inicioComercio(model, username);
 		return mostrarPerfilComercio(model,username);
-	}
+	}*/
 	
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
@@ -293,7 +316,7 @@ public class UserController {
 		return "inicioConUsuario";
 	}
 
-	@RequestMapping("/inicioComercio")
+	/*@RequestMapping("/inicioComercio")
 	public String inicioComercio(Model model, @RequestParam String name) {
 
 		Comercio c = comercioRepository.getByUsername(name);
@@ -304,10 +327,35 @@ public class UserController {
 
 		model.addAttribute("username", name);
 		
-		
 		comercioActual = name;
 		
 		System.out.println(comercioActual);
+
+		return "misOfertas";
+	}*/
+	
+	@RequestMapping("/inicioEmpresario")
+	public String inicioEmpresario(Model model, @RequestParam String name) {
+		
+		Empresario e = empresarioRepository.getByUsername(name);
+		
+		List<Comercio> comercios = e.getComercios();
+		
+		List<Anuncio> anuncios = new LinkedList<>();
+		
+		for(Comercio c : comercios)
+		{
+			if(c.getAnuncios() != null)
+				anuncios.addAll(c.getAnuncios());
+		}
+		
+		model.addAttribute("anuncios", anuncios);
+		
+		model.addAttribute("username", name);
+		
+		empresarioActual = name;
+		
+		System.out.println(empresarioActual);
 
 		return "misOfertas";
 	}
@@ -329,7 +377,7 @@ public class UserController {
 		return "perfil_usuario";
 	}
 	
-	@RequestMapping("/mostrarPerfilComercio")
+	/*@RequestMapping("/mostrarPerfilComercio")
 	public String mostrarPerfilComercio(Model model, @RequestParam String username)
 	{
 		Comercio c = comercioRepository.getByUsername(username);
@@ -343,7 +391,7 @@ public class UserController {
 		model.addAttribute("telephone", c.getTelephone());
 
 		return "perfil_empresa";
-	}
+	}*/
 
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model, @RequestParam String username)
@@ -352,6 +400,16 @@ public class UserController {
 		model.addAttribute("anuncios", anuncios);
 		model.addAttribute("username", username);
 		return "ofertas";
+	}
+	
+	@RequestMapping("/mostrarComercios")
+	public String mostrarComercios(Model model, @RequestParam String name)
+	{
+		Empresario e = empresarioRepository.getByUsername(name);
+		List<Comercio> comercios = e.getComercios();
+		model.addAttribute("username", name);
+		model.addAttribute("comercios", comercios);
+		return "misComercios";
 	}
 
 	@RequestMapping("/mostrarAnuncio")
@@ -493,6 +551,13 @@ public class UserController {
 		return "nuevaOferta";
 	}
 	
+	@RequestMapping("/nuevoComercio")
+	public String nuevoComercio(Model model, @RequestParam String username)
+	{
+		model.addAttribute("username", username);
+		return "nuevoComercio";
+	}
+	
 	@RequestMapping("/registroUsuario")
 	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password) {
 	
@@ -504,14 +569,16 @@ public class UserController {
 	
 		userRepository.save(u);
 	
-		model.addAttribute("username", username);
+		//model.addAttribute("username", username);
 		
 		usuarioActual = username;
 	
-		return "inicioConUsuario";
+		//return "inicioConUsuario";
+		
+		return inicioUsuario(model, username);
 	}
 	
-	@RequestMapping("/registroComercio")
+	/*@RequestMapping("/registroComercio")
 	public String registroComercio(Model model, @RequestParam String username, @RequestParam String nameEmpresa, @RequestParam String dir, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String password) {
 	
 		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
@@ -524,6 +591,31 @@ public class UserController {
 		model.addAttribute("username", username);
 		
 		comercioActual = username;
+	
+		return "misOfertas";
+	}*/
+	
+	@RequestMapping("/registroEmpresario")
+	public String registroEmpresario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String dir, @RequestParam String password, @RequestParam String genero) {
+	
+		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
+		
+		
+		//Comercio c = new Comercio(username, password, nameEmpresa, city, dir, email, telefono);
+		
+		//comercioRepository.save(c);
+		
+		//model.addAttribute("username", username);
+		
+		//comercioActual = username;
+		
+		Empresario e = new Empresario(username, name, apellidos, password, city, dir, email, telefono, fecha, genero);
+		
+		empresarioRepository.save(e);
+		
+		model.addAttribute("username", username);
+		
+		empresarioActual = username;
 	
 		return "misOfertas";
 	}

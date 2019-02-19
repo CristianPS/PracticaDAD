@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="styles/GeneralStyle.css">
+<link rel="stylesheet" href="styles/nuevaOfertaStyle.css">
+<script src="../scripts/registroscript.js"></script>
+</head>
+
+<body>
+	<nav>
+		<ul class="menu">
+			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
+						
+			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
+			<li class="menuItem btn btn-1"><a class="active" href="/nuevoComercio?name={{username}}">Crear Comercio</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a  href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li>
+		</ul>
+	</nav>
+	
+	
+	  	<div id="form-div">
+	  
+	  		<h3 style="color:#3498db">Crear Nuevo Comercio</h3>
+	    	<form action="/crearComercio?username={{username}}" class="form" id="form" method="post">
+	      
+	      	<p class="name">
+	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre del Comercio" id="title" />
+	      	</p>
+	     
+	      	
+	      	<p class="city">
+				<input name="city" type="text" class="feedback-input" placeholder="Ciudad" id="city" />
+	      	</p>
+	      	
+	      	<p class="address">
+	        	<input name="address" type="text" class="feedback-input" placeholder="Direccion" id="address" />
+	      	</p>	      	
+	      	
+	      	<p class="email">
+	        	<input name="email" type="text" class="feedback-input" placeholder="Email" id="email" />
+	      	</p>	
+	      	
+	      	<p class="telephone">
+	        	<input name="telephone" type="number" class="feedback-input" placeholder="Telefono" id="email" />
+	      	</p>	
+	      	
+			 <!-- <p class="image">						
+		      	<form>
+				 	Selecciona una imagen <input type="file" name="img">
+				</form>
+			</p> -->
+	      
+	      	<div class="submit">
+	        	<input type="submit" value="TERMINAR" class="btn-blue" style="width: 100%; margin-left:0;"/>
+	        	<div class="ease"></div>
+	      	</div>
+	      
+	    	</form>
+	  	</div>
+</body>
+		<footer>
+  				<div class="copyright">
+    				&copy; Fiesta Paga-Na  - 2019 - Jose Ignacio Diaz, Carlos Gil y Cristian Posada
+  				</div>
+  				<img class="logoDown"src="images/cocktail.png" style="float:right"/>
+		</footer>
+</html>

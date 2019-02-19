@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <link rel="stylesheet" href="styles/ofertaparticularstyle.css">
@@ -9,50 +9,45 @@
 
 <script src="../scripts/misOfertasScript.js"></script>
 </head>
+
 <body>
 	<nav>
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 						
-			<li class="menuItem btn btn-1"><a class="active" href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
 			<!--  <li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>	-->
-			<li class="menuItem btn btn-1"><a href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
+			<li class="menuItem btn btn-1"><a class="active" href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
 			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Crear Comercio</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesion</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li> <!-- TO DO -->
 		</ul>
 	</nav>
 	
-	<h1 class="misOfertas"><b style="color:#3498db">Mis ofertas</b></h1>
+	<h1 class="misOfertas"><b style="color:#3498db">Mis comercios</b></h1>
 			
 	<div class="container">	
     	<div id="products" style="margin-top:3%">   
-    	{{#anuncios}}       
+    	{{#comercios}}       
             <div id="item" class="itemList">
 	            <div class="thumbnail">
+	                <img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
 	                
-	                <h1 class="title" style="color:#3498db">{{title}}</h1>
-	                <h4 class="rest">{{local.entName}}</h4>
-	   				<h4 class="rest">{{local.city}}</h4>
-	   				<h4 class="rest">Hasta el {{date}}</h4>
+		                <h1 class="title" style="color:#3498db">{{entName}}</h1>
+		                <h4 class="rest">{{city}}</h4>
+		   				<h4 class="rest">{{address}}</h4>
+		   				<h4 class="rest">{{email}}</h4>
+		   				<h4 class="rest">{{telephone}}</h4>
 	   				
 	            </div>
-	            <form class="form-btn-esp" action="/mostrarComercioPropio?title={{title}}" method="post" id="form">
+	            <form class="form-btn-esp" id="form">
 	   				<input class="btn-blue-esp" type="submit" value="ACCEDER" >
 	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
 	   			</form>
 	   		</div>				
-      	{{/anuncios}}
+      	{{/comercios}}
+
 		</div>
-		
-		<div id="statistics" class="modal">
-					<div class="statistics-content">
-						<div class="statistics-header">
-							<span class="close" onClick="closeStatistics()">&times;</span>
-							<h2>Estadisticas</h2>				
-						</div>
-					</div>  
-				</div>
 	</div>	
 </body>
 	<footer>

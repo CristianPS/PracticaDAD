@@ -54,14 +54,14 @@ function terminar()
 	}
 }
 function empresa() {
-	document.getElementById("name").classList.add("disappear");
-	document.getElementById("apellidos").classList.add("disappear");
-	document.getElementById("fecha").classList.add("disappear");
-	document.getElementById("fechaTitulo").classList.add("disappear");
-	document.getElementById("genero").classList.add("disappear");
-	document.getElementById("generoTitulo").classList.add("disappear");
-	document.getElementById("fecha").classList.add("disappear");
-	document.getElementById("nameEmpresa").classList.remove("disappear");
+	//document.getElementById("name").classList.add("disappear");
+	//document.getElementById("apellidos").classList.add("disappear");
+	//document.getElementById("fecha").classList.add("disappear");
+	//document.getElementById("fechaTitulo").classList.add("disappear");
+	//document.getElementById("genero").classList.add("disappear");
+	//document.getElementById("generoTitulo").classList.add("disappear");
+	//document.getElementById("fecha").classList.add("disappear");
+	//document.getElementById("nameEmpresa").classList.remove("disappear");
 	document.getElementById("dir").classList.remove("disappear");
 	document.getElementById("telefono").classList.remove("disappear");
 }
@@ -97,17 +97,28 @@ function registrar()
 		}
 		else if(document.getElementById("empresa").checked == true)
 		{
-			if(document.getElementById("password").value == "" || document.getElementById("confirmpassword").value == "" ||
+			/*if(document.getElementById("password").value == "" || document.getElementById("confirmpassword").value == "" ||
 					document.getElementById("username").value == "" || document.getElementById("nameEmpresa").value == "" || 
 					document.getElementById("dir").value == "" || document.getElementById("email").value == "" || 
 					document.getElementById("telefono").value == "" || document.getElementById("city").value == "" )
 			{
 				alert("Debes rellenar todos los campos para poder registrarte");
+			}*/
+			
+			if(document.getElementById("password").value == "" || document.getElementById("confirmpassword").value == "" ||
+					document.getElementById("username").value == "" || document.getElementById("genero").value == "" || 
+					document.getElementById("dir").value == "" || document.getElementById("email").value == "" || 
+					document.getElementById("telefono").value == "" || document.getElementById("city").value == "" ||
+					document.getElementById("name").value == "" || document.getElementById("apellidos").value == "" ||
+					document.getElementById("fecha").value == "")
+			{
+				alert("Debes rellenar todos los campos para poder registrarte");
 			}
 			else
 			{
-			document.getElementById("form").action = "/registroComercio";
-			document.getElementById("form").method = "post";
+				//document.getElementById("form").action = "/registroComercio";
+				document.getElementById("form").action = "/registroEmpresario";
+				document.getElementById("form").method = "post";
 			}
 		}
 	
