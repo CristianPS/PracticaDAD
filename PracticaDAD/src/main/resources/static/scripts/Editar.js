@@ -29,6 +29,22 @@ function editarEmpresa() {
 	document.getElementById("ciudad").disabled = false;
 	document.getElementById("correo").disabled = false;
 }
+function editarEmpresario() {
+	document.getElementById("pass").classList.remove("invisible");
+	document.getElementById("newPass").classList.remove("invisible");
+	document.getElementById("confPass").classList.remove("invisible");
+	document.getElementById("texto").classList.remove("invisible");
+	document.getElementById("editar").classList.add("disappear");
+	document.getElementById("guardar").classList.remove("disappear");
+	document.getElementById('nombre').disabled = false;
+	document.getElementById('apellidos').disabled = false;
+	document.getElementById('gender').disabled = false;
+	document.getElementById('ciudad').disabled = false;
+	document.getElementById('fecha').disabled = false;
+	document.getElementById('correo').disabled = false;
+	document.getElementById('direccion').disabled = false;	
+	document.getElementById('telefono').disabled = false;
+}
 function editarOferta() {
 	document.getElementById("title").classList.remove("disappear");
 	document.getElementById("date").classList.remove("disappear");
