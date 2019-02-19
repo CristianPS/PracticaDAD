@@ -34,3 +34,40 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
    Jose Ignacio Díaz Errejón
   * ji.diaze@alumnos.urjc.es
   * https://github.com/sito22
+
+ ## Screenshots
+ * Index
+![Index](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/index.png)
+
+ * Login
+![Login](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/login.png)
+
+ * Registro de Usuario
+![Registro de Usuario](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/registro.png)
+
+ * Registro de Empresa
+![Registro de Empresa](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/registroEmpresa.png)
+
+ * Index Usuario
+![Index Usuario](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/indexUsuario.png)
+
+ * Ofertas
+![Ofertas](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/ofertas.png)
+
+ * Oferta Particular
+![Oferta Particular](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/ofertaParticular.png)
+
+ * Perfil Usuario
+![Perfil Usuario](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/perfilUsuario.png)
+
+ * Mis Ofertas (Index Empresa)
+![Mis Ofertas](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/misOfertas.png)
+
+ * Crear Oferta
+![Crear Oferta](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/crearOferta.png)
+
+ * Oferta Particular Empresa
+![Oferta Particular Empresa](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/ofertaEmpresa.png)
+
+ * Perfil Empresa
+![Perfil Empresa](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/perfilEmpresa.png)
