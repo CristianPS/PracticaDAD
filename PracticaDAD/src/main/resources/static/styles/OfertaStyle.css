@@ -38,7 +38,7 @@ img.image-list{
 }
 .thumbnail
 {
-	width: 50%;
+	width: 100%;
     margin-bottom: 20px;
     padding: 0px;
     -webkit-border-radius: 7px;
@@ -138,10 +138,7 @@ img.image-list{
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
-  	margin-top: 7%;
-  	margin-bottom: 7%;
-  	margin-left: 9%;
-  	margin-right: 9%;
+	width:100%;
   	font-weight:700;
 }
 
@@ -149,11 +146,12 @@ img.image-list{
 	background-color: rgba(0,0,0,0);
 	color: #3498db;
 }
-
+ .form-btn-esp {
+ 	float:right;
+ 	width: auto;
+ 
+ }
 .title{
 	    font-size: -webkit-xxx-large;
-	    margin-inline-start: 70%;
-}
-.rest{
-	margin-inline-start: 70%;
+
 }
