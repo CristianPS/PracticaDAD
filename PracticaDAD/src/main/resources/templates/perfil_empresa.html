@@ -15,19 +15,20 @@
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 						
-			<li class="menuItem btn btn-1"><a href="/inicioComercio?name={{username}}">Mis ofertas</a></li>
-			<li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>
+			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
+			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Crear Comercio</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li>
 		</ul>
 	</nav>
 	
-	<form action="/guardarComercio?username={{username}}" method="post">
+	<form action="/guardarComercio?username={{username}}&entName={{entName}}" method="post">
 	
 	<div class="row"> 
 	    <div class="izqda">
-		  <h1>{{username}}</h1>
-		</div>
+		  <h1>{{entName}}</h1>
+		</div> 
 		<div class="dcha">
 		  <span id="editar" class="btn-blue" style="width:20%; float:right;text-align: center;" onclick="editarEmpresa()">Editar</span>
 		</div>
@@ -35,53 +36,25 @@
 	
 	  <div class="row"> 
 	    <div class="izqda">
-		  <p style="color:#3498db">Nombre:</p>
-		  <textarea rows="1" cols="30" id="nombre" name="nombre" disabled>{{nombre}}</textarea>
+		  <p style="color:#3498db">Ciudad:</p>
+		  <textarea rows="1" cols="30" id="ciudad" name="ciudad" disabled>{{city}}</textarea>
 		</div>
 		<div class="dcha">
-		  <p style="color:#3498db">Dirección:</p>
+		  <p style="color:#3498db">Direccion:</p>
 		  <textarea rows="1" cols="30" id="direccion" name="address" disabled>{{address}}</textarea>
 		</div>
 	  </div>
 	  
 	  <div class="row"> 
 	    <div class="izqda">
-		  <p style="color:#3498db">Correo electrónico:</p>
-		  <textarea rows="1" cols="30" id="correo" name="correo" disabled>{{correo}}</textarea>
+		  <p style="color:#3498db">Correo electronico:</p>
+		  <textarea rows="1" cols="30" id="correo" name="correo" disabled>{{email}}</textarea>
 		</div>
 		<div class="dcha">
-		  <p style="color:#3498db">Teléfono:</p>
+		  <p style="color:#3498db">Telefono:</p>
 		   <textarea rows="1" cols="30" id="telephone" name="telephone" disabled>{{telephone}}</textarea>
 		</div>
 	  </div>
-	  
-	  <div class="row"> 
-	    <div class="izqda">
-		  <p style="color:#3498db">Ciudad:</p>
-		  <textarea rows="1" cols="30" id="ciudad" name="ciudad" disabled>{{ciudad}}</textarea>
-		</div>
-	  </div>
-	  <h4 id="texto" class="disappear" style="color:#3498db;margin-top: 3%;">¿Deseas cambiar tu contraseña?</h4>
-	  <div class="row">
-	    <div id="pass" class="izqda disappear">
-		    <p style="color:#3498db">Contraseña antigua:</p>
-			<input type="password" id="password" name="password" />
-			<img class="ojo" onclick="showPassword()" src="images/ojo.png" />
-		</div>
-		<div id="newPass" class="dcha disappear">
-		    <p style="color:#3498db">Contraseña nueva:</p>
-			<input type="password" id="newpassword" name="passwordNew"/>
-			<img class="ojo" onclick="showNewPassword()" src="images/ojo.png"  />
-		</div>
-	  </div>
-	  <div class="row">
-		<div id="confPass" class="dcha disappear">
-		    <p style="color:#3498db">Confirmar nueva contraseña:</p>
-			<input type="password" id="confirmpassword" name="confirmPassword"/>
-			<img class="ojo" onclick="showConfirmedPassword()" src="images/ojo.png"  />
-		</div>
-	 </div>
-
 	
 	<button id="guardar" class="guardar disappear" type=submit>Guardar</button>
 	</form>

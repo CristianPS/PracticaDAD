@@ -14,44 +14,44 @@
 	<nav>
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
-						
+
 			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
 			<!--  <li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>	-->
 			<li class="menuItem btn btn-1"><a class="active" href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
 			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Crear Comercio</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesion</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfilComercio?username={{username}}">{{username}}</a></li> <!-- TO DO -->
+			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfilEmpresario?username={{username}}">{{username}}</a></li> <!-- TO DO -->
 		</ul>
 	</nav>
-	
+
 	<h1 class="misOfertas"><b style="color:#3498db">Mis comercios</b></h1>
-			
-	<div class="container">	
-    	<div id="products" style="margin-top:3%">   
-    	{{#comercios}}       
+
+	<div class="container">
+    	<div id="products" style="margin-top:3%">
+    	{{#comercios}}
             <div id="item" class="itemList">
 	            <div class="thumbnail">
 	                <img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
-	                
+
 		                <h1 class="title" style="color:#3498db">Comercio:		{{entName}}</h1>
 		                <h4 class="rest">Ciudad:		{{city}}</h4>
-		   				<h4 class="rest">Dirección:		{{address}}</h4>
+		   				<h4 class="rest">Direcciï¿½n:		{{address}}</h4>
 		   				<h4 class="rest">E-mail:		{{email}}</h4>
-		   				<h4 class="rest">Teléfono:		{{telephone}}</h4>
-	   				
+		   				<h4 class="rest">Telï¿½fono:		{{telephone}}</h4>
+
 	            </div>
-	            <form class="form-btn-esp" id="form" action="/mostrarComercio?entName={{entName}}" method="post">
+	            <form class="form-btn-esp" id="form" action="/mostrarPerfilComercio?entName={{entName}}" method="post">
 	   				<input class="btn-blue-esp" type="submit" value="ACCEDER" >
 	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
 	   			</form>
-	   			
-	   			
-	   			
-	   		</div>				
+
+
+
+	   		</div>
       	{{/comercios}}
 
 		</div>
-	</div>	
+	</div>
 </body>
 	<footer>
   		<div class="copyright">

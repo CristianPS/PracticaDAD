@@ -269,36 +269,46 @@ public class UserController {
 		return mostrarAnuncioPropio2(model, title, description, date);
 	}
 	
-	/*@RequestMapping("/guardarComercio")
-	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String address,
-			@RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, 
-			@RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
+	@RequestMapping("/guardarComercio")
+	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone)
 	{
-		comercioRepository.setAddressByUsername(address, username);
+		/*comercioRepository.setAddressByUsername(address, username);
 		comercioRepository.setCityByUsername(ciudad, username);
 		comercioRepository.setEmailByUsername(correo, username);
 		comercioRepository.setEntNameByUsername(nombre, username);
-		comercioRepository.setTelephoneByUsername(telephone, username);
-
-		Comercio u = comercioRepository.getByUsername(username);
+		comercioRepository.setTelephoneByUsername(telephone, username);*/
 		
-		if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword) && !(passwordNew.equals("")))
+		comercioRepository.setCityByEntName(ciudad, entName);
+		comercioRepository.setAddressByEntName(address, entName);
+		comercioRepository.setEmailByEntName(correo, entName);
+		comercioRepository.setTelephoneByEntName(telephone, entName);
+
+		//Comercio u = comercioRepository.getByUsername(username);
+		
+		Comercio c = comercioRepository.getByEntName(entName);
+		
+		/*if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword) && !(passwordNew.equals("")))
 		{
 			comercioRepository.setPasswordByUsername(passwordNew, username);
 			model.addAttribute("password",passwordNew);
-		}
+		}*/
 		
 		model.addAttribute("username", username);
-		model.addAttribute("nombre", u.getEntName());
-		model.addAttribute("address", u.getAddress());
-		model.addAttribute("ciudad", u.getCity());
-		model.addAttribute("correo", u.getEmail());
-		model.addAttribute("telephone", u.getTelephone());
+		model.addAttribute("entName", c.getEntName());
+		model.addAttribute("address", c.getAddress());
+		model.addAttribute("ciudad", c.getCity());
+		model.addAttribute("correo", c.getEmail());
+		model.addAttribute("telephone", c.getTelephone());
 
 		//return inicioComercio(model, username);
-		return mostrarPerfilComercio(model,username);
-	}*/
-	
+		return mostrarPerfilComercio(model/*,username*/,entName);
+	}
+	@RequestMapping("/guardarEmpresario")
+	public String guardarEmpresario(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone)
+	{
+		
+		return mostrarPerfilEmpresario(model/*,username*/,entName);
+	}
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
 
@@ -377,21 +387,39 @@ public class UserController {
 		return "perfil_usuario";
 	}
 	
-	/*@RequestMapping("/mostrarPerfilComercio")
-	public String mostrarPerfilComercio(Model model, @RequestParam String username)
+	@RequestMapping("/mostrarPerfilEmpresario")
+	public String mostrarPerfilEmpresario(Model model, @RequestParam String username)
 	{
-		Comercio c = comercioRepository.getByUsername(username);
+		Empresario u = empresarioRepository.getByUsername(username);
 
-		model.addAttribute("username", c.getUsername());
-		model.addAttribute("nombre", c.getEntName());
+		model.addAttribute("username", u.getUsername());
+		model.addAttribute("nombre", u.getName());
+		model.addAttribute("apellidos", u.getSurname());
+		model.addAttribute("correo", u.getEmail());
+		model.addAttribute("ciudad", u.getCity());
+		model.addAttribute("password", u.getPassword());
+		model.addAttribute("gender", u.getGender());
+		model.addAttribute("direccion",u.getAddress());
+		model.addAttribute("telefono",u.getTelephone());
+		model.addAttribute("fecha", u.getDate());
+
+		return "perfil_empresario";
+	}
+	@RequestMapping("/mostrarPerfilComercio")
+	public String mostrarPerfilComercio(Model model/*, @RequestParam String username*/, @RequestParam String entName)
+	{
+		//Comercio c = comercioRepository.getByUsername(username);
+		Comercio c = comercioRepository.getByEntName(entName);
+
+		model.addAttribute("username", empresarioActual);
+		model.addAttribute("entName", c.getEntName());
 		model.addAttribute("address", c.getAddress());
-		model.addAttribute("correo", c.getEmail());
-		model.addAttribute("ciudad", c.getCity());
-		model.addAttribute("password", c.getPassword());
+		model.addAttribute("email", c.getEmail());
+		model.addAttribute("city", c.getCity());
 		model.addAttribute("telephone", c.getTelephone());
 
 		return "perfil_empresa";
-	}*/
+	}
 
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model, @RequestParam String username)
