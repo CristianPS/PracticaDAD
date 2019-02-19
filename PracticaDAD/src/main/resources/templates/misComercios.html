@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <link rel="stylesheet" href="styles/ofertaparticularstyle.css">
@@ -18,7 +18,7 @@
 			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
 			<!--  <li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>	-->
 			<li class="menuItem btn btn-1"><a class="active" href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
-			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Crear Comercio</a></li>
+			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Añadir Comercio</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesion</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfilEmpresario?username={{username}}">{{username}}</a></li> <!-- TO DO -->
 		</ul>
@@ -35,9 +35,9 @@
 
 		                <h1 class="title" style="color:#3498db">Comercio:		{{entName}}</h1>
 		                <h4 class="rest">Ciudad:		{{city}}</h4>
-		   				<h4 class="rest">Direcci�n:		{{address}}</h4>
+		   				<h4 class="rest">Direcciï¿½n:		{{address}}</h4>
 		   				<h4 class="rest">E-mail:		{{email}}</h4>
-		   				<h4 class="rest">Tel�fono:		{{telephone}}</h4>
+		   				<h4 class="rest">Telï¿½fono:		{{telephone}}</h4>
 
 	            </div>
 	            <form class="form-btn-esp" id="form" action="/mostrarPerfilComercio?entName={{entName}}" method="post">

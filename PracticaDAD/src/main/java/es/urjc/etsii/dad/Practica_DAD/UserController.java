@@ -304,10 +304,21 @@ public class UserController {
 		return mostrarPerfilComercio(model/*,username*/,entName);
 	}
 	@RequestMapping("/guardarEmpresario")
-	public String guardarEmpresario(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone)
+	public String guardarEmpresario(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, 
+										@RequestParam String direccion, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telefono, 
+										@RequestParam String gender, @RequestParam String fecha)
 	{
+		empresarioRepository.setNameByUsername(nombre, username);
+		empresarioRepository.setSurnameByUsername(apellidos, username);
+		empresarioRepository.setAddressByUsername(direccion, username);
+		empresarioRepository.setEmailByUsername(correo, username);
+		empresarioRepository.setCityByUsername(ciudad, username);
+		empresarioRepository.setTelephoneByUsername(telefono, username);
+		empresarioRepository.setGenderByUsername(gender, username);
+		empresarioRepository.setDateByUsername(fecha, username);
 		
-		return mostrarPerfilEmpresario(model/*,username*/,entName);
+		
+		return mostrarPerfilEmpresario(model,username);
 	}
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
