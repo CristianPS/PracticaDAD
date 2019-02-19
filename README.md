@@ -38,6 +38,7 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
  ## Screenshots
  * Index
 ![Index](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/index.png)
+   En esta pestaña, cualquier usuario que no este loggeado podrá ver únicamente las mejores ofertas que se encuentran en la base de datos. Para poder verlas, deberá iniciar sesión como usuario cliente. Esto lo podrá hacer accediendo a cualquiera de las ofertas, haciendo click en el menú ofertas, o en el menú login.
 
  * Login
 ![Login](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/login.png)
