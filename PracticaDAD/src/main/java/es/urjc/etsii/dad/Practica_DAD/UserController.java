@@ -130,8 +130,21 @@ public class UserController {
 		
 		
 		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
-		anuncios.sort(a);		
-		List<Anuncio> mejoresAnuncios = anuncios.subList(0, 4);		
+		anuncios.sort(a);
+		
+		int numAnuncios = anuncios.size();
+		
+		List<Anuncio> mejoresAnuncios = new LinkedList<>();
+		
+		if(numAnuncios < 4)
+		{
+			mejoresAnuncios = anuncios.subList(0, numAnuncios);
+		}
+		else
+		{
+			mejoresAnuncios = anuncios.subList(0, 4);	
+		}
+		
 		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
 		
 		return "index";
@@ -143,22 +156,6 @@ public class UserController {
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = new Comentario(u, addComment, a);
 		comentarioRepository.save(c);
-		
-		
-		/*model.addAttribute("username", usuarioActual);
-
-		model.addAttribute("ent", a.getLocal().getEntName());
-		model.addAttribute("description", a.getDescription());
-		model.addAttribute("title",title);
-		model.addAttribute("city", a.getLocal().getCity());
-		model.addAttribute("address", a.getLocal().getAddress());
-		model.addAttribute("email", a.getLocal().getEmail());
-		model.addAttribute("telephone", a.getLocal().getTelephone());
-		
-		if(a.getNumValoraciones() != 0)
-			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
-		else
-			model.addAttribute("valoracion", a.getValoracion());*/
 		
 		return mostrarAnuncio(model, title);
 	}
@@ -185,8 +182,6 @@ public class UserController {
 		Anuncio a = new Anuncio(title, description, c, aux);
 		
 		anuncioRepository.save(a);
-		
-		//return inicioComercio(model, username);
 		
 		return inicioEmpresario(model, username);
 			
@@ -220,8 +215,6 @@ public class UserController {
 		
 		model.addAttribute("username" ,comercioActual);
 		
-		//return inicioComercio(model,comercioActual);
-		
 		return inicioEmpresario(model, empresarioActual);
 	}
 	
@@ -232,7 +225,6 @@ public class UserController {
 							@RequestParam String passwordNew, @RequestParam String confirmPassword)
 	{
 		Usuario u = userRepository.getByUsername(username);
-		//userRepository.delete(u);
 		
 		userRepository.setNameByUsername(nombre, username);
 		userRepository.setCityByUsername(ciudad, username);
@@ -249,8 +241,6 @@ public class UserController {
 			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
 				userRepository.setPasswordByUsername(passwordNew, username);
 		}
-
-		//userRepository.save(u);
 
 		model.addAttribute("username", username);
 
@@ -271,27 +261,13 @@ public class UserController {
 	
 	@RequestMapping("/guardarComercio")
 	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone)
-	{
-		/*comercioRepository.setAddressByUsername(address, username);
-		comercioRepository.setCityByUsername(ciudad, username);
-		comercioRepository.setEmailByUsername(correo, username);
-		comercioRepository.setEntNameByUsername(nombre, username);
-		comercioRepository.setTelephoneByUsername(telephone, username);*/
-		
+	{		
 		comercioRepository.setCityByEntName(ciudad, entName);
 		comercioRepository.setAddressByEntName(address, entName);
 		comercioRepository.setEmailByEntName(correo, entName);
 		comercioRepository.setTelephoneByEntName(telephone, entName);
-
-		//Comercio u = comercioRepository.getByUsername(username);
 		
 		Comercio c = comercioRepository.getByEntName(entName);
-		
-		/*if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword) && !(passwordNew.equals("")))
-		{
-			comercioRepository.setPasswordByUsername(passwordNew, username);
-			model.addAttribute("password",passwordNew);
-		}*/
 		
 		model.addAttribute("username", username);
 		model.addAttribute("entName", c.getEntName());
@@ -300,8 +276,7 @@ public class UserController {
 		model.addAttribute("correo", c.getEmail());
 		model.addAttribute("telephone", c.getTelephone());
 
-		//return inicioComercio(model, username);
-		return mostrarPerfilComercio(model/*,username*/,entName);
+		return mostrarPerfilComercio(model,entName);
 	}
 	@RequestMapping("/guardarEmpresario")
 	public String guardarEmpresario(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, 
@@ -336,24 +311,6 @@ public class UserController {
 		
 		return "inicioConUsuario";
 	}
-
-	/*@RequestMapping("/inicioComercio")
-	public String inicioComercio(Model model, @RequestParam String name) {
-
-		Comercio c = comercioRepository.getByUsername(name);
-
-		List<Anuncio> anuncios = c.getAnuncios();
-
-		model.addAttribute("anuncios", anuncios);
-
-		model.addAttribute("username", name);
-		
-		comercioActual = name;
-		
-		System.out.println(comercioActual);
-
-		return "misOfertas";
-	}*/
 	
 	@RequestMapping("/inicioEmpresario")
 	public String inicioEmpresario(Model model, @RequestParam String name) {
@@ -375,8 +332,6 @@ public class UserController {
 		model.addAttribute("username", name);
 		
 		empresarioActual = name;
-		
-		System.out.println(empresarioActual);
 
 		return "misOfertas";
 	}
@@ -417,9 +372,8 @@ public class UserController {
 		return "perfil_empresario";
 	}
 	@RequestMapping("/mostrarPerfilComercio")
-	public String mostrarPerfilComercio(Model model/*, @RequestParam String username*/, @RequestParam String entName)
+	public String mostrarPerfilComercio(Model model, @RequestParam String entName)
 	{
-		//Comercio c = comercioRepository.getByUsername(username);
 		Comercio c = comercioRepository.getByEntName(entName);
 
 		model.addAttribute("username", empresarioActual);
@@ -555,50 +509,6 @@ public class UserController {
 		
 		return "OfertaPropia";
 	}
-	/*@RequestMapping("/actualizarUsuario")
-	public String actualizarUsuario(Model model, @RequestParam String username, @RequestParam String nombre,
-									@RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad,
-									@RequestParam String fecha, @RequestParam String gender, @RequestParam String password, 
-									@RequestParam String passwordNew, @RequestParam String confirmPassword)
-	{
-		Usuario u = userRepository.getByUsername(username);
-		userRepository.setNameByUsername(nombre, username);
-		userRepository.setSurnameByUsername(apellidos, username);
-		userRepository.setEmailByUsername(correo, username);
-		userRepository.setCityByUsername(ciudad, username);
-		userRepository.setGenderByUsername(gender, username);
-		userRepository.setPasswordByUsername(password, username);
-		return "mostrarPerfil";
-	}*/
-	
-
-/*	@RequestMapping("/guardarEmpresa")
-	public String guardarEmpresa(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String direccion,
-			@RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, 
-			@RequestParam String password, @RequestParam String passwordNew, @RequestParam String confirmPassword)
-	{
-		Comercio u = comercioRepository.getByUsername(username);
-		comercioRepository.delete(u);
-
-		if(passwordNew.equals(""))
-		{
-			u = new Comercio(username, u.getPassword(),nombre, ciudad, direccion, correo, telephone);
-		}
-		else
-		{
-			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
-				u = new Comercio(username, passwordNew,nombre, ciudad, direccion, correo, telephone);
-		}
-
-		comercioRepository.save(u);
-
-		model.addAttribute("username", username);
-
-		return inicioComercio(model, username);
-	}
-	*/
-	
-
 
 	@RequestMapping("/nuevaOferta")
 	public String nuevaOferta(Model model, @RequestParam String entName)
@@ -625,46 +535,16 @@ public class UserController {
 		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email);
 	
 		userRepository.save(u);
-	
-		//model.addAttribute("username", username);
 		
 		usuarioActual = username;
-	
-		//return "inicioConUsuario";
 		
 		return inicioUsuario(model, username);
 	}
-	
-	/*@RequestMapping("/registroComercio")
-	public String registroComercio(Model model, @RequestParam String username, @RequestParam String nameEmpresa, @RequestParam String dir, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String password) {
-	
-		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
-		
-		
-		Comercio c = new Comercio(username, password, nameEmpresa, city, dir, email, telefono);
-		
-		comercioRepository.save(c);
-		
-		model.addAttribute("username", username);
-		
-		comercioActual = username;
-	
-		return "misOfertas";
-	}*/
 	
 	@RequestMapping("/registroEmpresario")
 	public String registroEmpresario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String dir, @RequestParam String password, @RequestParam String genero) {
 	
 		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
-		
-		
-		//Comercio c = new Comercio(username, password, nameEmpresa, city, dir, email, telefono);
-		
-		//comercioRepository.save(c);
-		
-		//model.addAttribute("username", username);
-		
-		//comercioActual = username;
 		
 		Empresario e = new Empresario(username, name, apellidos, password, city, dir, email, telefono, fecha, genero);
 		
