@@ -35,6 +35,14 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
   * ji.diaze@alumnos.urjc.es
   * https://github.com/sito22
 
+ ## Diagrama Modelo de Datos
+![UML](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/uml.png)
+
+ ## Diagrama Entidad Relación
+ ![Entidad Relación](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/modeloEntidadRelacion.JPG)
+ 
+ ## Diagrama de Navegación
+  ![Navegación](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/modeloEntidadRelacion.JPG)
  ## Screenshots
  * Index
 ![Index](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/index.png)
