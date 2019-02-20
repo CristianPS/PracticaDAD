@@ -65,9 +65,21 @@ En esta pestaña el usuario ya se ha loggeado y por tanto puede visualizar todas
 En esta pestaña el usuario ya se ha loggeado y está visualizando una oferta en particular de la base de datos. Cada oferta tiene una serie de campos, entre los cuales se encuentran valoracion y comentarios. Estos dos campos podrán ser modificados por los usuarios clientes, es decir, un cliente podrá añadir un comentario a la oferta y borrarlo, y valorar la oferta.
 
  * Perfil Usuario
-![Perfil Usuario](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/perfilUsuario.png)
+![Perfil Usuario](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/perfil.png)
 En esta pestaña el usuario ya se ha loggeado y está visualizando su perfil, en el cual encuentra todos los datos que ha introducido previamente en el registro. Algunos de estos datos son modificables y otros no. Si el usuario quiere editar algún campo editable, deberá hacer click en el botón "editar" y posteriormente editar dicho o dichos campos. Finalmente dando al botón "guardar" podrá guardar los cambios realizados, lo que quiere decir que se modificarán los datos en la base de datos.
 
+ * Mis Comercios
+ ![Mis Comercios](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/misComercios.png)
+En esta página se muestra al empresario sus comercios con la información de cada uno. Desde aquí podremos acceder a un comercio en particular, o añadir una oferta a ese comercio.
+
+ * Crear Comercio
+ ![Crear Comercio](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/crearComercio.png)
+ Esta página sirve al empresario para añadir un nuevo comercio dando los datos de este, y una vez ahí, poder usarlo como el resto.
+ 
+ * Comercio Particular
+ ![Comercio Particular](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/comercioParticular.png)
+ Desde aquí podemos ver la información de un comercio en particular, y editarla.
+ 
  * Mis Ofertas (Index Empresa)
 ![Mis Ofertas](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/misOfertas.png)
 En esta pestaña el empresario ya se ha loggeado y está visualizando todas las ofertas que ha subido a la base de datos. Pudiendo acceder a cada una de ellas mediante el botón acceder para poder visualizar los datos de la oferta y modificarla o borrarla.
