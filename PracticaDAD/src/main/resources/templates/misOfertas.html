@@ -17,7 +17,7 @@
 			<li class="menuItem btn btn-1"><a class="active" href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
 			<!--  <li class="menuItem btn btn-1"><a href="/nuevaOferta?name={{username}}">Crear Oferta</a></li>	-->
 			<li class="menuItem btn btn-1"><a href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
-			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Crear Comercio</a></li>
+			<li class="menuItem btn btn-1"><a href="/nuevoComercio?username={{username}}">Añadir Comercio</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfilEmpresario?username={{username}}">{{username}}</a></li> <!-- TO DO -->
 		</ul>
@@ -30,20 +30,17 @@
     	{{#anuncios}}
             <div id="item" class="itemList">
 	            <div class="thumbnail">
-
+					<img id="img" class="image-list" src="http://placehold.it/400x250/000/fff" alt="" />
 	                <h1 class="title" style="color:#3498db">{{title}}</h1>
-	                <h4 class="rest">Comercio:		{{local.entName}}</h4>
-	   				<h4 class="rest">Ciudad:		{{local.city}}</h4>
+	                <h4 class="rest">{{local.entName}}</h4>
+	   				<h4 class="rest">{{local.city}}</h4>
 	   				<h4 class="rest">Hasta el {{date}}</h4>
 
 	            </div>
-	            <form class="form-btn-esp" action="/mostrarPerfilComercio?entName={{local.entName}}" method="post" id="form">
+	            <form class="form-btn-esp" action="/mostrarAnuncioPropio?title={{title}}" method="post" id="form">
 	   				<input class="btn-blue-esp" type="submit" value="ACCEDER" >
    				</form>
-   				<form class="form-btn-esp" id="form" action="/nuevaOferta?entName={{local.entName}}" method="post">
-	   				<input class="btn-blue-esp" type="submit" value="NUEVA OFERTA" >
-	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
-	   			</form>
+   				
 	   		</div>
       	{{/anuncios}}
 		</div>
