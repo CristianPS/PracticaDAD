@@ -46,11 +46,11 @@ public class UserController {
 		
 		empresarioRepository.save(e1);
 		
-		comercioRepository.save(new Comercio("Fabrik","Madrid","C/AlcaldeMostoles,5","fabrik@hotmail.es","918170864", e1));
+		/*comercioRepository.save(new Comercio("Fabrik","Madrid","C/AlcaldeMostoles,5","fabrik@hotmail.es","918170864", e1));
 		comercioRepository.save(new Comercio("Anubis","Arroyomolinos","CC.Xanadu","anubis@hotmail.es","918146753", e1));
 
-		Comercio c1 = comercioRepository.getByUsername("CarlosGil");
-		Comercio c2 = comercioRepository.getByUsername("JorgePRG");
+		//Comercio c1 = comercioRepository.getByUsername("CarlosGil");
+		//Comercio c2 = comercioRepository.getByUsername("JorgePRG");
 
 		Anuncio a1 = new Anuncio();
 		a1.setTitle("Entrada-10Euros");
@@ -441,7 +441,35 @@ public class UserController {
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
 		else
-			model.addAttribute("valoracion", a.getValoracion());
+			model.addAttribute("valoracion", 0);
+		
+		List<Comentario> comentarios = a.getComments();
+		
+		model.addAttribute("comentarios", comentarios);
+
+		return "ofertaParticular"; 
+	}
+	
+	@RequestMapping("/mostrarAnuncio2")
+	public String mostrarAnuncio2(Model model, @RequestParam String title, @RequestParam int valoracionMedia)
+	{
+		Anuncio a = anuncioRepository.getByTitle(title);
+		
+		model.addAttribute("username", usuarioActual);
+
+		model.addAttribute("ent", a.getLocal().getEntName());
+		model.addAttribute("description", a.getDescription());
+		model.addAttribute("title",title);
+		model.addAttribute("city", a.getLocal().getCity());
+		model.addAttribute("address", a.getLocal().getAddress());
+		model.addAttribute("email", a.getLocal().getEmail());
+		model.addAttribute("telephone", a.getLocal().getTelephone());
+		model.addAttribute("date", a.getDate());
+		
+		if(a.getNumValoraciones() != 0)
+			model.addAttribute("valoracion", valoracionMedia);
+		else
+			model.addAttribute("valoracion", 0);
 		
 		List<Comentario> comentarios = a.getComments();
 		
@@ -563,18 +591,25 @@ public class UserController {
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
 		int numVal = a.getNumValoraciones();
-		String date = a.getDate();
+		/*String date = a.getDate();
 		String descrip = a.getDescription();
-		Comercio c = a.getLocal();
-		anuncioRepository.delete(a);
+		Comercio c = a.getLocal();*/
+		/*anuncioRepository.delete(a);
 		
 		a = new Anuncio(title,descrip, c, date);		
 		a.setValoracion(valoracion + val);
 		a.setNumValoraciones(1 + numVal);
 		a.updateValoracionMedia();
 		
-		anuncioRepository.save(a);
+		anuncioRepository.save(a);*/
 		
-		return mostrarAnuncio(model, title);
+		anuncioRepository.setValoracionById((valoracion+val), a.getId());
+		anuncioRepository.setNumValoracionById((1+numVal), a.getId());
+		
+		int valoracionMedia = (valoracion+val)/(numVal+1);
+		
+		anuncioRepository.setValoracionMediaById(valoracionMedia, a.getId());
+		
+		return mostrarAnuncio2(model, title, valoracionMedia);
 	}
 }
