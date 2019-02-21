@@ -157,31 +157,38 @@ public class UsuarioController {
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model, @RequestParam String name) {
 
-		model.addAttribute("username", name);
-
-		usuarioActual = name;
-		List<Anuncio> anuncios = anuncioRepository.findAll();
-		
-		
-		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
-		anuncios.sort(a);	
-		
-		int numAnuncios = anuncios.size();
-		
-		List<Anuncio> mejoresAnuncios = new LinkedList<>();
-		
-		if(numAnuncios < 4)
+		if(usuarioRepository.getByUsername(name) != null)
 		{
-			mejoresAnuncios = anuncios.subList(0, numAnuncios);
+			model.addAttribute("username", name);
+	
+			usuarioActual = name;
+			List<Anuncio> anuncios = anuncioRepository.findAll();
+			
+			
+			Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
+			anuncios.sort(a);	
+			
+			int numAnuncios = anuncios.size();
+			
+			List<Anuncio> mejoresAnuncios = new LinkedList<>();
+			
+			if(numAnuncios < 4)
+			{
+				mejoresAnuncios = anuncios.subList(0, numAnuncios);
+			}
+			else
+			{
+				mejoresAnuncios = anuncios.subList(0, 4);	
+			}
+			
+			model.addAttribute("mejoresAnuncios", mejoresAnuncios);
+			
+			return "inicioConUsuario";
 		}
 		else
 		{
-			mejoresAnuncios = anuncios.subList(0, 4);	
+			throw new RuntimeException("No hay ningun usuario registrado con ese nombre");
 		}
-		
-		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
-		
-		return "inicioConUsuario";
 	}
 	
 	@RequestMapping("/mostrarPerfil")

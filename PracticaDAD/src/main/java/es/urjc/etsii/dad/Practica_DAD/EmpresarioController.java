@@ -63,25 +63,32 @@ public class EmpresarioController {
 	@RequestMapping("/inicioEmpresario")
 	public String inicioEmpresario(Model model, @RequestParam String name) {
 		
-		Empresario e = empresarioRepository.getByUsername(name);
-		
-		List<Comercio> comercios = e.getComercios();
-		
-		List<Anuncio> anuncios = new LinkedList<>();
-		
-		for(Comercio c : comercios)
+		if(empresarioRepository.getByUsername(name) != null)
 		{
-			if(c.getAnuncios() != null)
-				anuncios.addAll(c.getAnuncios());
+			Empresario e = empresarioRepository.getByUsername(name);
+			
+			List<Comercio> comercios = e.getComercios();
+			
+			List<Anuncio> anuncios = new LinkedList<>();
+			
+			for(Comercio c : comercios)
+			{
+				if(c.getAnuncios() != null)
+					anuncios.addAll(c.getAnuncios());
+			}
+			
+			model.addAttribute("anuncios", anuncios);
+			
+			model.addAttribute("username", name);
+			
+			empresarioActual = name;
+	
+			return "misOfertas";
 		}
-		
-		model.addAttribute("anuncios", anuncios);
-		
-		model.addAttribute("username", name);
-		
-		empresarioActual = name;
-
-		return "misOfertas";
+		else
+		{
+			throw new RuntimeException("No hay ningun empresario registrado con ese nombre");
+		}
 	}
 	
 	@RequestMapping("/mostrarPerfilEmpresario")
