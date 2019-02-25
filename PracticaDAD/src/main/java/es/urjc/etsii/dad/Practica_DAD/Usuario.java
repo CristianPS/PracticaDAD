@@ -17,7 +17,7 @@ public class Usuario {
 	private String surname;
 	private String bornDate;
 	private String city;
-	private String password;
+	private String passwordHash;
 	private String gender;
 	private String email;
 	
@@ -32,7 +32,7 @@ public class Usuario {
 		this.surname = surname;
 		this.bornDate = borndate;
 		this.city = city;
-		this.password = password;
+		this.passwordHash = password;
 		this.gender = gender;
 		this.email = email;
 	}
@@ -96,12 +96,12 @@ public class Usuario {
 	
 	public void setPassword(String password)
 	{
-		this.password = password;
+		this.passwordHash = password;
 	}
 	
 	public String getPassword()
 	{
-		return this.password;
+		return this.passwordHash;
 	}
 	
 	public void setGender(String gender)

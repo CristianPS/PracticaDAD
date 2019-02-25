@@ -37,7 +37,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	void setBorndateByUsername(String borndate, String username);
 	*/
 	@Modifying @Transactional
-	@Query("update Usuario u set u.password = ?1 where u.username = ?2")
+	@Query("update Usuario u set u.passwordHash = ?1 where u.username = ?2")
 	void setPasswordByUsername(String password, String username);
 	
 	

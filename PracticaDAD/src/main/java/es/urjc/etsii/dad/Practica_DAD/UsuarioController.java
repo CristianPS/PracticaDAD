@@ -19,6 +19,10 @@ public class UsuarioController {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private AnuncioRepository anuncioRepository;
+	@Autowired
+	private EmpresarioRepository empresarioRepository;
+	@Autowired
+	private ComercioRepository comercioRepository;
 	
 	private static String usuarioActual;
 
@@ -30,8 +34,8 @@ public class UsuarioController {
 	/*@PostConstruct
 	public void init()
 	{
-		userRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
-		userRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
+		usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
+		usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
 
 		Empresario e1 = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre");
 		
