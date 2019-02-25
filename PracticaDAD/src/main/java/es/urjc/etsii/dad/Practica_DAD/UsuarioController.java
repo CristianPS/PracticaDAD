@@ -191,6 +191,12 @@ public class UsuarioController {
 		}
 	}
 	
+	@RequestMapping("/login")
+	public String login(Model model)
+	{
+		return "login";
+	}
+	
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, @RequestParam String username)
 	{
@@ -206,6 +212,12 @@ public class UsuarioController {
 		model.addAttribute("fecha", u.getBornDate());
 
 		return "perfil_usuario";
+	}
+	
+	@RequestMapping("/registro")
+	public String registro(Model model)
+	{
+		return "registro";
 	}
 	
 	@RequestMapping("/registroUsuario")

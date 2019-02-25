@@ -36,7 +36,7 @@ function iniciar()
 
 function registro()
 {
-	document.getElementById("form").action = "registro.html"
+	document.getElementById("form").action = "/registro"
 	document.getElementById("form").method = "";
 }
 
