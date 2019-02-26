@@ -1,9 +1,16 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class Usuario {
@@ -21,23 +28,37 @@ public class Usuario {
 	private String gender;
 	private String email;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
+	
 	//Constructores
 	
 	public Usuario() {}
 	
-	public Usuario(String username, String name, String surname, String borndate, String city, String password, String gender, String email)
+	public Usuario(String username, String name, String surname, String borndate, String city, String password, String gender, String email, List<String> roles)
 	{
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
 		this.bornDate = borndate;
 		this.city = city;
-		this.passwordHash = password;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
 		this.gender = gender;
 		this.email = email;
+		this.roles = new LinkedList<>(roles);
 	}
 	
 	//Getters and Setters
+	
+	public List<String> getRoles()
+	{
+		return this.roles;
+	}
+	
+	public void setRoles(List<String> roles)
+	{
+		this.roles = roles;
+	}
 	
 	public long getId()
 	{

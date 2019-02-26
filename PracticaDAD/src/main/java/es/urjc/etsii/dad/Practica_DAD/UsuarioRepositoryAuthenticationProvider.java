@@ -1,5 +1,10 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,7 +34,13 @@ public class UsuarioRepositoryAuthenticationProvider implements AuthenticationPr
 			throw new BadCredentialsException("Wrong password");
 		}
 		
-		return new UsernamePasswordAuthenticationToken(user.getUsername(), password);
+		List<GrantedAuthority> roles = new LinkedList<>();
+		for(String role : user.getRoles())
+		{
+			roles.add(new SimpleGrantedAuthority(role));
+		}
+		
+		return new UsernamePasswordAuthenticationToken(user.getUsername(), password, roles);
 	}
 
 	@Override

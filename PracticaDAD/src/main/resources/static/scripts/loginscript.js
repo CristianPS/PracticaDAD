@@ -13,7 +13,7 @@ function showPassword(){
 	}
 }
 
-function iniciar()
+/*function iniciar()
 {
 	if(document.getElementById("name").value == "" || document.getElementById("password").value == "")
 	{
@@ -32,7 +32,7 @@ function iniciar()
 			document.getElementById("form").method = "post";
 		}
 	}
-}
+}*/
 
 function registro()
 {

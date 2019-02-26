@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class UsuarioController {
 	private ComercioRepository comercioRepository;
 	
 	private static String usuarioActual;
+	
+	private static HttpServletRequest hsr;
 
 	public static String getUsuarioActual()
 	{
@@ -34,8 +37,13 @@ public class UsuarioController {
 	/*@PostConstruct
 	public void init()
 	{
-		usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
-		usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
+		List<String> roles = new LinkedList<>();
+		roles.add("ROLE_USER");
+		usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es",roles));
+		usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es",roles));
+		
+		//usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
+		//usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
 
 		Empresario e1 = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre");
 		
@@ -159,8 +167,12 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/inicioUsuario")
-	public String inicioUsuario(Model model, @RequestParam String name) {
+	public String inicioUsuario(Model model/*, @RequestParam String name*/, HttpServletRequest request) {
 
+		String name = request.getUserPrincipal().getName();
+		System.out.println(name);
+		hsr = request;
+		
 		if(usuarioRepository.getByUsername(name) != null)
 		{
 			model.addAttribute("username", name);
@@ -201,6 +213,12 @@ public class UsuarioController {
 		return "login";
 	}
 	
+	@RequestMapping("/loginerror")
+	public String loginerror()
+	{
+		return "loginerror";
+	}
+	
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, @RequestParam String username)
 	{
@@ -230,13 +248,15 @@ public class UsuarioController {
 		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
 	
 		String aux = convertirFecha(fecha);
-	
-		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email);
+		List<String> roles = new LinkedList<>();
+		roles.add("USER");
+		
+		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email, roles);
 	
 		usuarioRepository.save(u);
 		
 		usuarioActual = username;
 		
-		return inicioUsuario(model, username);
+		return inicioUsuario(model/*, username*/, hsr);
 	}
 }
