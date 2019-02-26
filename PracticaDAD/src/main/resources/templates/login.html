@@ -24,9 +24,9 @@
 	  	<div id="form-div">
 	  
 	  		<h3 style="color:#3498db">INICIO DE SESION</h3>
-	    	<form class="form" id="form">
+	    	<form class="form" id="form" method="post">
 	      
-	      	<p class="name">
+	      	<p class="name">	
 	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre de Usuario" id="name" />
 	      	</p>
 	      
@@ -49,7 +49,7 @@
 			<p align="center" style="color:#3498db">¿No recuerdas tu contraseña?<p/>
 	      
 	      	<div class="submit">
-	        	<input type="submit" value="INICIAR SESION" id="button-blue" onclick="iniciar()"/>
+	        	<input type="submit" value="INICIAR SESION" id="button-blue" action="/inicioUsuario"/>
 	        	<input type="submit" value="REGISTRO" id="button-white" onclick="registro()"/>
 	        	<div class="ease"></div>
 	      	</div>
