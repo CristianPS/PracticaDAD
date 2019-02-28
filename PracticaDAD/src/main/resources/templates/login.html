@@ -12,32 +12,32 @@
 		<nav>
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
-			
+
 			<li class="menuItem btn btn-1"><a href="/">Inicio</a></li>
 			<li class="menuItem btn btn-1"><a href="/login">Ofertas</a></li>
-			
+
 			<li class="menuItem btn btn-1" style="float:right"><a  class="active" href="/login">Login</a></li>
 		</ul>
 	</nav>
-	
+
 	<div id="form-main">
 	  	<div id="form-div">
-	  
+
 	  		<h3 style="color:#3498db">INICIO DE SESION</h3>
-	    	<form class="form" id="form" method="post">
-	      
-	      	<p class="name">	
+	    	<form class="form" id="form" action="/login" method="post">
+
+	      	<p class="name">
 	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre de Usuario" id="name" />
 	      	</p>
-	      
+
 	      	<p class="password">
 	        	<input name="password" type="password" class="feedback-input" id="password" placeholder="Contraseña" />
 	      	</p>
-	      	
+
 	      	<div>
 	      		<label><input name="cb" type="checkbox" id="cb" onclick="showPassword()" /> Mostrar contraseña</label>
 	      	</div>
-	      	
+
 	      	<div class="switch" align="center">
 	            <input type="radio" class="switch-input" name="view" value="usuario" id="usuario" checked>
 	            <label for="usuario" class="switch-label switch-label-off">Usuario</label>
@@ -45,15 +45,15 @@
 	            <label for="empresa" class="switch-label switch-label-on">Empresario</label>
 	            <span class="switch-selection"></span>
 	        </div>
-	      
+
 			<p align="center" style="color:#3498db">¿No recuerdas tu contraseña?<p/>
-	      
+
 	      	<div class="submit">
-	        	<input type="submit" value="INICIAR SESION" id="button-blue" action="/inicioUsuario"/>
+	        	<input type="submit" value="INICIAR SESION" id="button-blue" />
 	        	<input type="submit" value="REGISTRO" id="button-white" onclick="registro()"/>
 	        	<div class="ease"></div>
 	      	</div>
-	      
+
 	    	</form>
 	  	</div>
 	</div>
