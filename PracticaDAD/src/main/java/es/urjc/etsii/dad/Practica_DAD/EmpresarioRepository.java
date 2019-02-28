@@ -9,6 +9,8 @@ public interface EmpresarioRepository extends JpaRepository<Empresario, Long>{
 
 	Empresario getByUsername(String username);
 	
+	Empresario getByEmail(String email);
+	
 	@Modifying @Transactional
 	@Query("update Empresario u set u.name = ?1 where u.username = ?2")
 	void setNameByUsername(String name, String username);
@@ -34,8 +36,8 @@ public interface EmpresarioRepository extends JpaRepository<Empresario, Long>{
 	void setDateByUsername(String date, String username);
 	
 	@Modifying @Transactional
-	@Query("update Empresario u set u.password = ?1 where u.username = ?2")
-	void setPasswordByUsername(String password, String username);
+	@Query("update Empresario u set u.passwordHash = ?1 where u.username = ?2")
+	void setPasswordHashByUsername(String password, String username);
 	
 	@Modifying @Transactional
 	@Query("update Empresario u set u.telephone = ?1 where u.username = ?2")

@@ -19,17 +19,54 @@ public class UsuarioRepositoryAuthenticationProvider implements AuthenticationPr
 	
 	@Autowired
 	private UsuarioRepository userRepository;
+	@Autowired
+	private EmpresarioRepository empresaryRepository;
 	
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		
 		Usuario user = userRepository.getByUsername(auth.getName());
+		Empresario empresary = empresaryRepository.getByUsername(auth.getName());
 		
-		if (user == null) {
+		if (user == null && empresary == null)
+		{
 			throw new BadCredentialsException("User not found");
 		}
+		else if (user != null)
+		{
+			String password = (String) auth.getCredentials();
+			if(!new BCryptPasswordEncoder().matches(password, user.getPassword()))
+			{
+				throw new BadCredentialsException("Wrong password");
+			}
+			
+			List<GrantedAuthority> roles = new LinkedList<>();
+			for(String role : user.getRoles())
+			{
+				roles.add(new SimpleGrantedAuthority(role));
+			}
+			
+			return new UsernamePasswordAuthenticationToken(user.getUsername(), password, roles);
+		}
+		else
+		{
+			String password = (String) auth.getCredentials();
+			if(!new BCryptPasswordEncoder().matches(password, empresary.getPassword()))
+			{
+				throw new BadCredentialsException("Wrong password");
+			}
+			
+			List<GrantedAuthority> roles = new LinkedList<>();
+			for(String role : empresary.getRoles())
+			{
+				roles.add(new SimpleGrantedAuthority(role));
+			}
+			
+			return new UsernamePasswordAuthenticationToken(empresary.getUsername(), password, roles);
+		}
+
 		
-		String password = (String) auth.getCredentials();
+		/*String password = (String) auth.getCredentials();
 		if (!new BCryptPasswordEncoder().matches(password, user.getPassword())) {
 			throw new BadCredentialsException("Wrong password");
 		}
@@ -40,7 +77,7 @@ public class UsuarioRepositoryAuthenticationProvider implements AuthenticationPr
 			roles.add(new SimpleGrantedAuthority(role));
 		}
 		
-		return new UsernamePasswordAuthenticationToken(user.getUsername(), password, roles);
+		return new UsernamePasswordAuthenticationToken(user.getUsername(), password, roles);*/
 	}
 
 	@Override

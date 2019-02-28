@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,7 @@ public class UsuarioController {
 	private ComercioRepository comercioRepository;
 	
 	private static String usuarioActual;
-	
-	private static HttpServletRequest hsr;
+	private static String empresarioActual;
 
 	public static String getUsuarioActual()
 	{
@@ -44,8 +44,11 @@ public class UsuarioController {
 		
 		//usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
 		//usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
-
-		Empresario e1 = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre");
+		
+		roles.clear();
+		roles.add("ROLE_EMP");
+		
+		Empresario e1 = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre", roles);
 		
 		empresarioRepository.save(e1);
 		
@@ -146,16 +149,12 @@ public class UsuarioController {
 		u.setSurname(apellidos);
 		u.setBornDate(fecha);
 
-		if(passwordNew.equals(""))
+		if(!passwordNew.equals("") && !confirmPassword.equals(""))
 		{
-			//userRepository.setPasswordByUsername(password, username);
-			u.setPassword(password);
-		}
-		else
-		{
-			if(password.equals(u.getPassword()) && passwordNew.equals(confirmPassword))
-				//userRepository.setPasswordByUsername(passwordNew, username);
-				u.setPassword(passwordNew);
+			if(new BCryptPasswordEncoder().matches(password, u.getPassword()) && passwordNew.equals(confirmPassword))
+			{
+				u.setPassword(confirmPassword);
+			}
 		}
 
 		usuarioRepository.save(u);
@@ -170,8 +169,6 @@ public class UsuarioController {
 	public String inicioUsuario(Model model/*, @RequestParam String name*/, HttpServletRequest request) {
 
 		String name = request.getUserPrincipal().getName();
-		System.out.println(name);
-		hsr = request;
 		
 		if(usuarioRepository.getByUsername(name) != null)
 		{
@@ -201,6 +198,24 @@ public class UsuarioController {
 			
 			return "inicioConUsuario";
 		}
+		else if(empresarioRepository.getByUsername(name) != null)
+		{
+			model.addAttribute("username", name);
+			
+			empresarioActual = name;
+			Empresario e = empresarioRepository.getByUsername(name);
+			List<Comercio> comercios = e.getComercios();
+			List<Anuncio> anuncios = new LinkedList<>();
+			
+			for(Comercio c : comercios)
+			{
+				anuncios.addAll(c.getAnuncios());
+			}
+			
+			model.addAttribute("anuncios", anuncios);
+			
+			return "misOfertas";
+		}
 		else
 		{
 			throw new RuntimeException("No hay ningun usuario registrado con ese nombre");
@@ -208,7 +223,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/login")
-	public String login(Model model)
+	public String login()
 	{
 		return "login";
 	}
@@ -242,21 +257,41 @@ public class UsuarioController {
 		return "registro";
 	}
 	
+	@RequestMapping("/registroerror")
+	public String registroerror()
+	{
+		return "registroerror";
+	}
+	
 	@RequestMapping("/registroUsuario")
-	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password) {
+	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password, @RequestParam String confirmpassword) {
 	
-		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
-	
-		String aux = convertirFecha(fecha);
-		List<String> roles = new LinkedList<>();
-		roles.add("USER");
+		//Si ya existe un usuario con este nombre
 		
-		Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email, roles);
-	
-		usuarioRepository.save(u);
-		
-		usuarioActual = username;
-		
-		return inicioUsuario(model/*, username*/, hsr);
+		if(usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null || empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null)
+		{
+			return "/registroerror";
+		}
+		else
+		{
+			if(!password.equals(confirmpassword)) {
+				return "/registroerror";
+			}
+			else
+			{
+				String aux = convertirFecha(fecha);
+				List<String> roles = new LinkedList<>();
+				roles.add("ROLE_USER");
+				
+				Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email, roles);
+			
+				usuarioRepository.save(u);
+				
+				usuarioActual = username;
+				
+				//return inicioUsuario(model);
+				return login();
+			}
+		}
 	}
 }

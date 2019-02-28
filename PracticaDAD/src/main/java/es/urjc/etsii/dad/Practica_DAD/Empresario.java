@@ -3,11 +3,15 @@ package es.urjc.etsii.dad.Practica_DAD;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class Empresario {
@@ -17,7 +21,7 @@ public class Empresario {
 	private long id;
 	
 	private String username;
-	private String password;
+	private String passwordHash;
 	private String name;
 	private String city;
 	private String surname;
@@ -30,24 +34,33 @@ public class Empresario {
 	@OneToMany(mappedBy="owner")
 	private List<Comercio> comercios;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
+	
 	public Empresario() {}
 	
-	public Empresario(String username, String name, String surname, String password, String city, String address, String email, String telephone, String date, String gender)
+	public Empresario(String username, String name, String surname, String password, String city, String address, String email, String telephone, String date, String gender, List<String> roles)
 	{
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
-		this.password = password;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
 		this.city = city;
 		this.address = address;
 		this.email = email;
 		this.telephone = telephone;
 		this.date = date;
 		this.gender = gender;
+		this.roles = roles;
 		comercios = new LinkedList<>();
 	}
 	
 	//Getters
+	
+	public List<String> getRoles()
+	{
+		return this.roles;
+	}
 	
 	public String getUsername()
 	{
@@ -66,7 +79,7 @@ public class Empresario {
 	
 	public String getPassword()
 	{
-		return this.password;
+		return this.passwordHash;
 	}
 	
 	public String getCity()
@@ -106,6 +119,11 @@ public class Empresario {
 	
 	//Setters
 	
+	public void setRoles(List<String> roles)
+	{
+		this.roles = roles;
+	}
+	
 	public void setUsername(String u)
 	{
 		this.username = u;
@@ -123,7 +141,7 @@ public class Empresario {
 	
 	public void setPassword(String p)
 	{
-		this.password = p;
+		this.passwordHash = new BCryptPasswordEncoder().encode(p);
 	}
 	
 	public void setCity(String c)

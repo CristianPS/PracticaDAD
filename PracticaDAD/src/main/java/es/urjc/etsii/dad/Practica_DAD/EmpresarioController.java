@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,8 @@ public class EmpresarioController {
 	private AnuncioRepository anuncioRepository;
 	@Autowired
 	private ComentarioRepository comentarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	private static String empresarioActual;
 	
@@ -32,7 +35,8 @@ public class EmpresarioController {
 	@RequestMapping("/guardarEmpresario")
 	public String guardarEmpresario(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, 
 										@RequestParam String direccion, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telefono, 
-										@RequestParam String gender, @RequestParam String fecha)
+										@RequestParam String gender, @RequestParam String fecha, @RequestParam String password, @RequestParam String passwordNew,
+										@RequestParam String confirmPassword)
 	{
 		/*empresarioRepository.setNameByUsername(nombre, username);
 		empresarioRepository.setSurnameByUsername(apellidos, username);
@@ -53,7 +57,13 @@ public class EmpresarioController {
 		e.setDate(fecha);
 		e.setTelephone(telefono);
 		
-		//Falta guardar las contraseñas, pero nos esperamos hasta que metamos seguridad
+		if(!passwordNew.equals("") && !confirmPassword.equals(""))
+		{
+			if(new BCryptPasswordEncoder().matches(password, e.getPassword()) && passwordNew.equals(confirmPassword))
+			{
+				e.setPassword(confirmPassword);
+			}
+		}
 		
 		empresarioRepository.save(e);		
 		
@@ -62,33 +72,26 @@ public class EmpresarioController {
 	
 	@RequestMapping("/inicioEmpresario")
 	public String inicioEmpresario(Model model, @RequestParam String name) {
+
+		Empresario e = empresarioRepository.getByUsername(name);
 		
-		if(empresarioRepository.getByUsername(name) != null)
+		List<Comercio> comercios = e.getComercios();
+		
+		List<Anuncio> anuncios = new LinkedList<>();
+		
+		for(Comercio c : comercios)
 		{
-			Empresario e = empresarioRepository.getByUsername(name);
-			
-			List<Comercio> comercios = e.getComercios();
-			
-			List<Anuncio> anuncios = new LinkedList<>();
-			
-			for(Comercio c : comercios)
-			{
-				if(c.getAnuncios() != null)
-					anuncios.addAll(c.getAnuncios());
-			}
-			
-			model.addAttribute("anuncios", anuncios);
-			
-			model.addAttribute("username", name);
-			
-			empresarioActual = name;
-	
-			return "misOfertas";
+			if(c.getAnuncios() != null)
+				anuncios.addAll(c.getAnuncios());
 		}
-		else
-		{
-			throw new RuntimeException("No hay ningun empresario registrado con ese nombre");
-		}
+		
+		model.addAttribute("anuncios", anuncios);
+		
+		model.addAttribute("username", name);
+		
+		empresarioActual = name;
+
+		return "misOfertas";
 	}
 	
 	@RequestMapping("/mostrarPerfilEmpresario")
@@ -111,19 +114,37 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/registroEmpresario")
-	public String registroEmpresario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String dir, @RequestParam String password, @RequestParam String genero) {
+	public String registroEmpresario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String dir, @RequestParam String password, @RequestParam String genero, @RequestParam String confirmpassword) {
 	
-		//Ademas aqui deberiamos insertar todos los elementos obtenidos a la base de datos
+		//Comprobamos si existe ya algun empresario con ese nombre de usuario o email
 		
-		Empresario e = new Empresario(username, name, apellidos, password, city, dir, email, telefono, fecha, genero);
-		
-		empresarioRepository.save(e);
-		
-		model.addAttribute("username", username);
-		
-		empresarioActual = username;
-	
-		return "misOfertas";
+		if(empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null || usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null)
+		{
+			return "/registroerror";
+		}
+		else
+		{
+			if(!password.equals(confirmpassword))
+			{
+				return "/registroerror";
+			}
+			else
+			{
+				List<String> roles = new LinkedList<>();
+				roles.add("ROLE_EMP");
+				
+				Empresario e = new Empresario(username, name, apellidos, password, city, dir, email, telefono, fecha, genero, roles);
+				
+				empresarioRepository.save(e);
+				
+				//model.addAttribute("username", username);
+				
+				//empresarioActual = username;
+			
+				//return "misOfertas";
+				return "login";
+			}
+		}
 	}
 	
 	@RequestMapping("/crearComercio")
@@ -136,6 +157,10 @@ public class EmpresarioController {
 		comercioRepository.save(c);
 		
 		return inicioEmpresario(model, username);
+		
+		/*model.addAttribute("username", username);
+		
+		return "misOfertas";*/
 	}
 	
 	@RequestMapping("/crearOferta")
@@ -149,7 +174,10 @@ public class EmpresarioController {
 		anuncioRepository.save(a);
 		
 		return inicioEmpresario(model, username);
-			
+		
+		/*model.addAttribute("username", username);
+		
+		return "misOfertas";	*/		
 	}
 	
 	@RequestMapping("/eliminar")
@@ -166,6 +194,10 @@ public class EmpresarioController {
 		
 		anuncioRepository.delete(a);
 		
-		return inicioEmpresario(model, EmpresarioController.getEmpresarioActual());
+		return inicioEmpresario(model, getEmpresarioActual());
+		
+		/*model.addAttribute("username", getEmpresarioActual());
+		
+		return "misOfertas";*/
 	}
 }
