@@ -54,7 +54,7 @@ public class ComercioController {
 		model.addAttribute("city", c.getCity());
 		model.addAttribute("telephone", c.getTelephone());
 
-		return "perfil_empresa";
+		return "perfilEmpresa";
 	}
 	
 	@RequestMapping("/mostrarComercios")

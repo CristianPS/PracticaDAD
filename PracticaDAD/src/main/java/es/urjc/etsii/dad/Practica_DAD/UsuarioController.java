@@ -228,7 +228,7 @@ public class UsuarioController {
 		return "login";
 	}
 	
-	@RequestMapping("/loginerror")
+	@RequestMapping("/loginError")
 	public String loginerror()
 	{
 		return "loginerror";
@@ -248,7 +248,7 @@ public class UsuarioController {
 		model.addAttribute("gender", u.getGender());
 		model.addAttribute("fecha", u.getBornDate());
 
-		return "perfil_usuario";
+		return "perfilUsuario";
 	}
 	
 	@RequestMapping("/registro")
@@ -257,10 +257,10 @@ public class UsuarioController {
 		return "registro";
 	}
 	
-	@RequestMapping("/registroerror")
+	@RequestMapping("/registroError")
 	public String registroerror()
 	{
-		return "registroerror";
+		return "registroError";
 	}
 	
 	@RequestMapping("/registroUsuario")
@@ -275,7 +275,7 @@ public class UsuarioController {
 		else
 		{
 			if(!password.equals(confirmpassword)) {
-				return "/registroerror";
+				return "/registroError";
 			}
 			else
 			{

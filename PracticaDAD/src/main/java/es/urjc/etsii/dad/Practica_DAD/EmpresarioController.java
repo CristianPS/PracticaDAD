@@ -110,7 +110,7 @@ public class EmpresarioController {
 		model.addAttribute("telefono",u.getTelephone());
 		model.addAttribute("fecha", u.getDate());
 
-		return "perfil_empresario";
+		return "perfilEmpresario";
 	}
 	
 	@RequestMapping("/registroEmpresario")
@@ -120,13 +120,13 @@ public class EmpresarioController {
 		
 		if(empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null || usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null)
 		{
-			return "/registroerror";
+			return "/registroError";
 		}
 		else
 		{
 			if(!password.equals(confirmpassword))
 			{
-				return "/registroerror";
+				return "/registroError";
 			}
 			else
 			{
