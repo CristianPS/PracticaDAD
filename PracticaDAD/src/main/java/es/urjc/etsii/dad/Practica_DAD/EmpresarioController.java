@@ -1,8 +1,12 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class EmpresarioController {
@@ -30,6 +35,11 @@ public class EmpresarioController {
 	public static String getEmpresarioActual()
 	{
 		return empresarioActual;
+	}
+	
+	public static void setEmpresarioActual(String emp)
+	{
+		empresarioActual = emp;
 	}
 	
 	@RequestMapping("/guardarEmpresario")
@@ -164,12 +174,15 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/crearOferta")
-	public String crearOferta(Model model, @RequestParam String title, @RequestParam String entName, @RequestParam String description, @RequestParam String username, @RequestParam String date)
+	public String crearOferta(Model model, @RequestParam String title, @RequestParam String entName, @RequestParam String description, @RequestParam String username, @RequestParam String date, @RequestParam MultipartFile img) throws IOException
 	{
 		String aux = UsuarioController.convertirFecha(date);
 		
 		Comercio c = comercioRepository.getByEntName(entName);
-		Anuncio a = new Anuncio(title, description, c, aux);
+		
+		byte[] encImage = Base64.getEncoder().encode(img.getBytes());
+		
+		Anuncio a = new Anuncio(title, description, c, aux, encImage);
 		
 		anuncioRepository.save(a);
 		

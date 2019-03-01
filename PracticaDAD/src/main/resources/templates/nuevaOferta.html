@@ -26,7 +26,7 @@
 	  	<div id="form-div">
 	  
 	  		<h3 style="color:#3498db">Crear Nueva Oferta</h3>
-	    	<form action="/crearOferta?entName={{entName}}&username={{username}}" class="form" id="form" method="post">
+	    	<form action="/crearOferta?entName={{entName}}&username={{username}}" class="form" id="form" method="post" enctype="multipart/form-data">
 	      
 	      	<p class="name">
 	        	<input name="title" type="text" class="feedback-input" placeholder="Nombre de Oferta y Precio" id="title" />
@@ -44,11 +44,10 @@
 	        	<input name="date" type="date" class="feedback-input" id="date" />
 	      	</p>	      	
 	      	
-			 <!-- <p class="image">						
-		      	<form>
-				 	Selecciona una imagen <input type="file" name="img">
-				</form>
-			</p> -->
+			 <p class="image">								      	
+			 	Selecciona una imagen				 					
+				<input type="file" name="img" id="img">				
+			</p>
 	      
 	      	<div class="submit">
 	        	<input type="submit" value="TERMINAR" class="btn-blue" style="width: 100%; margin-left:0;"/>

@@ -41,4 +41,12 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Long>{
 	@Modifying @Transactional
 	@Query("update Anuncio u set u.valoracionMedia = ?1 where u.id = ?2")
 	void setValoracionMediaById(int valoracionMedia, long id);
+	
+	@Modifying @Transactional
+	@Query("update Anuncio u set u.image = ?1 where u.id = ?2")
+	void setImageById(byte[] image, long id);
+	
+	@Modifying @Transactional
+	@Query("update Anuncio u set u.imageString = ?1 where u.id = ?2")
+	void setImageStringById(String imageString, long id);
 }

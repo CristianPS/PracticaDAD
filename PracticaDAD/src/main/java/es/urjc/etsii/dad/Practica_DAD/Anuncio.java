@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -26,6 +27,10 @@ public class Anuncio {
 	private int numValoraciones;
 	private String date;
 	private int valoracionMedia;
+	@Lob
+	private byte[] image;
+	@Lob
+	private String imageString;
 	
 	@ManyToOne
 	private Comercio local;
@@ -35,7 +40,7 @@ public class Anuncio {
 	
 	public Anuncio() {}
 	
-	public Anuncio(/*long id,*/ String title, String description, Comercio local, String date/*, List<Image> images*/)
+	public Anuncio(/*long id,*/ String title, String description, Comercio local, String date, byte[] image/*, List<Image> images*/)
 	{
 		this.title=title;
 		this.description=description;
@@ -45,6 +50,8 @@ public class Anuncio {
 		this.comments=new LinkedList<>();
 		this.date = date;
 		this.valoracionMedia = 0;
+		this.image = image;
+		this.imageString = new String(image);
 		//this.images=images;
 	}
 
@@ -86,6 +93,16 @@ public class Anuncio {
 	public void setValoracionMedia(int valoracionMedia)
 	{
 		this.valoracionMedia = valoracionMedia;
+	}
+	
+	public void setImage(byte[] image)
+	{
+		this.image = image;
+	}
+	
+	public void setImageString(String imageString)
+	{
+		this.imageString = imageString;
 	}
 	/*
 	public void setImages(List<Image> images)
@@ -137,6 +154,15 @@ public class Anuncio {
 		return this.valoracionMedia;
 	}
 	
+	public byte[] getImage()
+	{
+		return image;
+	}
+	
+	public String getImageString()
+	{
+		return imageString;
+	}
 	public void updateValoracionMedia()
 	{
 		this.valoracionMedia = this.valoracion/this.numValoraciones;
