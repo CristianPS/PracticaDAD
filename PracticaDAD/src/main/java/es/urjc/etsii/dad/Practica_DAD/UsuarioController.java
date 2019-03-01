@@ -29,7 +29,7 @@ public class UsuarioController {
 	private EmpresarioRepository empresarioRepository;
 	@Autowired
 	private ComercioRepository comercioRepository;
-	
+
 	private static String usuarioActual;
 	private static String empresarioActual;
 
@@ -37,28 +37,28 @@ public class UsuarioController {
 	{
 		return usuarioActual;
 	}
-	
+
 	/*@PostConstruct
 	public void init() throws IOException
 	{
 		File image = new File("C:\\Users\\c.posada\\Pictures\\imagen-de-prueba-320x240.jpeg");
-		
+
 		byte[] encImage = Base64.encodeBase64(Files.readAllBytes(image.toPath()));
 		List<String> roles = new LinkedList<>();
 		roles.add("ROLE_USER");
 		usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es",roles));
 		usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es",roles));
-		
+
 		//usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es"));
 		//usuarioRepository.save(new Usuario("SitoDiaz","Jose Ignacio","Diaz Errejon","13/07/97","Sevilla la Nueva","contraseña","Hombre","ji.diaze@alumnos.urjc.es"));
-		
+
 		roles.clear();
 		roles.add("ROLE_EMP");
-		
+
 		Empresario e1 = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre", roles);
-		
+
 		empresarioRepository.save(e1);
-		
+
 		comercioRepository.save(new Comercio("Fabrik","Madrid","C/AlcaldeMostoles,5","fabrik@hotmail.es","918170864", e1));
 		comercioRepository.save(new Comercio("Anubis","Arroyomolinos","CC.Xanadu","anubis@hotmail.es","918146753", e1));
 
@@ -72,7 +72,7 @@ public class UsuarioController {
 		a1.setDate("01/07/1997");
 		a1.setImage(encImage);
 		a1.setImageString(new String(encImage));
-		
+
 		Anuncio a2 = new Anuncio();
 		a2.setTitle("CachimbaPremium-11Euros");
 		a2.setDescription("XXX");
@@ -80,7 +80,7 @@ public class UsuarioController {
 		a2.setDate("02/08/1998");
 		a2.setImage(encImage);
 		a2.setImageString(new String(encImage));
-		
+
 		Anuncio a3 = new Anuncio();
 		a3.setTitle("CopaGratis-Resto3€");
 		a3.setDescription("XXX");
@@ -88,7 +88,7 @@ public class UsuarioController {
 		a3.setDate("05/11/2019");
 		a3.setImage(encImage);
 		a3.setImageString(new String(encImage));
-		
+
 		Anuncio a4 = new Anuncio();
 		a4.setTitle("Copas5€");
 		a4.setDescription("XXX");
@@ -96,7 +96,7 @@ public class UsuarioController {
 		a4.setDate("03/03/2019");
 		a4.setImage(encImage);
 		a4.setImageString(new String(encImage));
-		
+
 		anuncioRepository.save(a1);
 		anuncioRepository.save(a2);
 		anuncioRepository.save(a3);
@@ -142,21 +142,21 @@ public class UsuarioController {
 		aux = day + "-" + month + "-" + year;
 		return aux;
 	}
-	
+
 	@RequestMapping("/guardar")
-	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre, 
+	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre,
 							@RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad,
-							@RequestParam String fecha, @RequestParam String gender, @RequestParam String password, 
+							@RequestParam String fecha, @RequestParam String gender, @RequestParam String password,
 							@RequestParam String passwordNew, @RequestParam String confirmPassword)
 	{
 		Usuario u = usuarioRepository.getByUsername(username);
-		
+
 		/*userRepository.setNameByUsername(nombre, username);
 		userRepository.setCityByUsername(ciudad, username);
 		userRepository.setEmailByUsername(correo, username);
 		userRepository.setGenderByUsername(gender, username);
 		userRepository.setSurnameByUsername(apellidos, username);*/
-		
+
 		u.setName(nombre);
 		u.setCity(ciudad);
 		u.setEmail(correo);
@@ -173,50 +173,50 @@ public class UsuarioController {
 		}
 
 		usuarioRepository.save(u);
-		
+
 		//model.addAttribute("username", username);
 
 		//return inicioUsuario(model, username);
 		return mostrarPerfil(model, username);
 	}
-	
+
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model/*, @RequestParam String name*/, HttpServletRequest request) {
 
 		String name = request.getUserPrincipal().getName();
-		
+
 		if(usuarioRepository.getByUsername(name) != null)
 		{
 			model.addAttribute("username", name);
-	
+
 			usuarioActual = name;
 			List<Anuncio> anuncios = anuncioRepository.findAll();
-			
-			
+
+
 			Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
-			anuncios.sort(a);	
-			
+			anuncios.sort(a);
+
 			int numAnuncios = anuncios.size();
-			
+
 			List<Anuncio> mejoresAnuncios = new LinkedList<>();
-			
+
 			if(numAnuncios < 4)
 			{
 				mejoresAnuncios = anuncios.subList(0, numAnuncios);
 			}
 			else
 			{
-				mejoresAnuncios = anuncios.subList(0, 4);	
+				mejoresAnuncios = anuncios.subList(0, 4);
 			}
-			
+
 			model.addAttribute("mejoresAnuncios", mejoresAnuncios);
-			
+
 			return "inicioConUsuario";
 		}
 		else if(empresarioRepository.getByUsername(name) != null)
 		{
 			model.addAttribute("username", name);
-			
+
 			empresarioActual = name;
 			Empresario e = empresarioRepository.getByUsername(name);
 			List<Comercio> comercios = e.getComercios();
@@ -226,9 +226,9 @@ public class UsuarioController {
 			{
 				anuncios.addAll(c.getAnuncios());
 			}
-			
+
 			model.addAttribute("anuncios", anuncios);
-			
+
 			return "misOfertas";
 		}
 		else
@@ -236,19 +236,19 @@ public class UsuarioController {
 			throw new RuntimeException("No hay ningun usuario registrado con ese nombre");
 		}
 	}
-	
+
 	@RequestMapping("/login")
 	public String login()
 	{
 		return "login";
 	}
-	
-	@RequestMapping("/loginerror")
-	public String loginerror()
+
+	@RequestMapping("/loginError")
+	public String loginError()
 	{
-		return "loginerror";
+		return "loginError";
 	}
-	
+
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, @RequestParam String username)
 	{
@@ -263,47 +263,47 @@ public class UsuarioController {
 		model.addAttribute("gender", u.getGender());
 		model.addAttribute("fecha", u.getBornDate());
 
-		return "perfil_usuario";
+		return "perfilUsuario";
 	}
-	
+
 	@RequestMapping("/registro")
 	public String registro(Model model)
 	{
 		return "registro";
 	}
-	
-	@RequestMapping("/registroerror")
-	public String registroerror()
+
+	@RequestMapping("/registroError")
+	public String registroError()
 	{
-		return "registroerror";
+		return "registroError";
 	}
-	
+
 	@RequestMapping("/registroUsuario")
 	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password, @RequestParam String confirmpassword) {
-	
+
 		//Si ya existe un usuario con este nombre
-		
+
 		if(usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null || empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null)
 		{
-			return "/registroerror";
+			return "/registroError";
 		}
 		else
 		{
 			if(!password.equals(confirmpassword)) {
-				return "/registroerror";
+				return "/registroError";
 			}
 			else
 			{
 				String aux = convertirFecha(fecha);
 				List<String> roles = new LinkedList<>();
 				roles.add("ROLE_USER");
-				
+
 				Usuario u = new Usuario(username, name, apellidos, aux, city, password, genero, email, roles);
-			
+
 				usuarioRepository.save(u);
-				
+
 				usuarioActual = username;
-				
+
 				//return inicioUsuario(model);
 				return login();
 			}

@@ -78,7 +78,9 @@ footer {
     margin-left:3%;
 }
    
-   
+.copyright a{
+	color: #fff;
+}   
    
    
 .btn-1 {
