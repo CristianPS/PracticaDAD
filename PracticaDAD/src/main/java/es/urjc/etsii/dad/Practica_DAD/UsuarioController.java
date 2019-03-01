@@ -229,9 +229,9 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/loginError")
-	public String loginerror()
+	public String loginError()
 	{
-		return "loginerror";
+		return "loginError";
 	}
 	
 	@RequestMapping("/mostrarPerfil")
@@ -258,7 +258,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/registroError")
-	public String registroerror()
+	public String registroError()
 	{
 		return "registroError";
 	}
@@ -270,7 +270,7 @@ public class UsuarioController {
 		
 		if(usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null || empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null)
 		{
-			return "/registroerror";
+			return "/registroError";
 		}
 		else
 		{
