@@ -91,6 +91,7 @@ public class AnuncioController {
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
 		model.addAttribute("date", a.getDate());
+		model.addAttribute("imageString", a.getImageString());
 		
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
@@ -119,6 +120,7 @@ public class AnuncioController {
 		model.addAttribute("email", a.getLocal().getEmail());
 		model.addAttribute("telephone", a.getLocal().getTelephone());
 		model.addAttribute("date", a.getDate());
+		model.addAttribute("imageString", a.getImageString());
 		
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
