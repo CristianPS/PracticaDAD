@@ -34,7 +34,7 @@ public class UsuarioController {
 		return usuarioActual;
 	}
 	
-	/*@PostConstruct
+/*	@PostConstruct
 	public void init()
 	{
 		List<String> roles = new LinkedList<>();
