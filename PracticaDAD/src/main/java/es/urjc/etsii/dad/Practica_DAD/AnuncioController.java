@@ -49,6 +49,26 @@ public class AnuncioController {
 		return "index";
 	}
 	
+	@RequestMapping("/buscar")
+	public String buscar(Model model, @RequestParam String searchbar)
+	{
+		List<Anuncio> anunciosAux = anuncioRepository.findAll();
+		List<Anuncio> anuncios = new LinkedList<>();
+		
+		for(Anuncio a : anunciosAux)
+		{
+			if(a.getTitle().contains(searchbar) || a.getDate().contains(searchbar) || a.getLocal().getEntName().contains(searchbar) || a.getLocal().getCity().contains(searchbar))
+			{
+				anuncios.add(a);
+			}
+		}
+		
+		model.addAttribute("anuncios", anuncios);
+		model.addAttribute("username", UsuarioController.getUsuarioActual());
+		model.addAttribute("busqueda", "Ofertas / " + searchbar);
+		return "ofertas";
+	}
+	
 	@RequestMapping("/guardarAnuncio")
 	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date)
 	{
@@ -73,6 +93,7 @@ public class AnuncioController {
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
 		model.addAttribute("username", username);
+		model.addAttribute("busqueda", "Todas las ofertas");
 		return "ofertas";
 	}
 	

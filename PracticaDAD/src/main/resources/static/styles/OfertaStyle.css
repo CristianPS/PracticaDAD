@@ -67,6 +67,7 @@ img.image-list{
     
 }
 .itemList {
+	margin-top: 10px;
 	border-radius: 7px;
 	float: none;
     width: 101%;

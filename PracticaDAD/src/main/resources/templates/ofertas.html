@@ -20,6 +20,13 @@
 			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfil?username={{username}}">{{username}}</a></li>
 		</ul>
 	</nav>
+	
+  	<form class="search-container" action="/buscar" method="post">
+	    <input type="text" name="searchbar" id="search-bar" placeholder="¿Qué estás buscando?">
+	    <input type="image" class="search-icon" alt="Submit" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png">
+  	</form>
+  	
+  	<h2>{{busqueda}}</h2>
    
 	<div class="container">	    
 	    <div id="products" style="margin-top:3%">   
