@@ -27,8 +27,8 @@
 }
 
 img.image-list{
-	height: auto;
-	width: auto;
+	height: 250px;
+	width: 400px;
 	float:left;
 	border: 1px solid black !important;
 	border-radius:7px;

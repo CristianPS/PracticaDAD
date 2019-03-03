@@ -1,9 +1,9 @@
 @charset "ISO-8859-1";
 
 
-img.imgOferta{
-	width: 100%;
-	max-width: min-content;
+.imageOferta{
+	width: 400px;
+	height: 250px;
 	border-radius: 7px;
 
 	float:left;
