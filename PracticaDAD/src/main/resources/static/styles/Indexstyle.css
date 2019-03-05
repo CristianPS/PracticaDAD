@@ -102,15 +102,34 @@ p{
 img.oferta {
     height: 30%;
     width: 80%;
+    min-height: 200px;
+    min-width: 150px;
     border-radius: 7px;
     margin: 0 10% 0 10%;
     border: solid 2px black;
 
 }
 
-img.city{
+.city{
 	width: 100%;
-	height: 400px;
+	height: 600px;
+	filter: blur(4px);
+}
+.textoImagen {
+	font-size: 6em;
+	position: absolute;
+	top: 10%;
+	right: 0;
+	left: 0;
+	mix-blend-mode: screen;
+    text-shadow: 	-3px -3px 0 #3498db, 
+    				3px -3px 0 #3498db,
+    				-3px 3px 0 #3498db, 
+    				3px 3px 0 #3498db;
+}
+.textoImagen p {
+	text-align: center;
+
 }
 
 @media screen and (max-width: 980px) {

@@ -106,7 +106,6 @@ public class UsuarioController {
 		c1.getAnuncios().add(a3);
 		c2.getAnuncios().add(a2);
 		c2.getAnuncios().add(a4);
-
 	}*/
 
 	public static String convertirFecha(String fecha)
