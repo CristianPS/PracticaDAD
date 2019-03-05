@@ -41,7 +41,7 @@ public class UsuarioController {
 	/*@PostConstruct
 	public void init() throws IOException
 	{
-		File image = new File("C:\\Users\\c.posada\\Pictures\\imagen-de-prueba-320x240.jpeg");
+		File image = new File("C:\\Users\\crist\\Pictures\\frases-positivas-de-amor.jpg");
 
 		byte[] encImage = Base64.encodeBase64(Files.readAllBytes(image.toPath()));
 		List<String> roles = new LinkedList<>();
