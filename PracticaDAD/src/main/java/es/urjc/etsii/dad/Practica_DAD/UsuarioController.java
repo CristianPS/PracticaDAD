@@ -41,7 +41,7 @@ public class UsuarioController {
 	/*@PostConstruct
 	public void init() throws IOException
 	{
-		File image = new File("C:\\Users\\c.posada\\Pictures\\imagen-de-prueba-320x240.jpeg");
+		File image = new File("D:\\Users\\Usuario\\Documents\\GitHub\\PracticaDAD\\PracticaDAD\\src\\main\\resources\\static\\images/aaa.jpg");
 
 		byte[] encImage = Base64.encodeBase64(Files.readAllBytes(image.toPath()));
 		List<String> roles = new LinkedList<>();
@@ -106,9 +106,8 @@ public class UsuarioController {
 		c1.getAnuncios().add(a3);
 		c2.getAnuncios().add(a2);
 		c2.getAnuncios().add(a4);
-
 	}*/
-
+	
 	public static String convertirFecha(String fecha)
 	{
 		String day = "";
