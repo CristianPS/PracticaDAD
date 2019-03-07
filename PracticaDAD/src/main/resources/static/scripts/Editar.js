@@ -46,6 +46,8 @@ function editarEmpresario() {
 	document.getElementById('telefono').disabled = false;
 }
 function editarOferta() {
+	document.getElementById("par").classList.remove("disappear");
+	document.getElementById("selectFile").classList.remove("disappear");
 	document.getElementById("title").classList.remove("disappear");
 	document.getElementById("date").classList.remove("disappear");
 	document.getElementById("description").classList.remove("disappear");

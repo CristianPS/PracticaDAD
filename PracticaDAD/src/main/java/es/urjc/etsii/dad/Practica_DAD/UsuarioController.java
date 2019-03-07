@@ -40,10 +40,11 @@ public class UsuarioController {
 
 	/*@PostConstruct
 	public void init() throws IOException
-	{
-		File image = new File("C:\\Users\\crist\\Pictures\\frases-positivas-de-amor.jpg");
+	{		
+		File image = new File("src/main/resources\\static\\images\\tipos-de-copas-para-vino.jpg");
 
 		byte[] encImage = Base64.encodeBase64(Files.readAllBytes(image.toPath()));
+		
 		List<String> roles = new LinkedList<>();
 		roles.add("ROLE_USER");
 		usuarioRepository.save(new Usuario("CristianPS","Cristian","Posada Santos","01/08/1997","Madrid","contraseña","Hombre","c.posada@alumnos.urjc.es",roles));
@@ -66,32 +67,32 @@ public class UsuarioController {
 		Comercio c2 = comercioRepository.getByEntName("Anubis");
 
 		Anuncio a1 = new Anuncio();
-		a1.setTitle("Entrada-10Euros");
-		a1.setDescription("XXX");
+		a1.setTitle("2x1 en Vermouths");
+		a1.setDescription("Si tú y tus amigos no teneis planes este fin de semana pasaros por nuestro local, os ofrecemos dos Vermouths por el precio de uno.");
 		a1.setLocal(c1);
 		a1.setDate("01/07/1997");
 		a1.setImage(encImage);
 		a1.setImageString(new String(encImage));
 
 		Anuncio a2 = new Anuncio();
-		a2.setTitle("CachimbaPremium-11Euros");
-		a2.setDescription("XXX");
+		a2.setTitle("CachimbaPremium 11€");
+		a2.setDescription("Esta semana estamos que lo tiramos. Tenemos cachimbas premium (Steamulation, Wookah, etc.) por solo 11€.");
 		a2.setLocal(c2);
 		a2.setDate("02/08/1998");
 		a2.setImage(encImage);
 		a2.setImageString(new String(encImage));
 
 		Anuncio a3 = new Anuncio();
-		a3.setTitle("CopaGratis-Resto3€");
-		a3.setDescription("XXX");
+		a3.setTitle("CopaGratis Resto 3€");
+		a3.setDescription("La mejor oferta que encontrarás este mes, copas gratuitas y el resto de productos que ofrecemos SOLAMENTE por 3€. ¿Te lo vas a perder?");
 		a3.setLocal(c1);
 		a3.setDate("05/11/2019");
 		a3.setImage(encImage);
 		a3.setImageString(new String(encImage));
 
 		Anuncio a4 = new Anuncio();
-		a4.setTitle("Copas5€");
-		a4.setDescription("XXX");
+		a4.setTitle("Copas 5€");
+		a4.setDescription("Estás de suerte, solo este fin de semana ofrecemos todas las copas que encontrarás en nuestra carta al módico precio de 5€.");
 		a4.setLocal(c2);
 		a4.setDate("03/03/2019");
 		a4.setImage(encImage);

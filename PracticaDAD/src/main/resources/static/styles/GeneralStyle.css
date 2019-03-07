@@ -29,6 +29,7 @@
 
 .active {
   color: #3498db !important;
+  font-weight: bold;
 }
 
 img.logo{

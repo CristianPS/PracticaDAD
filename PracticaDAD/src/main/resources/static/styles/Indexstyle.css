@@ -112,13 +112,14 @@ img.oferta {
 
 .city{
 	width: 100%;
-	height: 600px;
-	filter: blur(4px);
+	height: 400px;
+	/*filter: blur(4px);*/
 }
 .textoImagen {
-	font-size: 6em;
+	font-size: 4em;
 	position: absolute;
-	top: 10%;
+	margin-left: 2%;
+	top: 30%;
 	right: 0;
 	left: 0;
 	mix-blend-mode: screen;
@@ -155,5 +156,19 @@ img.oferta {
 	img.city{
 		width: 100%;
 		height: 200px;
+	}
+	
+	h3.textoImagen{
+		font-size: 2em;
+		position: absolute;
+		margin-left: 2%;
+		top: 19%;
+		right: 0;
+		left: 0;
+		mix-blend-mode: screen;
+	    text-shadow: 	-3px -3px 0 #3498db, 
+	    				3px -3px 0 #3498db,
+	    				-3px 3px 0 #3498db, 
+	    				3px 3px 0 #3498db;
 	}
 }

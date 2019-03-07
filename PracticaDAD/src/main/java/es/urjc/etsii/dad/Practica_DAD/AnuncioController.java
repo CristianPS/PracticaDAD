@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class AnuncioController {
@@ -69,7 +71,10 @@ public class AnuncioController {
 		
 		for(Anuncio a : anunciosAux)
 		{
-			if(a.getTitle().contains(searchbar) || a.getDate().contains(searchbar) || a.getLocal().getEntName().contains(searchbar) || a.getLocal().getCity().contains(searchbar))
+			if(a.getTitle().contains(searchbar) || a.getDate().contains(searchbar) ||
+					a.getLocal().getEntName().contains(searchbar) || a.getLocal().getCity().contains(searchbar) ||
+					a.getTitle().equalsIgnoreCase(searchbar) || a.getDate().equalsIgnoreCase(searchbar) ||
+					a.getLocal().getEntName().equalsIgnoreCase(searchbar) || a.getLocal().getCity().equalsIgnoreCase(searchbar))
 			{
 				anuncios.add(a);
 			}
@@ -82,7 +87,7 @@ public class AnuncioController {
 	}
 	
 	@RequestMapping("/guardarAnuncio")
-	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date)
+	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date, @RequestParam MultipartFile selectFile) throws IOException
 	{
 		Anuncio a = anuncioRepository.getByTitle(anuncioActual);
 		
@@ -90,9 +95,18 @@ public class AnuncioController {
 		//anuncioRepository.setDescriptionById(description, a.getId());
 		//anuncioRepository.setDateById(date, a.getId());
 		
+		byte[] encImage = Base64.getEncoder().encode(selectFile.getBytes());
+		
 		a.setTitle(title);
 		a.setDescription(description);
 		a.setDate(date);
+		
+		if(!selectFile.isEmpty())
+		{
+			a.setImage(encImage);
+			a.setImageString(new String(encImage));
+		}
+		
 		anuncioRepository.save(a);
 		
 		//return mostrarAnuncioPropio(model, title, description, date);
