@@ -205,6 +205,7 @@ public class AnuncioController {
 	public String obtenerOferta(Model model, @RequestParam String title) throws UnknownHostException, IOException
 	{
 		Usuario u = usuarioRepository.getByUsername(UsuarioController.getUsuarioActual());
+		Anuncio a = anuncioRepository.getByTitle(title);
 		
 		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
 		//SSLSocket socket = (SSLSocket) socketFactory.createSocket("127.0.0.1", 7777);
@@ -215,10 +216,28 @@ public class AnuncioController {
 		
 		System.out.println(u.getId());
 		
-		oos.writeLong(u.getId());
+		/*oos.writeLong(u.getId());
 		oos.flush();
 		
 		oos.writeLong(anuncioRepository.getByTitle(title).getId());
+		oos.flush();*/
+		
+		oos.writeObject((String) u.getEmail());
+		oos.flush();
+		
+		oos.writeObject((String) a.getTitle());
+		oos.flush();
+		
+		oos.writeObject((String) a.getLocal().getEntName());
+		oos.flush();
+		
+		oos.writeObject((String) a.getLocal().getAddress());
+		oos.flush();
+		
+		oos.writeObject((String) a.getLocal().getCity());
+		oos.flush();
+		
+		oos.writeObject((String) a.getDate());
 		oos.flush();
 		
 		oos.close();
@@ -231,7 +250,7 @@ public class AnuncioController {
 		model.addAttribute("email", u.getEmail());
 		model.addAttribute("title", title);
 		
-		return "verficacionObtenerOferta";
+		return "verificacionObtenerOferta";
 	}
 	
 	@RequestMapping("/añadirComentario")
