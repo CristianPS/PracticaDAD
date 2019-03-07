@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/styles/GeneralStyle.css">
+</head>
+
+<body>
+
+	<nav>
+		<ul class="menu">
+			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
+			
+			<li class="menuItem btn btn-1"><a href="inicioUsuario?name={{username}}">Inicio</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarAnuncios?username={{username}}">Ofertas</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfil?username={{username}}">{{username}}</a></li>
+		</ul>
+	</nav>
+	<p>Se ha mandado la oferta {{title}} al correo {{email}}</p>
+</body>
+
+</html>

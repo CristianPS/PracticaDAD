@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -37,47 +39,23 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-//import es.urjc.etsii.dad.*;
-
-
 public class Servicios implements Runnable {
+	
 	Socket socket;
 	
-	private final static String DEST = "C:\\Users\\sito\\Desktop\\prueba.pdf";
+	private UsuarioRepository usuarioRepository;
+	private AnuncioRepository anuncioRepository;
 	
 	// Image properties
     private static final int qr_image_width = 400;
     private static final int qr_image_height = 400;
     private static final String IMAGE_FORMAT = "png";
-    private static final String IMG_PATH = "C:\\Users\\sito\\Desktop\\qr.png";
 	
 	public Servicios(Socket socket) {
 		this.socket = socket;
 	}
-	public void run() {
-		try {
-		
-				InputStream is = socket.getInputStream();
-				OutputStream os = socket.getOutputStream();
-				
-				ObjectInputStream ois = new ObjectInputStream(is);
-				int idAnuncio = ois.readInt();
-				int idUsuario = ois.readInt();
-				
-			//	Usuario u = usuarioRepository.getById(idUsuario);
-			//	Anuncio a = anuncioRepository.getById(idAnuncio);
-
-				is.close();
-				os.close();
-				socket.close();
-		}
-		catch (IOException e) {
-			System.out.println("Fallo en la conexión.");
-		}
-	}
 	
-	
-    public static void generarQR(Document document) throws IOException, DocumentException
+	public static void generarQR(Document document, Usuario u, Anuncio a) throws IOException, DocumentException
     {
     	// URL to be encoded
         String data = "http://www.google.com";
@@ -107,22 +85,22 @@ public class Servicios implements Runnable {
         }
  
         // Write the image to a file
-        FileOutputStream qrCode = new FileOutputStream(IMG_PATH);
+        FileOutputStream qrCode = new FileOutputStream(u.getUsername() + a.getTitle() + ".png");
         ImageIO.write(image, IMAGE_FORMAT, qrCode);
  
         qrCode.close();
         
-        Image imagen = Image.getInstance("C:\\Users\\sito\\Desktop\\qr.png");
+        Image imagen = Image.getInstance(u.getUsername() + a.getTitle() + ".png");
         imagen.scaleAbsolute(100f, 100f);
         imagen.setAlignment(Element.ALIGN_CENTER);
         
         document.add(imagen);
     }
     
-    public static void eliminarFicheros()
+    public static void eliminarFicheros(Usuario u, Anuncio a)
     {
-    	File file = new File("C:\\Users\\sito\\Desktop\\qr.png");
-        File im = new File("C:\\Users\\sito\\Desktop\\prueba.pdf");
+    	File file = new File(u.getUsername() + a.getTitle() + ".png");
+        File im = new File(u.getUsername() + a.getTitle() + ".pdf");
         
         if (file.delete())
             System.out.println("El fichero ha sido borrado satisfactoriamente");
@@ -135,22 +113,31 @@ public class Servicios implements Runnable {
             System.out.println("La imagen no pudó ser borrada");
     }
     
-	public static void generarPDF(String dest) throws DocumentException, IOException
+	public static void generarPDF(Usuario u, Anuncio a) throws DocumentException, IOException
 	{
 		Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(dest));
+        PdfWriter.getInstance(document, new FileOutputStream(u.getUsername() + a.getTitle() + ".pdf"));
         document.open();
         
-        document.add(new Paragraph("Cachimba Premium por 10€", new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD)));
+        /*document.add(new Paragraph("Cachimba Premium por 10€", new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD)));
         document.add(new Paragraph("Anubis", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
         document.add(new Paragraph("C.C.Xanadú, Arroyomolinos (Madrid)", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
         document.add(new Paragraph("Fecha de expiración: 18/09/2019", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
         document.add(new Paragraph("\n"));
         document.add(new Paragraph("Debes presentar este código QR en el establecimiento indicado para poder canjear la oferta", new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL)));
+        */
+        
+        document.add(new Paragraph(a.getTitle(), new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD)));
+        document.add(new Paragraph(a.getLocal().getEntName(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
+        document.add(new Paragraph(a.getLocal().getAddress() + ", " + a.getLocal().getCity(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
+        document.add(new Paragraph("Fecha de expiración: " + a.getDate(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
+        document.add(new Paragraph("\n"));
+        document.add(new Paragraph("Debes presentar este código QR en el establecimiento indicado para poder canjear la oferta", new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL)));
+        
         
         //Generamos el codigo QR y lo añadimos al PDF
         
-        generarQR(document);
+        generarQR(document, u, a);
         
         //eliminarFicheros();
         
@@ -158,7 +145,7 @@ public class Servicios implements Runnable {
         
 	}
 	
-	public static void enviarConGMail() {
+	public static void enviarConGMail(Usuario u, Anuncio a) {
 
 		try
         {
@@ -175,12 +162,12 @@ public class Servicios implements Runnable {
             
             // Se compone la parte del texto
             BodyPart texto = new MimeBodyPart();
-            texto.setText("Hey que pasa primoooo, te estoy mandando esta puta mierda desde Java xdddd");
+            texto.setText("Funciona");
             
             // Se compone el adjunto con la imagen
             BodyPart adjunto = new MimeBodyPart();
-            adjunto.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\sito\\Desktop\\prueba.pdf")));
-            adjunto.setFileName("prueba.pdf");
+            adjunto.setDataHandler(new DataHandler(new FileDataSource(u.getUsername() + a.getTitle() + ".pdf")));
+            adjunto.setFileName(u.getUsername() + a.getTitle() + ".pdf");
 
             // Una MultiParte para agrupar texto e imagen.
             MimeMultipart multiParte = new MimeMultipart();
@@ -192,8 +179,9 @@ public class Servicios implements Runnable {
             
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("yo@yo.com"));
-            //message.addRecipient(Message.RecipientType.TO, new InternetAddress("c.gilsab@alumnos.urjc.es"));
-            message.addRecipients(Message.RecipientType.TO, addresses);
+            //message.addRecipient(Message.RecipientType.TO, new InternetAddress("ji.diazerrejon@outlook.es"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(u.getEmail()));
+            //message.addRecipients(Message.RecipientType.TO, addresses);
             message.setSubject("Funcionaaaa!!!");
             message.setContent(multiParte);
             //message.setText("Hey que pasa primoooo, te estoy mandando esta puta mierda desde Java xdddd");
@@ -214,5 +202,47 @@ public class Servicios implements Runnable {
         }
 	}
 	
+	public void run() {
+		
+		try {
+			InputStream is = socket.getInputStream();
+			OutputStream os = socket.getOutputStream();
+			
+			ObjectInputStream ois = new ObjectInputStream(is);
+			
+			long idUsuario = ois.readLong();
+			long idAnuncio = ois.readLong();
+			
+			System.out.println(idUsuario);
+			System.out.println(idAnuncio);
+			
+			/*for(Usuario u : usuarioRepository.findAll())
+			{
+				System.out.println(u.getUsername());
+			}*/
+			
+			Usuario u = usuarioRepository.getById(idUsuario);
+			Anuncio a = anuncioRepository.getById(idAnuncio);
+			
+			System.out.println(u.getUsername());
+			System.out.println(u.getEmail());
+			
+			generarPDF(u, a);
+			enviarConGMail(u, a);
+			
+			eliminarFicheros(u, a);
+
+			is.close();
+			os.close();
+			ois.close();
+			socket.close();
+		}
+		catch (IOException e) {
+			System.out.println("Fallo en la conexión.");
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

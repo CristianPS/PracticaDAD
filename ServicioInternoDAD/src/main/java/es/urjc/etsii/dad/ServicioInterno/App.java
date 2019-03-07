@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
@@ -21,44 +24,31 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Writer;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfDocument;
-import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Hello world!
  *
  */
 public class App 
-{
-		
-    public static void main( String[] args ) throws DocumentException, IOException
+{	
+    public static void main( String[] args ) throws IOException
     {
     	int port = 7777;
-    			ServerSocket serverSocket = new ServerSocket(port);
-    			while (true) {
-    			Socket socket = serverSocket.accept();
-    			Thread t = new Thread(new Servicios(socket));
-    			t.start();
     	
-    	
-    	/*File file = new File(DEST);
-		file.getParentFile().mkdirs();
-		generarPDF(DEST);
-		enviarConGMail();*/
-
-    			}}
+    	//ServerSocketFactory serverSocketFactory = SSLServerSocketFactory.getDefault();
+    	//SSLServerSocket serverSocket = (SSLServerSocket) serverSocketFactory.createServerSocket(port);
+		ServerSocket serverSocket = new ServerSocket(port);
+		
+		while (true) {
+			Socket socket = serverSocket.accept();
+			Thread t = new Thread(new Servicios(socket));
+			t.start();
+		}
+    }
 }

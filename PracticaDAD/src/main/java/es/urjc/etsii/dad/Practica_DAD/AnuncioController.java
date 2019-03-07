@@ -1,8 +1,20 @@
 package es.urjc.etsii.dad.Practica_DAD;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -187,6 +199,39 @@ public class AnuncioController {
 		
 		//return mostrarAnuncio2(model, title, valoracionMedia);
 		return mostrarAnuncio(model, title);
+	}
+	
+	@RequestMapping("/obtenerOferta")
+	public String obtenerOferta(Model model, @RequestParam String title) throws UnknownHostException, IOException
+	{
+		Usuario u = usuarioRepository.getByUsername(UsuarioController.getUsuarioActual());
+		
+		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
+		//SSLSocket socket = (SSLSocket) socketFactory.createSocket("127.0.0.1", 7777);
+		Socket socket = new Socket("127.0.0.1", 7777);
+		//BufferedReader leerServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		OutputStream os = socket.getOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(os);
+		
+		System.out.println(u.getId());
+		
+		oos.writeLong(u.getId());
+		oos.flush();
+		
+		oos.writeLong(anuncioRepository.getByTitle(title).getId());
+		oos.flush();
+		
+		oos.close();
+		
+		
+		os.close();
+		socket.close();
+		
+		model.addAttribute("username", u.getUsername());
+		model.addAttribute("email", u.getEmail());
+		model.addAttribute("title", title);
+		
+		return "verficacionObtenerOferta";
 	}
 	
 	@RequestMapping("/añadirComentario")
