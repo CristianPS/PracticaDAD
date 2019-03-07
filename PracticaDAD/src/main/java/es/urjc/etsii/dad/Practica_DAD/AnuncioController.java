@@ -208,7 +208,7 @@ public class AnuncioController {
 		
 		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
 		//SSLSocket socket = (SSLSocket) socketFactory.createSocket("127.0.0.1", 7777);
-		Socket socket = new Socket("127.0.0.1", 7777);
+		Socket socket = new Socket("127.0.0.1", 7000);
 		//BufferedReader leerServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		OutputStream os = socket.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
@@ -231,7 +231,7 @@ public class AnuncioController {
 		model.addAttribute("email", u.getEmail());
 		model.addAttribute("title", title);
 		
-		return "verficacionObtenerOferta";
+		return "verificacionObtenerOferta";
 	}
 	
 	@RequestMapping("/añadirComentario")

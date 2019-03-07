@@ -39,7 +39,7 @@ public class App
 {	
     public static void main( String[] args ) throws IOException
     {
-    	int port = 7777;
+    	int port = 7000;
     	
     	//ServerSocketFactory serverSocketFactory = SSLServerSocketFactory.getDefault();
     	//SSLServerSocket serverSocket = (SSLServerSocket) serverSocketFactory.createServerSocket(port);

@@ -9,6 +9,14 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.file.Files;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
@@ -39,18 +47,28 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+
+@Service
 public class Servicios implements Runnable {
+		
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private AnuncioRepository anuncioRepository;
+	@Autowired
+	private EmpresarioRepository empresarioRepository;
+	@Autowired
+	private ComercioRepository comercioRepository;
 	
 	Socket socket;
-	
-	private UsuarioRepository usuarioRepository;
-	private AnuncioRepository anuncioRepository;
-	
 	// Image properties
     private static final int qr_image_width = 400;
     private static final int qr_image_height = 400;
     private static final String IMAGE_FORMAT = "png";
 	
+    public Servicios() {}
+    
 	public Servicios(Socket socket) {
 		this.socket = socket;
 	}
@@ -220,7 +238,15 @@ public class Servicios implements Runnable {
 			{
 				System.out.println(u.getUsername());
 			}*/
-			
+			/*File image = new File("D:\\Cristian\\Imágenes\\WhatsApp Image 2018-05-12 at 13.32.09.jpeg");
+
+			byte[] encImage = Base64.encodeBase64(Files.readAllBytes(image.toPath()));
+			List<String> ROLES = new LinkedList<>();
+			ROLES.add("ROLE_USER");
+			Empresario eTest = new Empresario("PepePontes","Pepe","Pontes Pontes", "contraseña", "Madrid", "C/Alcala, 5", "pepepontes@hotmail.es", "918130251", "01/05/1985", "Hombre", ROLES);
+			Comercio cTest = new Comercio("Fabrik","Madrid","C/AlcaldeMostoles,5","fabrik@hotmail.es","918170864", eTest);
+			Usuario uTest = new Usuario("PepeLuis", "Pepe", "Luis","01/01/1901", "Vallekas", "mishuevosmorenos", "Machomen", "cristianvk97@gmail.com", ROLES);
+			Anuncio aTest = new Anuncio("Anuncio de preuba", "Este es un anuncio de prueba.", cTest, "08/08/2019", encImage);*/			
 			Usuario u = usuarioRepository.getById(idUsuario);
 			Anuncio a = anuncioRepository.getById(idAnuncio);
 			
@@ -232,9 +258,9 @@ public class Servicios implements Runnable {
 			
 			eliminarFicheros(u, a);
 
+			ois.close();
 			is.close();
 			os.close();
-			ois.close();
 			socket.close();
 		}
 		catch (IOException e) {
