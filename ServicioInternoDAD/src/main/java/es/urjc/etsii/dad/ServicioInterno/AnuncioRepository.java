@@ -1,4 +1,4 @@
-package es.urjc.etsii.dad.Practica_DAD;
+package es.urjc.etsii.dad.ServicioInterno;
 
 import java.util.List;
 
