@@ -58,15 +58,16 @@
 				<p id="expDate"><b style="color:#3498db">Fecha de expiracion:</b> 	{{date}}</p>
 				<textarea rows="1" cols="30" id="date" name="date" class="disappear">{{date}}</textarea>
 				<p><b style="color:#3498db">Valoracion actual:</b> 		{{valoracion}} sobre 5</p>
+				<p class="image disappear" id="par">								      	
+			 		<b style="color:#3498db">Selecciona una imagen</b>			 					
+					<input type="file" name="selectFile" id="selectFile" class="disappear">				
+				</p>
 			</div>
-			<p class="image disappear" id="par">								      	
-			 	Selecciona una imagen				 					
-				<input type="file" name="selectFile" id="selectFile" class="disappear">				
-			</p>		
+					
 		</div>
 		
 		<div class="descripcion">
-			<h2 style="color:#3498db">Descripcion de la oferta</h2>
+			<h2 style="color:#3498db; margin-left:0;">Descripción de la oferta</h2>
 			<p id="offerDescription">
 				{{description}}
 			</p>

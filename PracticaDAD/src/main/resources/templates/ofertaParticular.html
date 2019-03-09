@@ -25,6 +25,11 @@
 			<hr color="black">
 			</div>	
 			<div class="oferta">
+				<form action="/obtenerOferta?title={{title}}" method="post" >
+					<input type="submit" value="Obtener Oferta" id="button-blue2"
+						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
+						background-color: #3498db;float:right;font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;"/>
+				</form>	
 				<div class="imgclass">
 					<img id="img" class="imageOferta" src="data:image/jpeg;base64,{{imageString}}" alt="" />
 				</div>
@@ -39,18 +44,12 @@
 			</div>
 			
 			<div class="descripcion">
-				<h2 style="color:#3498db">Descripcion de la oferta</h2>
+				<h2 style="color:#3498db; margin-left:0;">Descripción de la oferta</h2>
 				
 				<p id="offerDescription">
 					{{description}}
 				</p>
 			</div>
-			
-			<form action="/obtenerOferta?title={{title}}" method="post" >
-				<input type="submit" value="Obtener Oferta" id="button-blue2"
-						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
-						background-color: #3498db;font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;"/>
-			</form>	
 		</div>
 			
 		<div class="valorar">
