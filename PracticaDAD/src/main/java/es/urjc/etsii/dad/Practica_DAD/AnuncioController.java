@@ -16,6 +16,7 @@ import java.util.List;
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,8 +65,9 @@ public class AnuncioController {
 	}
 	
 	@RequestMapping("/buscar")
-	public String buscar(Model model, @RequestParam String searchbar)
+	public String buscar(Model model, @RequestParam String searchbar, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName();
 		List<Anuncio> anunciosAux = anuncioRepository.findAll();
 		List<Anuncio> anuncios = new LinkedList<>();
 		
@@ -81,13 +83,13 @@ public class AnuncioController {
 		}
 		
 		model.addAttribute("anuncios", anuncios);
-		model.addAttribute("username", UsuarioController.getUsuarioActual());
+		model.addAttribute("username", name);
 		model.addAttribute("busqueda", "Ofertas / " + searchbar);
 		return "ofertas";
 	}
 	
 	@RequestMapping("/guardarAnuncio")
-	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date, @RequestParam MultipartFile selectFile) throws IOException
+	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date, @RequestParam MultipartFile selectFile, HttpServletRequest request) throws IOException
 	{
 		Anuncio a = anuncioRepository.getByTitle(anuncioActual);
 		
@@ -110,25 +112,27 @@ public class AnuncioController {
 		anuncioRepository.save(a);
 		
 		//return mostrarAnuncioPropio(model, title, description, date);
-		return mostrarAnuncioPropio(model, title);
+		return mostrarAnuncioPropio(model, title, request);
 	}
 	
 	@RequestMapping("/mostrarAnuncios")
-	public String mostrarAnuncios(Model model, @RequestParam String username)
+	public String mostrarAnuncios(Model model, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName();
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
-		model.addAttribute("username", username);
+		model.addAttribute("username", name);
 		model.addAttribute("busqueda", "Todas las ofertas");
 		return "ofertas";
 	}
 	
 	@RequestMapping("/mostrarAnuncio")
-	public String mostrarAnuncio(Model model, @RequestParam String title)
+	public String mostrarAnuncio(Model model, @RequestParam String title, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName(); 
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		model.addAttribute("username", UsuarioController.getUsuarioActual());
+		model.addAttribute("username", name);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
@@ -153,11 +157,12 @@ public class AnuncioController {
 	}
 	
 	@RequestMapping("/mostrarAnuncioPropio")
-	public String mostrarAnuncioPropio(Model model, @RequestParam String title)
+	public String mostrarAnuncioPropio(Model model, @RequestParam String title, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
-		model.addAttribute("username", EmpresarioController.getEmpresarioActual());
+		model.addAttribute("username", name);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
 		model.addAttribute("description", a.getDescription());
@@ -184,15 +189,16 @@ public class AnuncioController {
 	}
 
 	@RequestMapping("/nuevaOferta")
-	public String nuevaOferta(Model model, @RequestParam String entName)
+	public String nuevaOferta(Model model, @RequestParam String entName, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName();
 		model.addAttribute("entName", entName);
-		model.addAttribute("username", EmpresarioController.getEmpresarioActual());
+		model.addAttribute("username", name);
 		return "nuevaOferta";
 	}
 	
 	@RequestMapping("/valorar")
-	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion)
+	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion, HttpServletRequest request)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
@@ -212,13 +218,14 @@ public class AnuncioController {
 		anuncioRepository.save(a);
 		
 		//return mostrarAnuncio2(model, title, valoracionMedia);
-		return mostrarAnuncio(model, title);
+		return mostrarAnuncio(model, title, request);
 	}
 	
 	@RequestMapping("/obtenerOferta")
-	public String obtenerOferta(Model model, @RequestParam String title) throws UnknownHostException, IOException
+	public String obtenerOferta(Model model, @RequestParam String title, HttpServletRequest request) throws UnknownHostException, IOException
 	{
-		Usuario u = usuarioRepository.getByUsername(UsuarioController.getUsuarioActual());
+		String name = request.getUserPrincipal().getName();
+		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
 		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
@@ -227,8 +234,7 @@ public class AnuncioController {
 		//BufferedReader leerServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		OutputStream os = socket.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
-		
-		System.out.println(u.getId());
+				
 		
 		/*oos.writeLong(u.getId());
 		oos.flush();
@@ -260,7 +266,7 @@ public class AnuncioController {
 		os.close();
 		socket.close();
 		
-		model.addAttribute("username", u.getUsername());
+		model.addAttribute("username", name);
 		model.addAttribute("email", u.getEmail());
 		model.addAttribute("title", title);
 		
@@ -268,27 +274,29 @@ public class AnuncioController {
 	}
 	
 	@RequestMapping("/añadirComentario")
-	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment)
+	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment, HttpServletRequest request)
 	{
-		Usuario u = usuarioRepository.getByUsername(UsuarioController.getUsuarioActual());
+		String name = request.getUserPrincipal().getName();
+		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = new Comentario(u, addComment, a);
 		comentarioRepository.save(c);
 		
-		return mostrarAnuncio(model, title);
+		return mostrarAnuncio(model, title, request);
 	}
 	@RequestMapping("/eliminarComentario")
-	public String eliminarComentario(Model model, @RequestParam String title, @RequestParam String comment )
+	public String eliminarComentario(Model model, @RequestParam String title, @RequestParam String comment, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = comentarioRepository.getByComment(comment);
 		
-		if(UsuarioController.getUsuarioActual().equals(c.getUser().getUsername()))
+		if(name.equals(c.getUser().getUsername()))
 		{
 			a.getComments().remove(c);
 			comentarioRepository.delete(c);
 		}
 		
-		return mostrarAnuncio(model, title);
+		return mostrarAnuncio(model, title, request);
 	}
 }

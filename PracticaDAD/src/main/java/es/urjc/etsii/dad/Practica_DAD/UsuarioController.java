@@ -147,7 +147,7 @@ public class UsuarioController {
 	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre,
 							@RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad,
 							@RequestParam String fecha, @RequestParam String gender, @RequestParam String password,
-							@RequestParam String passwordNew, @RequestParam String confirmPassword)
+							@RequestParam String passwordNew, @RequestParam String confirmPassword, HttpServletRequest request)
 	{
 		Usuario u = usuarioRepository.getByUsername(username);
 
@@ -177,17 +177,18 @@ public class UsuarioController {
 		//model.addAttribute("username", username);
 
 		//return inicioUsuario(model, username);
-		return mostrarPerfil(model, username);
+		return mostrarPerfil(model, request);
 	}
 
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model/*, @RequestParam String name*/, HttpServletRequest request) {
 
 		String name = request.getUserPrincipal().getName();
-
+		
+		
 		if(usuarioRepository.getByUsername(name) != null)
 		{
-			model.addAttribute("username", name);
+			model.addAttribute("username", request.getUserPrincipal().getName()/*name*/);
 
 			usuarioActual = name;
 			List<Anuncio> anuncios = anuncioRepository.findAll();
@@ -250,9 +251,10 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/mostrarPerfil")
-	public String mostrarPerfil(Model model, @RequestParam String username)
+	public String mostrarPerfil(Model model, HttpServletRequest request)
 	{
-		Usuario u = usuarioRepository.getByUsername(username);
+		String name = request.getUserPrincipal().getName();
+		Usuario u = usuarioRepository.getByUsername(name);
 
 		model.addAttribute("username", u.getUsername());
 		model.addAttribute("nombre", u.getName());
@@ -302,7 +304,7 @@ public class UsuarioController {
 
 				usuarioRepository.save(u);
 
-				usuarioActual = username;
+				//usuarioActual = username;
 
 				//return inicioUsuario(model);
 				return login();
