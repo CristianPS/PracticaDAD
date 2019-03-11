@@ -144,11 +144,12 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/guardar")
-	public String guardar(Model model, @RequestParam String username, @RequestParam String nombre,
+	public String guardar(Model model, @RequestParam String nombre,
 							@RequestParam String apellidos, @RequestParam String correo, @RequestParam String ciudad,
 							@RequestParam String fecha, @RequestParam String gender, @RequestParam String password,
 							@RequestParam String passwordNew, @RequestParam String confirmPassword, HttpServletRequest request)
 	{
+		String username = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(username);
 
 		/*userRepository.setNameByUsername(nombre, username);

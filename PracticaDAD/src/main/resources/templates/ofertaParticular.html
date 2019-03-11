@@ -12,10 +12,10 @@
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 			
-			<li class="menuItem btn btn-1"><a href="inicioUsuario?name={{username}}">Inicio</a></li>
-			<li class="menuItem btn btn-1"><a href="/mostrarAnuncios?username={{username}}">Ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="inicioUsuario">Inicio</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarAnuncios">Ofertas</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfil?username={{username}}">{{username}}</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a href="/mostrarPerfil">{{username}}</a></li>
 		</ul>
 	</nav>
 	
@@ -56,7 +56,7 @@
 			<h3><b style="color:#3498db">Valoracion actual:</b> {{valoracion}} sobre 5</h3>
 			<div class="valoracion">
 				<h3>Valora esta oferta del 1 al 5:</h3>					
-				<form action="/valorar?title={{title}}&username={{username}}" method="post" class="nota">
+				<form action="/valorar?title={{title}}" method="post" class="nota">
 					<input type="number" name="valoracion" min="1" max="5">
 					<input type="submit" name="button" value="VALORAR" class="btn-in" 
 						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;

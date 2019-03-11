@@ -17,14 +17,14 @@
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 
-			<li class="menuItem btn btn-1"><a href="/inicioUsuario?name={{username}}">Inicio</a></li>
-			<li class="menuItem btn btn-1"><a href="/mostrarAnuncios?username={{username}}">Ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/inicioUsuario">Inicio</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarAnuncios">Ofertas</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="/mostrarPerfil?username={{username}}">{{username}}</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a class="active" href="/mostrarPerfil">{{username}}</a></li>
 		</ul>
 	</nav>
 
-	<form action="/guardar?username={{username}}" method="post">
+	<form action="/guardar" method="post">
 
 	  <div class="row">
 	    <div class="izqda">

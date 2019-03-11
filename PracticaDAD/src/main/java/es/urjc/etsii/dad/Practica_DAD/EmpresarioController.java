@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,10 +44,10 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/guardarEmpresario")
-	public String guardarEmpresario(Model model, @RequestParam String username, @RequestParam String nombre, @RequestParam String apellidos, 
+	public String guardarEmpresario(Model model, @RequestParam String nombre, @RequestParam String apellidos, 
 										@RequestParam String direccion, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telefono, 
 										@RequestParam String gender, @RequestParam String fecha, @RequestParam String password, @RequestParam String passwordNew,
-										@RequestParam String confirmPassword)
+										@RequestParam String confirmPassword, HttpServletRequest request)
 	{
 		/*empresarioRepository.setNameByUsername(nombre, username);
 		empresarioRepository.setSurnameByUsername(apellidos, username);
@@ -57,7 +58,8 @@ public class EmpresarioController {
 		empresarioRepository.setGenderByUsername(gender, username);
 		empresarioRepository.setDateByUsername(fecha, username);*/
 		
-		Empresario e = empresarioRepository.getByUsername(username);
+		String name = request.getUserPrincipal().getName();
+		Empresario e = empresarioRepository.getByUsername(name);
 		e.setName(nombre);
 		e.setAddress(direccion);
 		e.setSurname(apellidos);
@@ -77,12 +79,13 @@ public class EmpresarioController {
 		
 		empresarioRepository.save(e);		
 		
-		return mostrarPerfilEmpresario(model,username);
+		return mostrarPerfilEmpresario(model, request);
 	}
 	
 	@RequestMapping("/inicioEmpresario")
-	public String inicioEmpresario(Model model, @RequestParam String name) {
+	public String inicioEmpresario(Model model, HttpServletRequest request) {
 
+		String name = request.getUserPrincipal().getName();
 		Empresario e = empresarioRepository.getByUsername(name);
 		
 		List<Comercio> comercios = e.getComercios();
@@ -105,9 +108,10 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/mostrarPerfilEmpresario")
-	public String mostrarPerfilEmpresario(Model model, @RequestParam String username)
+	public String mostrarPerfilEmpresario(Model model, HttpServletRequest request)
 	{
-		Empresario u = empresarioRepository.getByUsername(username);
+		String name = request.getUserPrincipal().getName();
+		Empresario u = empresarioRepository.getByUsername(name);
 
 		model.addAttribute("username", u.getUsername());
 		model.addAttribute("nombre", u.getName());
@@ -158,15 +162,16 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/crearComercio")
-	public String crearComercio(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String city, @RequestParam String address, @RequestParam String email, @RequestParam String telephone)
+	public String crearComercio(Model model, @RequestParam String name, @RequestParam String city, @RequestParam String address, @RequestParam String email, @RequestParam String telephone, HttpServletRequest request)
 	{
+		String username = request.getUserPrincipal().getName();
 		Empresario e = empresarioRepository.getByUsername(username);
 		Comercio c = new Comercio(name, city, address, email, telephone, e);
 		
 		e.getComercios().add(c);
 		comercioRepository.save(c);
 		
-		return inicioEmpresario(model, username);
+		return inicioEmpresario(model, request);
 		
 		/*model.addAttribute("username", username);
 		
@@ -174,7 +179,7 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/crearOferta")
-	public String crearOferta(Model model, @RequestParam String title, @RequestParam String entName, @RequestParam String description, @RequestParam String username, @RequestParam String date, @RequestParam MultipartFile img) throws IOException
+	public String crearOferta(Model model, @RequestParam String title, @RequestParam String entName, @RequestParam String description, @RequestParam String date, @RequestParam MultipartFile img, HttpServletRequest request) throws IOException
 	{
 		String aux = UsuarioController.convertirFecha(date);
 		
@@ -186,7 +191,7 @@ public class EmpresarioController {
 		
 		anuncioRepository.save(a);
 		
-		return inicioEmpresario(model, username);
+		return inicioEmpresario(model, request);
 		
 		/*model.addAttribute("username", username);
 		
@@ -194,7 +199,7 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/eliminar")
-	public String eliminar(Model model, @RequestParam String title)
+	public String eliminar(Model model, @RequestParam String title, HttpServletRequest request)
 	{
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
@@ -207,7 +212,7 @@ public class EmpresarioController {
 		
 		anuncioRepository.delete(a);
 		
-		return inicioEmpresario(model, getEmpresarioActual());
+		return inicioEmpresario(model, request);
 		
 		/*model.addAttribute("username", getEmpresarioActual());
 		

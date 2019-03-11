@@ -14,11 +14,11 @@
 		<ul class="menu">
 			<li><a href="index.html"><img class="logo"src="images/cocktail.png"/></a></li>
 						
-			<li class="menuItem btn btn-1"><a href="/inicioEmpresario?name={{username}}">Mis ofertas</a></li>
-			<li class="menuItem btn btn-1"><a href="/mostrarComercios?name={{username}}">Mis Comercios</a></li>
-			<li class="menuItem btn btn-1"><a class="active" href="/nuevoComercio?name={{username}}">Añadir Comercio</a></li>
+			<li class="menuItem btn btn-1"><a href="/inicioEmpresario">Mis ofertas</a></li>
+			<li class="menuItem btn btn-1"><a href="/mostrarComercios">Mis Comercios</a></li>
+			<li class="menuItem btn btn-1"><a class="active" href="/nuevoComercio">Añadir Comercio</a></li>
 			<li class="menuItem btn btn-1" style="float:right"><a href="/">Cerrar Sesión</a></li>
-			<li class="menuItem btn btn-1" style="float:right"><a  href="/mostrarPerfilEmpresario?username={{username}}">{{username}}</a></li>
+			<li class="menuItem btn btn-1" style="float:right"><a  href="/mostrarPerfilEmpresario">{{username}}</a></li>
 		</ul>
 	</nav>
 	
@@ -26,7 +26,7 @@
 	  	<div id="form-div">
 	  
 	  		<h3 style="color:#3498db">Crear Nuevo Comercio</h3>
-	    	<form action="/crearComercio?username={{username}}" class="form" id="form" method="post">
+	    	<form action="/crearComercio" class="form" id="form" method="post">
 	      
 	      	<p class="name">
 	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre del Comercio" id="title" />

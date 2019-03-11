@@ -2,6 +2,8 @@ package es.urjc.etsii.dad.Practica_DAD;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,7 @@ public class ComercioController {
 	private EmpresarioRepository empresarioRepository;
 	
 	@RequestMapping("/guardarComercio")
-	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone)
+	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, HttpServletRequest request)
 	{		
 		/*comercioRepository.setCityByEntName(ciudad, entName);
 		comercioRepository.setAddressByEntName(address, entName);
@@ -39,15 +41,15 @@ public class ComercioController {
 		model.addAttribute("correo", c.getEmail());
 		model.addAttribute("telephone", c.getTelephone());*/
 
-		return mostrarPerfilComercio(model,entName);
+		return mostrarPerfilComercio(model, entName, request);
 	}
 	
 	@RequestMapping("/mostrarPerfilComercio")
-	public String mostrarPerfilComercio(Model model, @RequestParam String entName)
+	public String mostrarPerfilComercio(Model model, @RequestParam String entName, HttpServletRequest request)
 	{
 		Comercio c = comercioRepository.getByEntName(entName);
 
-		model.addAttribute("username", EmpresarioController.getEmpresarioActual());
+		model.addAttribute("username", request.getUserPrincipal().getName());
 		model.addAttribute("entName", c.getEntName());
 		model.addAttribute("address", c.getAddress());
 		model.addAttribute("email", c.getEmail());
@@ -58,8 +60,9 @@ public class ComercioController {
 	}
 	
 	@RequestMapping("/mostrarComercios")
-	public String mostrarComercios(Model model, @RequestParam String name)
+	public String mostrarComercios(Model model, HttpServletRequest request)
 	{
+		String name = request.getUserPrincipal().getName();
 		Empresario e = empresarioRepository.getByUsername(name);
 		List<Comercio> comercios = e.getComercios();
 		model.addAttribute("username", name);
@@ -85,9 +88,9 @@ public class ComercioController {
 	}
 	
 	@RequestMapping("/nuevoComercio")
-	public String nuevoComercio(Model model, @RequestParam String username)
+	public String nuevoComercio(Model model, HttpServletRequest request)
 	{
-		model.addAttribute("username", username);
+		model.addAttribute("username", request.getUserPrincipal().getName());
 		return "nuevoComercio";
 	}
 }
