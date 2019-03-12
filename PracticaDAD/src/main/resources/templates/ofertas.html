@@ -23,6 +23,7 @@
 	
   	<form class="search-container" action="/buscar" method="post">
 	    <input type="text" name="searchbar" id="search-bar" placeholder="¿Qué estás buscando?">
+	    <input type="hidden" name="_csrf" value="{{token}}"/>
 	    <input type="image" class="search-icon" alt="Submit" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png">
   	</form>
   	
@@ -40,6 +41,7 @@
 		   					<h4 >Hasta el {{date}}</h4>
 		             </div>
 	             	 <form class="form-btn-esp" action="/mostrarAnuncio?title={{title}}" method="post">
+	             	 	<input type="hidden" name="_csrf" value="{{token}}"/>
 	   					<input class="btn-blue-esp" type="submit" value="ACCEDER" >
 	   				 </form>
 	             </div> 

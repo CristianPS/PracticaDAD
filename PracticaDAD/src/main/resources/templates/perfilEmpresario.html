@@ -25,7 +25,7 @@
 	</nav>
 	
 	<form action="/guardarEmpresario" method="post">
-	
+	<input type="hidden" name="_csrf" value="{{token}}"/>
 	<div class="row">
 	    <div class="izqda">
 		  <h1>{{username}}</h1>

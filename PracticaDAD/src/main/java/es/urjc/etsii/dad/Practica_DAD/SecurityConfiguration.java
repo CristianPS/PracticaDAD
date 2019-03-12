@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.formLogin().defaultSuccessUrl("/inicioUsuario");
 		http.formLogin().failureUrl("/loginError");
 		
-		http.csrf().disable();
+		//http.csrf().disable();
 	}
 	
 	@Override

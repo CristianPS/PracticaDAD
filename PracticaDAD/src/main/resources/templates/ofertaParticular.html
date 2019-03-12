@@ -26,9 +26,10 @@
 			</div>	
 			<div class="oferta">
 				<form action="/obtenerOferta?title={{title}}" method="post" >
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 					<input type="submit" value="Obtener Oferta" id="button-blue2"
 						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
-						background-color: #3498db;float:right;font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;"/>
+						background-color: #3498db;float:right;cursor: pointer;font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;"/>
 				</form>	
 				<div class="imgclass">
 					<img id="img" class="imageOferta" src="data:image/jpeg;base64,{{imageString}}" alt="" />
@@ -57,6 +58,7 @@
 			<div class="valoracion">
 				<h3>Valora esta oferta del 1 al 5:</h3>					
 				<form action="/valorar?title={{title}}" method="post" class="nota">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 					<input type="number" name="valoracion" min="1" max="5">
 					<input type="submit" name="button" value="VALORAR" class="btn-in" 
 						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
@@ -66,6 +68,7 @@
 			<div class="comentario">
 				<h3><b>Añada su comentario: </b></h3>
 				<form action="/añadirComentario?title={{title}}" method="post" >
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 					<textarea rows="7" cols="60" id="addComment" name="addComment" placeholder="Comentario" class="tuComentario"></textarea>
 					<input type="submit" value="Comentar" id="button-blue2"
 							style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
@@ -79,7 +82,8 @@
 			
 			
 			{{#comentarios}}
-			<form id="comment" class="commentList" action="/eliminarComentario?title={{title}}&comment={{comment}}" method="post">	
+			<form id="comment" class="commentList" action="/eliminarComentario?title={{title}}&comment={{comment}}" method="post">
+			<input type="hidden" name="_csrf" value="{{token}}"/>	
 				<button id="boton" class="btn-red" style="float:right; width:auto; margin: 0 1% 0 0;padding: 1px;" onload="mostrarEliminarComentario({{user.username}},{{username}})">
 					<img src="https://img.icons8.com/material/24/000000/delete-forever.png">
 				</button>

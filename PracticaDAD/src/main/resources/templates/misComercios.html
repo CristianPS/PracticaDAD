@@ -43,10 +43,12 @@
 	            </div>
 	            <form class="form-btn-esp" id="form" action="/mostrarPerfilComercio?entName={{entName}}" method="post">
 	   				<input class="btn-blue-esp" type="submit" value="ACCEDER" >
+	   				<input type="hidden" name="_csrf" value="{{token}}"/>
 	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
 	   			</form>
 				<form class="form-btn-esp" style="margin-right: 1%;" id="form" action="/nuevaOferta?entName={{entName}}" method="post">
 	   				<input class="btn-blue-esp" type="submit" value="NUEVA OFERTA" >
+	   				<input type="hidden" name="_csrf" value="{{token}}"/>
 	   				<!--  <input id="button" class="btn-blue-esp" style= "float:right;text-align: center;width:90%;" onClick="showStatistics()" value="Estadisticas">	-->
 	   			</form>
 

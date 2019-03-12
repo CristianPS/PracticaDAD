@@ -28,7 +28,7 @@
 	  
 	  		<h3 style="color:#3498db">Crear Nueva Oferta</h3>
 	    	<form action="/crearOferta?entName={{entName}}" class="form" id="form" method="post" enctype="multipart/form-data">
-	      
+	     	 <input type="hidden" name="_csrf" value="{{token}}"/>
 	      	<p class="name">
 	        	<input name="title" type="text" class="feedback-input" placeholder="Nombre de Oferta y Precio" id="title" />
 	      	</p>

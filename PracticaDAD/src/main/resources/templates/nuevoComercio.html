@@ -27,7 +27,7 @@
 	  
 	  		<h3 style="color:#3498db">Crear Nuevo Comercio</h3>
 	    	<form action="/crearComercio" class="form" id="form" method="post">
-	      
+	      	<input type="hidden" name="_csrf" value="{{token}}"/>
 	      	<p class="name">
 	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre del Comercio" id="title" />
 	      	</p>

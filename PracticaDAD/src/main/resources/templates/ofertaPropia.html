@@ -25,6 +25,7 @@
 	
 	
 	<form action="/eliminar?title={{title}}" id="pop-up" class="cd-popup" role="alert" method="post">
+	<input type="hidden" name="_csrf" value="{{token}}"/>
 	<div class="cd-popup-container">
 		<p>¿Eliminar el anuncio de forma permanente?</p>
 		
@@ -38,6 +39,7 @@
 	
 	
 	<form class="fullOffer" style="margin-top:3%" method="post" action="/guardarAnuncio" enctype="multipart/form-data">
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 		<div style="width:100%;padding-top: 1%; border-radius: 7px;">
 		<span id="editar" class="btn-blue" style="float:right; width:5%; margin: 0 1% 0 0; text-align: center;" onclick="editarOferta()">Editar</span>
 		<span id="eliminar" class="btn-red disappear" style="float:right; width:5%; margin: 0 1% 0 0; text-align: center;" onclick="seguro()">Eliminar</span>	
