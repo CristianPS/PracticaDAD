@@ -17,8 +17,7 @@
 			
 		</ul>
 	</nav>
-	
-	<input type="hidden" name="_csrf" value="{{token}}"/>
+
 	<div id="main">
 	
 		<img class="city" src="images/bnw.jpg" />
@@ -38,6 +37,7 @@
 				<p>Valoración Media: {{valoracionMedia}}
 				<form action="/mostrarAnuncio?title={{title}}" method="post">
 					<button class="btn-blue">Acceder</button>
+					<input type="hidden" name="_csrf" value="{{token}}"/>
 				</form>
 			</div>
 			{{/mejoresAnuncios}}
