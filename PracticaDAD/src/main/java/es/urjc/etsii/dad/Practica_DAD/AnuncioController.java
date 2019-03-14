@@ -16,6 +16,7 @@ import java.util.List;
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AnuncioController {
 	private String anuncioActual;
 	
 	@RequestMapping("/")
-	public String index(Model model)
+	public String index(Model model,  HttpServletRequest request)
 	{
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		
@@ -60,6 +61,12 @@ public class AnuncioController {
 		}
 		
 		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
+		 try {
+			request.logout();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "index";
 	}
