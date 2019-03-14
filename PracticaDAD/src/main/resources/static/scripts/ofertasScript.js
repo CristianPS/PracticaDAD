@@ -6,6 +6,18 @@ $(document).ready(function() {
     $('#grid').click(function(event){event.preventDefault();$('#products').removeClass('list');$('#products .item').addClass('grid');});
 });
 
+
+function connect() {
+	window.alert("mis muelas");
+	console.log('entramos en javascript');
+	ws = new WebSocket('ws://localhost://8081/name');
+	setConnected(true);
+	ws.send('4');
+	document.getElementById("formOffer").action="/obtenerOferta?title={{title}}";
+	document.getElementById("formOffer").method="post";
+}
+
+
 function grid() {
 	document.getElementById("item").classList.add("itemGrid");
 	document.getElementById("item").classList.remove("itemList");

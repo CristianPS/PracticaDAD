@@ -6,6 +6,7 @@
 <link rel="shortcut icon" href="images/cocktailPequeño.png">
 <link rel="stylesheet" href="/styles/GeneralStyle.css">
 <link rel="stylesheet" href="/styles/ofertaparticularstyle.css">
+<script src="../scripts/ofertasScript.js"></script>
 </head>
 <body>
 	<nav>
@@ -25,9 +26,9 @@
 			<hr color="black">
 			</div>	
 			<div class="oferta">
-				<form action="/obtenerOferta?title={{title}}" method="post" >
+				<form id="formOffer">
 				<input type="hidden" name="_csrf" value="{{token}}"/>
-					<input type="submit" value="Obtener Oferta" id="button-blue2"
+					<input type="submit" onclick="connect()" value="Obtener Oferta" id="button-blue2"
 						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
 						background-color: #3498db;float:right;cursor: pointer;font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;"/>
 				</form>	
@@ -41,6 +42,7 @@
 					<p><b style="color:#3498db">Direccion:</b> 				{{address}}</p>
 					<p><b style="color:#3498db">Telefono:</b> 				{{telephone}}</p>
 					<p><b style="color:#3498db">Fecha de expiracion:</b> 	{{date}}</p>
+					<p><b style="color:#3498db">{{offerId}}</b></p>
 				</div>		
 			</div>
 			

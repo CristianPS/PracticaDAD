@@ -18,6 +18,7 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.WebSocketContainer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -38,9 +39,9 @@ public class AnuncioController {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private EmpresarioRepository empresarioRepository;
-	
+
 	private String anuncioActual;
-	
+
 	@RequestMapping("/inicio")
 	public String CerrarSesion(Model model,  HttpServletRequest request)
 	{
@@ -58,25 +59,25 @@ public class AnuncioController {
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		if(request.getUserPrincipal() == null)
 		{
-			
-		
-				
+
+
+
 		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
 		anuncios.sort(a);
-		
+
 		int numAnuncios = anuncios.size();
-		
+
 		List<Anuncio> mejoresAnuncios = new LinkedList<>();
-		
+
 		if(numAnuncios < 4)
 		{
 			mejoresAnuncios = anuncios.subList(0, numAnuncios);
 		}
 		else
 		{
-			mejoresAnuncios = anuncios.subList(0, 4);	
+			mejoresAnuncios = anuncios.subList(0, 4);
 		}
-		
+
 		model.addAttribute("mejoresAnuncios", mejoresAnuncios);
 		 try {
 			request.logout();
@@ -84,15 +85,15 @@ public class AnuncioController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "index";
 		}
 		else
 		{
 			String name = request.getUserPrincipal().getName();
-	    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-	    	model.addAttribute("token", token.getToken());   
-			
+	    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+	    	model.addAttribute("token", token.getToken());
+
 			if(usuarioRepository.getByUsername(name) != null)
 			{
 				model.addAttribute("username", request.getUserPrincipal().getName()/*name*/);
@@ -145,17 +146,17 @@ public class AnuncioController {
 			}
 		}
 	}
-	
+
 	@RequestMapping("/buscar")
 	public String buscar(Model model, @RequestParam String searchbar, HttpServletRequest request)
 	{
 		String name = request.getUserPrincipal().getName();
 		List<Anuncio> anunciosAux = anuncioRepository.findAll();
 		List<Anuncio> anuncios = new LinkedList<>();
-		
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		for(Anuncio a : anunciosAux)
 		{
 			if(a.getTitle().contains(searchbar) || a.getDate().contains(searchbar) ||
@@ -166,50 +167,50 @@ public class AnuncioController {
 				anuncios.add(a);
 			}
 		}
-		
+
 		model.addAttribute("anuncios", anuncios);
 		model.addAttribute("username", name);
 		model.addAttribute("busqueda", "Ofertas / " + searchbar);
 		return "ofertas";
 	}
-	
+
 	@RequestMapping("/guardarAnuncio")
 	public String guardarAnuncio(Model model, @RequestParam String title, @RequestParam String description, @RequestParam String date, @RequestParam MultipartFile selectFile, HttpServletRequest request) throws IOException
 	{
 		Anuncio a = anuncioRepository.getByTitle(anuncioActual);
-		
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-    	
+
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		//anuncioRepository.setTitleById(title, a.getId());
 		//anuncioRepository.setDescriptionById(description, a.getId());
 		//anuncioRepository.setDateById(date, a.getId());
-		
+
 		byte[] encImage = Base64.getEncoder().encode(selectFile.getBytes());
-		
+
 		a.setTitle(title);
 		a.setDescription(description);
 		a.setDate(date);
-		
+
 		if(!selectFile.isEmpty())
 		{
 			a.setImage(encImage);
 			a.setImageString(new String(encImage));
 		}
-		
+
 		anuncioRepository.save(a);
-		
+
 		//return mostrarAnuncioPropio(model, title, description, date);
 		return mostrarAnuncioPropio(model, title, request);
 	}
-	
+
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model, HttpServletRequest request)
 	{
-		
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-    	
+
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		String name = request.getUserPrincipal().getName();
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
@@ -217,16 +218,16 @@ public class AnuncioController {
 		model.addAttribute("busqueda", "Todas las ofertas");
 		return "ofertas";
 	}
-	
+
 	@RequestMapping("/mostrarAnuncio")
 	public String mostrarAnuncio(Model model, @RequestParam String title, HttpServletRequest request)
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-    	
-		String name = request.getUserPrincipal().getName(); 
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
+		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
-		
+
 		model.addAttribute("username", name);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
@@ -238,28 +239,28 @@ public class AnuncioController {
 		model.addAttribute("telephone", a.getLocal().getTelephone());
 		model.addAttribute("date", a.getDate());
 		model.addAttribute("imageString", a.getImageString());
-		
+		model.addAttribute("offerId", a.getId());
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
 		else
 			model.addAttribute("valoracion", 0);
-		
+
 		List<Comentario> comentarios = a.getComments();
-		
+
 		model.addAttribute("comentarios", comentarios);
 
-		return "ofertaParticular"; 
+		return "ofertaParticular";
 	}
-	
+
 	@RequestMapping("/mostrarAnuncioPropio")
 	public String mostrarAnuncioPropio(Model model, @RequestParam String title, HttpServletRequest request)
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
-		
+
 		model.addAttribute("username", name);
 
 		model.addAttribute("ent", a.getLocal().getEntName());
@@ -271,145 +272,145 @@ public class AnuncioController {
 		model.addAttribute("telephone", a.getLocal().getTelephone());
 		model.addAttribute("date", a.getDate());
 		model.addAttribute("imageString", a.getImageString());
-		
+
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
 		else
 			model.addAttribute("valoracion", a.getValoracion());
 
 		List<Comentario> comentarios = a.getComments();
-		
+
 		model.addAttribute("comentarios", comentarios);
-		
+
 		anuncioActual = title;
-		
+
 		return "OfertaPropia";
 	}
 
 	@RequestMapping("/nuevaOferta")
 	public String nuevaOferta(Model model, @RequestParam String entName, HttpServletRequest request)
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		String name = request.getUserPrincipal().getName();
 		model.addAttribute("entName", entName);
 		model.addAttribute("username", name);
 		return "nuevaOferta";
 	}
-	
+
 	@RequestMapping("/valorar")
 	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion, HttpServletRequest request)
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
 		int numVal = a.getNumValoraciones();
-		
+
 		/*anuncioRepository.setValoracionById((valoracion+val), a.getId());
 		anuncioRepository.setNumValoracionById((1+numVal), a.getId());*/
-		
+
 		a.setValoracion(valoracion+val);
 		a.setNumValoraciones(numVal+1);
-		
+
 		int valoracionMedia = (valoracion+val)/(numVal+1);
-		
+
 		//anuncioRepository.setValoracionMediaById(valoracionMedia, a.getId());
-		
+
 		a.setValoracionMedia(valoracionMedia);
 		anuncioRepository.save(a);
-		
+
 		//return mostrarAnuncio2(model, title, valoracionMedia);
 		return mostrarAnuncio(model, title, request);
 	}
-	
+
 	@RequestMapping("/obtenerOferta")
 	public String obtenerOferta(Model model, @RequestParam String title, HttpServletRequest request) throws UnknownHostException, IOException
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		String name = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
-		
+		/*
 		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
 		//SSLSocket socket = (SSLSocket) socketFactory.createSocket("127.0.0.1", 7777);
 		Socket socket = new Socket("127.0.0.1", 7777);
 		//BufferedReader leerServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		OutputStream os = socket.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
-				
-		
+
+
 		/*oos.writeLong(u.getId());
 		oos.flush();
-		
+
 		oos.writeLong(anuncioRepository.getByTitle(title).getId());
-		oos.flush();*/
-		
+		oos.flush();
+
 		oos.writeObject((String) u.getEmail());
 		oos.flush();
-		
+
 		oos.writeObject((String) a.getTitle());
 		oos.flush();
-		
+
 		oos.writeObject((String) a.getLocal().getEntName());
 		oos.flush();
-		
+
 		oos.writeObject((String) a.getLocal().getAddress());
 		oos.flush();
-		
+
 		oos.writeObject((String) a.getLocal().getCity());
 		oos.flush();
-		
+
 		oos.writeObject((String) a.getDate());
 		oos.flush();
-		
+
 		oos.close();
-		
-		
+
+
 		os.close();
-		socket.close();
-		
+		socket.close();*/
+
 		model.addAttribute("username", name);
 		model.addAttribute("email", u.getEmail());
 		model.addAttribute("title", title);
-		
+
 		return "verificacionObtenerOferta";
 	}
-	
+
 	@RequestMapping("/añadirComentario")
 	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment, HttpServletRequest request)
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		String name = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = new Comentario(u, addComment, a);
 		comentarioRepository.save(c);
-		
+
 		return mostrarAnuncio(model, title, request);
 	}
 	@RequestMapping("/eliminarComentario")
 	public String eliminarComentario(Model model, @RequestParam String title, @RequestParam String comment, HttpServletRequest request)
 	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
-    	model.addAttribute("token", token.getToken());   
-		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+
 		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = comentarioRepository.getByComment(comment);
-		
+
 		if(name.equals(c.getUser().getUsername()))
 		{
 			a.getComments().remove(c);
 			comentarioRepository.delete(c);
 		}
-		
+
 		return mostrarAnuncio(model, title, request);
 	}
 }
