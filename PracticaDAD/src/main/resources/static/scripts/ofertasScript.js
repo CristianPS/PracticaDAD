@@ -8,19 +8,24 @@
 
 
 function connect() {
-	var ws = new WebSocket('ws://127.0.0.1:7777/');
-	ws.onOpen = function(){
-		window.alert("Conectado");
+	var ws = new WebSocket('ws://127.0.0.1:7777');
+	window.alert("Tratando de mandar la oferta a tu cuenta de correo");
+	
+	ws.onopen = function(){
+		window.alert("Correo mandado con exito");
+		var offerId = document.getElementById("offerId").value;
+		var username = document.getElementById("username").value;
+		ws.send(offerId+"-"+username);
+		//ws.send(username);
+		document.getElementById("formOffer").action="/obtenerOferta";
+		document.getElementById("formOffer").method="post";
 	};
-	ws.onError = function() {
-		window.alert("Error al conectar");
+	
+	ws.onerror = function() {
+		window.alert("Ha ocurrido un error");
 	};
-	var offerId = document.getElementById("offerId").value;
-	var username = document.getElementById("username").value;
-	ws.send(offerId+"-"+username);
-	//ws.send(username);
-	document.getElementById("formOffer").action="/obtenerOferta";
-	document.getElementById("formOffer").method="post";
+	
+	
 }
 
 
