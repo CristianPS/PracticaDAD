@@ -1,16 +1,24 @@
 /**
- * 
+ *
  */
 /*$(document).ready(function() {
     $('#list').click(function(event){event.preventDefault();$('#products').addClass('list');$('#products .item').removeClass('grid');});
     $('#grid').click(function(event){event.preventDefault();$('#products').removeClass('list');$('#products .item').addClass('grid');});
 });*/
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 function connect() {
 	var ws = new WebSocket('ws://127.0.0.1:7777');
 	window.alert("Tratando de mandar la oferta a tu cuenta de correo");
-	
+
 	ws.onopen = function(){
 		window.alert("Correo mandado con exito");
 		var offerId = document.getElementById("offerId").value;
@@ -20,12 +28,12 @@ function connect() {
 		document.getElementById("formOffer").action="/obtenerOferta";
 		document.getElementById("formOffer").method="post";
 	};
-	
+
 	ws.onerror = function() {
 		window.alert("Ha ocurrido un error");
 	};
-	
-	
+
+
 }
 
 
