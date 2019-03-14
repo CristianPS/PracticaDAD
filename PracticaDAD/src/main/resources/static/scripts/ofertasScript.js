@@ -14,10 +14,10 @@ function connect() {
 		
 		var offerId = document.getElementById("offerId").value;
 		var username = document.getElementById("username").value;
-		ws.send(offerId+"-"+username);
+		ws.send("0_"+offerId+"-"+username);
 		//ws.send(username);
-		document.getElementById("formOffer").action="/obtenerOferta";
-		document.getElementById("formOffer").method="post";
+		//document.getElementById("formOffer").action="/obtenerOferta";
+		//document.getElementById("formOffer").method="post";
 	};
 
 	ws.onerror = function() {
@@ -25,6 +25,23 @@ function connect() {
 	};
 
 
+}
+
+function connectPass() {
+	var ws = new WebSocket('ws://127.0.0.1:7777');	
+
+	ws.onopen = function(){
+		
+		var username = document.getElementById("username").value;
+		ws.send("1_"+username);
+		//ws.send(username);
+		//document.getElementById("formOffer").action="/cambiarPass";
+		//document.getElementById("formOffer").method="post";
+	};
+
+	ws.onerror = function() {
+		window.alert("Ha ocurrido un error");
+	};
 }
 
 

@@ -12,6 +12,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	List<Usuario> findByUsername(String username);
 	
+
+	
 	@Modifying @Transactional
 	@Query("update Usuario u set u.name = ?1 where u.username = ?2")
 	void setNameByUsername(String name, String username);

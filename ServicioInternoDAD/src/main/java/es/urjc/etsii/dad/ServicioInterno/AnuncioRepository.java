@@ -17,6 +17,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Long>{
 	
 	Anuncio getByTitle(String title);
 	Anuncio getById (long id);
+
 	
 	@Modifying @Transactional
 	@Query("update Anuncio u set u.title = ?1 where u.id = ?2")

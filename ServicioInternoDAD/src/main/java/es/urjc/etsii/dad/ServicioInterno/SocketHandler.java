@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -167,7 +169,7 @@ public class SocketHandler extends TextWebSocketHandler{
             props.setProperty("mail.smtp.host", "smtp.gmail.com");
             props.setProperty("mail.smtp.starttls.enable", "true");
             props.setProperty("mail.smtp.port", "587");
-            props.setProperty("mail.smtp.user", "sitodiaz13@gmail.com");
+            props.setProperty("mail.smtp.user", "muchafiestapaga.na@gmail.com");
             props.setProperty("mail.smtp.auth", "true");
 
             // Preparamos la sesion
@@ -195,7 +197,7 @@ public class SocketHandler extends TextWebSocketHandler{
             //message.addRecipient(Message.RecipientType.TO, new InternetAddress("ji.diazerrejon@outlook.es"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(name));
             //message.addRecipients(Message.RecipientType.TO, addresses);
-            message.setSubject("Funcionaaaa!!!");
+            message.setSubject("FIESTA PAGA-NA " + title);
             message.setContent(multiParte);
             //message.setText("Hey que pasa primoooo, te estoy mandando esta puta mierda desde Java xdddd");
             //message.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\sito\\Desktop\\prueba.pdf")));
@@ -203,7 +205,7 @@ public class SocketHandler extends TextWebSocketHandler{
 
             // Lo enviamos.
             Transport t = session.getTransport("smtp");
-            t.connect("sitodiaz13@gmail.com", "wymwmzewhipvilld");
+            t.connect("muchafiestapaga.na@gmail.com", "xcqsxmzxryjivxga");
             t.sendMessage(message, message.getAllRecipients());
 
             // Cierre.
@@ -215,6 +217,50 @@ public class SocketHandler extends TextWebSocketHandler{
         }
 	}
 
+	public static void enviarConGMailPass(String name, String pass) {
+
+		try
+        {
+            // Propiedades de la conexión
+            Properties props = new Properties();
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.user", "muchafiestapaga.na@gmail.com");
+            props.setProperty("mail.smtp.auth", "true");
+
+            // Preparamos la sesion
+            Session session = Session.getDefaultInstance(props);
+
+            // Se compone la parte del texto
+            BodyPart texto = new MimeBodyPart();
+            texto.setText("Su nueva contraseña es: " + pass);
+
+            // Una MultiParte para agrupar texto e imagen.
+            MimeMultipart multiParte = new MimeMultipart();
+            multiParte.addBodyPart(texto);
+
+            // Construimos el mensaje
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("yo@yo.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(name));
+            message.setSubject("FIESTA PAGA-NA nueva contraseña");
+            message.setContent(multiParte);
+
+            // Lo enviamos.
+            Transport t = session.getTransport("smtp");
+            t.connect("muchafiestapaga.na@gmail.com", "xcqsxmzxryjivxga");
+            t.sendMessage(message, message.getAllRecipients());
+
+            // Cierre.
+            t.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+	}
+	
 	public void getVariables(long idA, String username) throws DocumentException, IOException {
 		Usuario user = usuarioRepository.getByUsername(username);
 		Anuncio offer = anuncioRepository.getById(idA);
@@ -233,23 +279,47 @@ public class SocketHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String datos = message.getPayload();
-		int separador = datos.indexOf("-");
-		long idAnuncio = Long.parseLong(datos.substring(0, separador));
-		String username = datos.substring(separador+1);
-		System.out.println(idAnuncio);
-		System.out.println(username);
-		//ServicioController.getVariables(idAnuncio, username);
+		int barraBaja = datos.indexOf("_");
+		int tipo = Integer.parseInt(datos.substring(0, barraBaja));
+		switch(tipo) {
+			case 0:
+				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+				int separador = datos.indexOf("-");
+				long idAnuncio = Long.parseLong(datos.substring(2, separador));
+				String username = datos.substring(separador+1);
+				System.out.println(idAnuncio);
+				System.out.println(username);
+				//ServicioController.getVariables(idAnuncio, username);
 
 
-		//Igual no funciona
+				//Igual no funciona
 
-		Usuario user = usuarioRepository.getByUsername(username);
-		Anuncio offer = anuncioRepository.getById(idAnuncio);
+				Usuario user = usuarioRepository.getByUsername(username);
+				Anuncio offer = anuncioRepository.getById(idAnuncio);
 
-		generarPDF(user.getEmail(), offer.getTitle(), offer.getLocal().getEntName(), offer.getLocal().getAddress(), offer.getLocal().getAddress(), offer.getDate());
-		enviarConGMail(user.getEmail(), offer.getTitle());
+				generarPDF(user.getEmail(), offer.getTitle(), offer.getLocal().getEntName(), offer.getLocal().getAddress(), offer.getLocal().getAddress(), offer.getDate());
+				enviarConGMail(user.getEmail(), offer.getTitle());
 
-		eliminarFicheros(user.getEmail(), offer.getTitle());
+				eliminarFicheros(user.getEmail(), offer.getTitle());
+				
+				break;
+				
+			case 1:
+				String correo = datos.substring(2);
+				System.out.println(correo);
+				Usuario u = usuarioRepository.getByEmail(correo);
+				
+				byte[] array = new byte[7]; // length is bounded by 7
+			    new Random().nextBytes(array);
+			    String generatedString = new String(array, Charset.forName("UTF-8"));
+			    
+				u.setPassword(generatedString);
+				
+				enviarConGMailPass(correo,generatedString);
+				
+				break;
+		}
+		
 
 	}
 

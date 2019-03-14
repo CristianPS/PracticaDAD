@@ -326,61 +326,6 @@ public class AnuncioController {
 		return mostrarAnuncio(model, title, request);
 	}
 
-	@RequestMapping("/obtenerOferta")
-	public String obtenerOferta(Model model, @RequestParam String title, HttpServletRequest request) throws UnknownHostException, IOException
-	{
-    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-    	model.addAttribute("token", token.getToken());
-
-		String name = request.getUserPrincipal().getName();
-		Usuario u = usuarioRepository.getByUsername(name);
-		Anuncio a = anuncioRepository.getByTitle(title);
-		/*
-		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
-		//SSLSocket socket = (SSLSocket) socketFactory.createSocket("127.0.0.1", 7777);
-		Socket socket = new Socket("127.0.0.1", 7777);
-		//BufferedReader leerServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		OutputStream os = socket.getOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(os);
-
-
-		/*oos.writeLong(u.getId());
-		oos.flush();
-
-		oos.writeLong(anuncioRepository.getByTitle(title).getId());
-		oos.flush();
-
-		oos.writeObject((String) u.getEmail());
-		oos.flush();
-
-		oos.writeObject((String) a.getTitle());
-		oos.flush();
-
-		oos.writeObject((String) a.getLocal().getEntName());
-		oos.flush();
-
-		oos.writeObject((String) a.getLocal().getAddress());
-		oos.flush();
-
-		oos.writeObject((String) a.getLocal().getCity());
-		oos.flush();
-
-		oos.writeObject((String) a.getDate());
-		oos.flush();
-
-		oos.close();
-
-
-		os.close();
-		socket.close();*/
-
-		model.addAttribute("username", name);
-		model.addAttribute("email", u.getEmail());
-		model.addAttribute("title", title);
-
-		return "verificacionObtenerOferta";
-	}
-
 	@RequestMapping("/añadirComentario")
 	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment, HttpServletRequest request)
 	{
