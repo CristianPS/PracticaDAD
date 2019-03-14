@@ -6,17 +6,20 @@
     $('#grid').click(function(event){event.preventDefault();$('#products').removeClass('list');$('#products .item').addClass('grid');});
 });*/
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 function connect() {
 	var ws = new WebSocket('ws://127.0.0.1:7777/');
-	ws.onOpen = function(){
-		window.alert("Conectado");
-	};
-	ws.onError = function() {
-		window.alert("Error al conectar");
-	};
 	var offerId = document.getElementById("offerId").value;
 	var username = document.getElementById("username").value;
+	sleep(200);
 	ws.send(offerId+"-"+username);
 	//ws.send(username);
 	document.getElementById("formOffer").action="/obtenerOferta";
