@@ -35,15 +35,31 @@ public class AnuncioController {
 	private ComentarioRepository comentarioRepository;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private EmpresarioRepository empresarioRepository;
 	
 	private String anuncioActual;
 	
+	@RequestMapping("/CerrarSesion")
+	public String CerrarSesion(Model model,  HttpServletRequest request)
+	{
+		 try {
+				request.logout();
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 return index(model,request);
+	}
 	@RequestMapping("/")
 	public String index(Model model,  HttpServletRequest request)
 	{
 		List<Anuncio> anuncios = anuncioRepository.findAll();
+		if(request.getUserPrincipal() == null)
+		{
+			
 		
-		
+				
 		Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
 		anuncios.sort(a);
 		
@@ -69,6 +85,63 @@ public class AnuncioController {
 		}
 		
 		return "index";
+		}
+		else
+		{
+			String name = request.getUserPrincipal().getName();
+			
+			
+			if(usuarioRepository.getByUsername(name) != null)
+			{
+				model.addAttribute("username", request.getUserPrincipal().getName()/*name*/);
+
+				String usuarioActual = name;
+				//List<Anuncio> anuncios = anuncioRepository.findAll();
+
+
+				Comparator<Anuncio> a = (x, b) -> b.getValoracionMedia() - x.getValoracionMedia();
+				anuncios.sort(a);
+
+				int numAnuncios = anuncios.size();
+
+				List<Anuncio> mejoresAnuncios = new LinkedList<>();
+
+				if(numAnuncios < 4)
+				{
+					mejoresAnuncios = anuncios.subList(0, numAnuncios);
+				}
+				else
+				{
+					mejoresAnuncios = anuncios.subList(0, 4);
+				}
+
+				model.addAttribute("mejoresAnuncios", mejoresAnuncios);
+
+				return "inicioConUsuario";
+			}
+			else if(empresarioRepository.getByUsername(name) != null)
+			{
+				model.addAttribute("username", name);
+
+				String empresarioActual = name;
+				Empresario e = empresarioRepository.getByUsername(name);
+				List<Comercio> comercios = e.getComercios();
+				List<Anuncio> anuncios2 = new LinkedList<>();
+				EmpresarioController.setEmpresarioActual(name);
+				for(Comercio c : comercios)
+				{
+					anuncios2.addAll(c.getAnuncios());
+				}
+
+				model.addAttribute("anuncios", anuncios2);
+
+				return "misOfertas";
+			}
+			else
+			{
+				throw new RuntimeException("No hay ningun usuario registrado con ese nombre");
+			}
+		}
 	}
 	
 	@RequestMapping("/buscar")
