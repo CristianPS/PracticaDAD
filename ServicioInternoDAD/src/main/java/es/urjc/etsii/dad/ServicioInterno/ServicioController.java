@@ -203,7 +203,7 @@ public class ServicioController {
         }
 	}
 	
-	public void ejecutar(Socket socket) throws IOException, ClassNotFoundException, DocumentException
+	/*public void ejecutar(Socket socket) throws IOException, ClassNotFoundException, DocumentException
 	{
 		Socket so = socket;
 		
@@ -225,7 +225,7 @@ public class ServicioController {
 		/*for(Usuario u : usuarioRepository.findAll())
 		{
 			System.out.println(u.getUsername());
-		}*/
+		}
 		
 		//Usuario u = usuarioRepository.getById(idUsuario);
 		//Anuncio a = anuncioRepository.getById(idAnuncio);
@@ -270,5 +270,5 @@ public class ServicioController {
 			});
 			t.start();
 		}
-	}
+	}*/
 }

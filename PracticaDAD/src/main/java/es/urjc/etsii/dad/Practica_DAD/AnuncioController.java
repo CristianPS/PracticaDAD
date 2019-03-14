@@ -17,6 +17,7 @@ import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.WebSocketContainer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -143,7 +144,7 @@ public class AnuncioController {
 		model.addAttribute("telephone", a.getLocal().getTelephone());
 		model.addAttribute("date", a.getDate());
 		model.addAttribute("imageString", a.getImageString());
-		
+		model.addAttribute("offerId", a.getId());
 		if(a.getNumValoraciones() != 0)
 			model.addAttribute("valoracion", a.getValoracion()/a.getNumValoraciones());
 		else
@@ -218,16 +219,16 @@ public class AnuncioController {
 		anuncioRepository.save(a);
 		
 		//return mostrarAnuncio2(model, title, valoracionMedia);
-		return mostrarAnuncio(model, title, request);
+		return mostrarAnuncio(model, title, request);		
 	}
 	
 	@RequestMapping("/obtenerOferta")
 	public String obtenerOferta(Model model, @RequestParam String title, HttpServletRequest request) throws UnknownHostException, IOException
-	{
+	{	
 		String name = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
-		
+		/*
 		//SocketFactory socketFactory = SSLSocketFactory.getDefault();
 		//SSLSocket socket = (SSLSocket) socketFactory.createSocket("127.0.0.1", 7777);
 		Socket socket = new Socket("127.0.0.1", 7777);
@@ -240,7 +241,7 @@ public class AnuncioController {
 		oos.flush();
 		
 		oos.writeLong(anuncioRepository.getByTitle(title).getId());
-		oos.flush();*/
+		oos.flush();
 		
 		oos.writeObject((String) u.getEmail());
 		oos.flush();
@@ -264,7 +265,7 @@ public class AnuncioController {
 		
 		
 		os.close();
-		socket.close();
+		socket.close();*/
 		
 		model.addAttribute("username", name);
 		model.addAttribute("email", u.getEmail());
