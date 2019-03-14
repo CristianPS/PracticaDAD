@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,8 @@ public class EmpresarioController {
 										@RequestParam String gender, @RequestParam String fecha, @RequestParam String password, @RequestParam String passwordNew,
 										@RequestParam String confirmPassword, HttpServletRequest request)
 	{
+		
+		
 		/*empresarioRepository.setNameByUsername(nombre, username);
 		empresarioRepository.setSurnameByUsername(apellidos, username);
 		empresarioRepository.setAddressByUsername(direccion, username);
@@ -84,6 +87,9 @@ public class EmpresarioController {
 	
 	@RequestMapping("/inicioEmpresario")
 	public String inicioEmpresario(Model model, HttpServletRequest request) {
+		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
 
 		String name = request.getUserPrincipal().getName();
 		Empresario e = empresarioRepository.getByUsername(name);
@@ -110,6 +116,9 @@ public class EmpresarioController {
 	@RequestMapping("/mostrarPerfilEmpresario")
 	public String mostrarPerfilEmpresario(Model model, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Empresario u = empresarioRepository.getByUsername(name);
 
@@ -164,6 +173,9 @@ public class EmpresarioController {
 	@RequestMapping("/crearComercio")
 	public String crearComercio(Model model, @RequestParam String name, @RequestParam String city, @RequestParam String address, @RequestParam String email, @RequestParam String telephone, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String username = request.getUserPrincipal().getName();
 		Empresario e = empresarioRepository.getByUsername(username);
 		Comercio c = new Comercio(name, city, address, email, telephone, e);
@@ -181,6 +193,9 @@ public class EmpresarioController {
 	@RequestMapping("/crearOferta")
 	public String crearOferta(Model model, @RequestParam String title, @RequestParam String entName, @RequestParam String description, @RequestParam String date, @RequestParam MultipartFile img, HttpServletRequest request) throws IOException
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String aux = UsuarioController.convertirFecha(date);
 		
 		Comercio c = comercioRepository.getByEntName(entName);
@@ -201,6 +216,9 @@ public class EmpresarioController {
 	@RequestMapping("/eliminar")
 	public String eliminar(Model model, @RequestParam String title, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
 		List <Comentario> c = comentarioRepository.findByAnuncio(a);	

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,10 @@ public class ComercioController {
 	
 	@RequestMapping("/guardarComercio")
 	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, HttpServletRequest request)
-	{		
+	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		/*comercioRepository.setCityByEntName(ciudad, entName);
 		comercioRepository.setAddressByEntName(address, entName);
 		comercioRepository.setEmailByEntName(correo, entName);
@@ -47,6 +51,9 @@ public class ComercioController {
 	@RequestMapping("/mostrarPerfilComercio")
 	public String mostrarPerfilComercio(Model model, @RequestParam String entName, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		Comercio c = comercioRepository.getByEntName(entName);
 
 		model.addAttribute("username", request.getUserPrincipal().getName());
@@ -62,6 +69,9 @@ public class ComercioController {
 	@RequestMapping("/mostrarComercios")
 	public String mostrarComercios(Model model, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Empresario e = empresarioRepository.getByUsername(name);
 		List<Comercio> comercios = e.getComercios();
@@ -71,8 +81,11 @@ public class ComercioController {
 	}
 
 	@RequestMapping("/mostrarComercio")
-	public String mostrarComercio(Model model, @RequestParam String entName)
+	public String mostrarComercio(Model model, @RequestParam String entName,  HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		Comercio c = comercioRepository.getByEntName(entName);
 		
 		model.addAttribute("entName", c.getEntName());
@@ -90,6 +103,9 @@ public class ComercioController {
 	@RequestMapping("/nuevoComercio")
 	public String nuevoComercio(Model model, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		model.addAttribute("username", request.getUserPrincipal().getName());
 		return "nuevoComercio";
 	}

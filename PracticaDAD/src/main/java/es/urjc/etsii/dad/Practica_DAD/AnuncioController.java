@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class AnuncioController {
 	
 	private String anuncioActual;
 	
-	@RequestMapping("/CerrarSesion")
+	@RequestMapping("/inicio")
 	public String CerrarSesion(Model model,  HttpServletRequest request)
 	{
 		 try {
@@ -89,7 +90,8 @@ public class AnuncioController {
 		else
 		{
 			String name = request.getUserPrincipal().getName();
-			
+	    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+	    	model.addAttribute("token", token.getToken());   
 			
 			if(usuarioRepository.getByUsername(name) != null)
 			{
@@ -151,6 +153,9 @@ public class AnuncioController {
 		List<Anuncio> anunciosAux = anuncioRepository.findAll();
 		List<Anuncio> anuncios = new LinkedList<>();
 		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		for(Anuncio a : anunciosAux)
 		{
 			if(a.getTitle().contains(searchbar) || a.getDate().contains(searchbar) ||
@@ -173,6 +178,9 @@ public class AnuncioController {
 	{
 		Anuncio a = anuncioRepository.getByTitle(anuncioActual);
 		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+    	
 		//anuncioRepository.setTitleById(title, a.getId());
 		//anuncioRepository.setDescriptionById(description, a.getId());
 		//anuncioRepository.setDateById(date, a.getId());
@@ -198,6 +206,10 @@ public class AnuncioController {
 	@RequestMapping("/mostrarAnuncios")
 	public String mostrarAnuncios(Model model, HttpServletRequest request)
 	{
+		
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+    	
 		String name = request.getUserPrincipal().getName();
 		List<Anuncio> anuncios = anuncioRepository.findAll();
 		model.addAttribute("anuncios", anuncios);
@@ -209,6 +221,9 @@ public class AnuncioController {
 	@RequestMapping("/mostrarAnuncio")
 	public String mostrarAnuncio(Model model, @RequestParam String title, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+    	
 		String name = request.getUserPrincipal().getName(); 
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
@@ -239,6 +254,9 @@ public class AnuncioController {
 	@RequestMapping("/mostrarAnuncioPropio")
 	public String mostrarAnuncioPropio(Model model, @RequestParam String title, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
 		
@@ -271,6 +289,9 @@ public class AnuncioController {
 	@RequestMapping("/nuevaOferta")
 	public String nuevaOferta(Model model, @RequestParam String entName, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		model.addAttribute("entName", entName);
 		model.addAttribute("username", name);
@@ -280,6 +301,9 @@ public class AnuncioController {
 	@RequestMapping("/valorar")
 	public String valorar(Model model, @RequestParam String title, @RequestParam int valoracion, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		Anuncio a = anuncioRepository.getByTitle(title);
 		int val = a.getValoracion();
 		int numVal = a.getNumValoraciones();
@@ -304,6 +328,9 @@ public class AnuncioController {
 	@RequestMapping("/obtenerOferta")
 	public String obtenerOferta(Model model, @RequestParam String title, HttpServletRequest request) throws UnknownHostException, IOException
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
@@ -356,6 +383,9 @@ public class AnuncioController {
 	@RequestMapping("/añadirComentario")
 	public String añadirComentario(Model model, @RequestParam String title, @RequestParam String addComment, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(name);
 		Anuncio a = anuncioRepository.getByTitle(title);
@@ -367,6 +397,9 @@ public class AnuncioController {
 	@RequestMapping("/eliminarComentario")
 	public String eliminarComentario(Model model, @RequestParam String title, @RequestParam String comment, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = comentarioRepository.getByComment(comment);

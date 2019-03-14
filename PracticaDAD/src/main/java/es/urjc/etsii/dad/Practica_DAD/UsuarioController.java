@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -184,6 +185,9 @@ public class UsuarioController {
 	@RequestMapping("/inicioUsuario")
 	public String inicioUsuario(Model model/*, @RequestParam String name*/, HttpServletRequest request) {
 
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		
 		
@@ -240,8 +244,11 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/login")
-	public String login()
+	public String login(Model model, HttpServletRequest request)
 	{
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		return "login";
 	}
 
@@ -254,6 +261,9 @@ public class UsuarioController {
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, HttpServletRequest request)
 	{
+    	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());   
+		
 		String name = request.getUserPrincipal().getName();
 		Usuario u = usuarioRepository.getByUsername(name);
 
@@ -282,7 +292,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/registroUsuario")
-	public String registroUsuario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password, @RequestParam String confirmpassword) {
+	public String registroUsuario(Model model,HttpServletRequest request, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password, @RequestParam String confirmpassword) {
 
 		//Si ya existe un usuario con este nombre
 
@@ -308,7 +318,7 @@ public class UsuarioController {
 				//usuarioActual = username;
 
 				//return inicioUsuario(model);
-				return login();
+				return login(model,request);
 			}
 		}
 	}

@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.mail.Address;
 import javax.mail.BodyPart;
@@ -25,6 +26,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.google.zxing.BarcodeFormat;
@@ -40,7 +42,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-@Service
+@Controller
 public class ServicioController {
 
 	@Autowired
@@ -244,13 +246,14 @@ public class ServicioController {
 		socket.close();
 	}
 	
-	public ServicioController() throws IOException, DocumentException, ClassNotFoundException
+	@PostConstruct
+	public void init() throws IOException, DocumentException, ClassNotFoundException
 	{
 		int port = 7777;
     	
     	//ServerSocketFactory serverSocketFactory = SSLServerSocketFactory.getDefault();
     	//SSLServerSocket serverSocket = (SSLServerSocket) serverSocketFactory.createServerSocket(port);
-		ServerSocket serverSocket = new ServerSocket(port);
+		/*ServerSocket serverSocket = new ServerSocket(port);
 		
 		while (true) {
 			Socket socket = serverSocket.accept();
@@ -269,6 +272,8 @@ public class ServicioController {
 				}
 			});
 			t.start();
-		}
+		}*/
+		Usuario u = usuarioRepository.getById(1);
+		System.out.println(u.getUsername());
 	}
 }
