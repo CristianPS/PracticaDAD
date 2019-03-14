@@ -46,9 +46,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class ServicioController {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private static UsuarioRepository usuarioRepository;
 	@Autowired
-	private AnuncioRepository anuncioRepository;
+	private static AnuncioRepository anuncioRepository;
 
 	// Image properties
     private static final int qr_image_width = 400;
@@ -178,7 +178,7 @@ public class ServicioController {
             multiParte.addBodyPart(adjunto);
 
             // Construimos el mensaje
-            Address[] addresses = {new InternetAddress("c.gilsab@alumnos.urjc.es"), new InternetAddress("ji.diazerrejon@outlook.es"), new InternetAddress("c.posada@alumnos.urjc.es")};
+            Address[] addresses = {new InternetAddress(name), new InternetAddress("ji.diazerrejon@outlook.es"), new InternetAddress("c.posada@alumnos.urjc.es")};
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("yo@yo.com"));
@@ -203,6 +203,16 @@ public class ServicioController {
         {
             e.printStackTrace();
         }
+	}
+	
+	public static void getVariables(long idA, String username) throws DocumentException, IOException {
+		Usuario user = usuarioRepository.getByUsername(username);
+		Anuncio offer = anuncioRepository.getById(idA);
+		
+		generarPDF(user.getEmail(), offer.getTitle(), offer.getLocal().getEntName(), offer.getLocal().getAddress(), offer.getLocal().getAddress(), offer.getDate());
+		enviarConGMail(user.getEmail(), offer.getTitle());
+
+		eliminarFicheros(user.getEmail(), offer.getTitle());
 	}
 
 	/*public void ejecutar(Socket socket) throws IOException, ClassNotFoundException, DocumentException
@@ -272,8 +282,6 @@ public class ServicioController {
 				}
 			});
 			t.start();
-		}*/
-		Usuario u = usuarioRepository.getById(1);
-		System.out.println(u.getUsername());
-	}
+		}
+	}*/
 }

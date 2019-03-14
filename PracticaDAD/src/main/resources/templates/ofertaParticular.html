@@ -28,10 +28,13 @@
 			<div class="oferta">
 				<form id="formOffer">
 				<input type="hidden" name="_csrf" value="{{token}}"/>
+				<input type="hidden" id ="title" name="title" value="{{title}}"/>			
 					<input type="submit" onclick="connect()" value="Obtener Oferta" id="button-blue2"
 						style="-webkit-appearance: none !important;border: #bebed2 solid 4px;color: white;
 						background-color: #3498db;float:right;cursor: pointer;font-family: MaisonNeue,Helvetica Neue,Helvetica,Arial,sans-serif!important;"/>
 				</form>	
+				<input type="hidden" id="username" name="username" value="{{username}}"/>
+				<input type="hidden" id ="offerId" name="offerId" value="{{offerId}}"/>			
 				<div class="imgclass">
 					<img id="img" class="imageOferta" src="data:image/jpeg;base64,{{imageString}}" alt="" />
 				</div>
@@ -41,8 +44,7 @@
 					<p><b style="color:#3498db">E-mail:</b> 				{{email}}</p>
 					<p><b style="color:#3498db">Direccion:</b> 				{{address}}</p>
 					<p><b style="color:#3498db">Telefono:</b> 				{{telephone}}</p>
-					<p><b style="color:#3498db">Fecha de expiracion:</b> 	{{date}}</p>
-					<p><b style="color:#3498db">{{offerId}}</b></p>
+					<p><b style="color:#3498db">Fecha de expiracion:</b> 	{{date}}</p>				
 				</div>		
 			</div>
 			
