@@ -257,12 +257,6 @@ public class UsuarioController {
 	{
 		return "loginError";
 	}
-	
-	@RequestMapping("/nuevaContraseña")
-	public String nuevaContraseña()
-	{
-		return "nuevaPass";
-	}
 
 	@RequestMapping("/mostrarPerfil")
 	public String mostrarPerfil(Model model, HttpServletRequest request)
