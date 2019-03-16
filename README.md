@@ -38,11 +38,16 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
  ## Diagrama Modelo de Datos
 ![UML](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/uml.png)
 
+## Diagrama de clases y templates
+
+![UML](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/uml.png)
+
  ## Diagrama Entidad Relación
  ![Entidad Relación](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/modeloEntidadRelacion.JPG)
  
  ## Diagrama de Navegación
   ![Navegación](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/diagramaNavegacion.PNG)
+  
  ## Screenshots
  * Index
 ![Index](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/index.png)
