@@ -42,6 +42,14 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
 
 ![UML](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/imagenDC.png)
 
+* Color marrón clarito: representa las templates del proyecto.
+* Color azul: representa los controladores anotados con @Controller.
+* Color morado: representa los repositorios.
+* Color verde: representa las clases de objetos.
+* Color rosa: representa el servicio interno anotado con @Service.
+* Color amarillo: representa la clase que se encarga de proporcionar la seguridad en las páginas. Indica a qué páginas se puede acceder sin haber iniciado sesión y a cuales no, e incorpora la funcionalidad del formulario de login.
+* Color gris: representa la clase que se encarga de permitir el inicio de sesión cuando un usuario se va a autenticar.
+
  ## Diagrama Entidad Relación
  ![Entidad Relación](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/modeloEntidadRelacion.JPG)
  
