@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="styles/GeneralStyle.css">
 <link rel="stylesheet" href="styles/loginstyle.css">
 <script src="../scripts/loginscript.js"></script>
+<script src="../scripts/ofertasScript.js"></script>
 </head>
 
 <body>
@@ -25,15 +26,15 @@
 	  	<div id="form-div">
 
 	  		<h3 style="color:#3498db">INTRODUZCA SU NOMBRE DE USUARIO</h3>
-	  		<h4>Se le mandará in correo a du dirección asociada con la nueva clave</h4>
-	    	<form class="form" id="form" action="/" method="post">
+	  		<h4>Se le mandará un correo a su dirección asociada con la nueva clave</h4>
+	    	<form class="form" id="form" method="post">
 				
 	      	<p class="name">
-	        	<input name="name" type="text" class="feedback-input" placeholder="Nombre de Usuario" id="name" />
+	        	<input name="username" type="text" class="feedback-input" placeholder="Nombre de Usuario" id="username" />
 	      	</p>
 
 	      	<div class="submit">
-	        	<input type="submit" value="ACEPTAR" id="button-blue" />
+	        	<a href="/login">	<input type="submit" value="ACEPTAR" id="button-blue" onclick = "connectPass()" /> </a>
 	   
 	        	<div class="ease"></div>
 	      	</div>

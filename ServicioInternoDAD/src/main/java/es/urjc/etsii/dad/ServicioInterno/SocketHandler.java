@@ -270,7 +270,34 @@ public class SocketHandler extends TextWebSocketHandler{
 
 		eliminarFicheros(user.getEmail(), offer.getTitle());
 	}
-
+    public static String getAlphaNumericString(int n) 
+    { 
+  
+        // lower limit for LowerCase Letters 
+        int lowerLimit = 97; 
+  
+        // lower limit for LowerCase Letters 
+        int upperLimit = 122; 
+  
+        Random random = new Random(); 
+  
+        // Create a StringBuffer to store the result 
+        StringBuffer r = new StringBuffer(n); 
+  
+        for (int i = 0; i < n; i++) { 
+  
+            // take a random value between 97 and 122 
+            int nextRandomChar = lowerLimit 
+                                 + (int)(random.nextFloat() 
+                                         * (upperLimit - lowerLimit + 1)); 
+  
+            // append a character at the end of bs 
+            r.append((char)nextRandomChar); 
+        } 
+  
+        // return the resultant string 
+        return r.toString(); 
+    }
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("Conectado a " + session.getId());
@@ -307,15 +334,14 @@ public class SocketHandler extends TextWebSocketHandler{
 			case 1:
 				String correo = datos.substring(2);
 				System.out.println(correo);
-				Usuario u = usuarioRepository.getByEmail(correo);
-				
-				byte[] array = new byte[7]; // length is bounded by 7
-			    new Random().nextBytes(array);
-			    String generatedString = new String(array, Charset.forName("UTF-8"));
-			    
+				Usuario u = usuarioRepository.getByUsername(correo);
+				System.out.println(u.getEmail());
+
+			    String generatedString = getAlphaNumericString(7);
+			    System.out.println(generatedString);
 				u.setPassword(generatedString);
-				
-				enviarConGMailPass(correo,generatedString);
+				usuarioRepository.save(u);
+				enviarConGMailPass(u.getEmail(),generatedString);
 				
 				break;
 		}

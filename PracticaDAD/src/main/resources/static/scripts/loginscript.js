@@ -37,6 +37,6 @@ function showPassword(){
 function registro()
 {
 	document.getElementById("form").action = "/registro"
-	document.getElementById("form").method = "";
+	document.getElementById("form").method = "post";
 }
 
