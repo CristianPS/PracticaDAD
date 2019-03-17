@@ -26,6 +26,7 @@
 	  
 	  		<h3 style="color:#3498db">REGISTRO</h3>
 	    	<form class="form" id="form">
+	    		<input type="hidden" name="_csrf" value="{{token}}"/>
 	      		<div class="switch" align="center">
 	            	<input type="radio" class="switch-input" name="view" value="usuario" id="usuario" checked onclick="usuario()">
 	            	<label for="usuario" class="switch-label switch-label-off" onclick="usuario()">Usuario</label>

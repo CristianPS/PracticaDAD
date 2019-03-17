@@ -286,8 +286,10 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/registro")
-	public String registro(Model model)
+	public String registro(Model model, HttpServletRequest request)
 	{
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());  
 		return "registro";
 	}
 
@@ -298,10 +300,10 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/registroUsuario")
-	public String registroUsuario(Model model,HttpServletRequest request, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password, @RequestParam String confirmpassword) {
+	public String registroUsuario(Model model, HttpServletRequest request, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String genero, @RequestParam String city, @RequestParam String password, @RequestParam String confirmpassword) {
 
 		//Si ya existe un usuario con este nombre
-
+		
 		if(usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null || empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null)
 		{
 			return "/registroError";

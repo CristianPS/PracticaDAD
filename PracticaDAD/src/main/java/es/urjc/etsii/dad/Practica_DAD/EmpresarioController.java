@@ -137,9 +137,12 @@ public class EmpresarioController {
 	}
 	
 	@RequestMapping("/registroEmpresario")
-	public String registroEmpresario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String dir, @RequestParam String password, @RequestParam String genero, @RequestParam String confirmpassword) {
+	public String registroEmpresario(Model model, @RequestParam String username, @RequestParam String name, @RequestParam String apellidos, @RequestParam String email, @RequestParam String fecha, @RequestParam String telefono, @RequestParam String city, @RequestParam String dir, @RequestParam String password, @RequestParam String genero, @RequestParam String confirmpassword, HttpServletRequest request) {
 	
 		//Comprobamos si existe ya algun empresario con ese nombre de usuario o email
+		
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());  
 		
 		if(empresarioRepository.getByUsername(username) != null || empresarioRepository.getByEmail(email) != null || usuarioRepository.getByUsername(username) != null || usuarioRepository.getByEmail(email) != null)
 		{
