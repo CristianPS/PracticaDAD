@@ -78,11 +78,11 @@ En esta pestaña se procederá al registro de un empresario. Para ello deberá i
 En esta pestaña el usuario ya se ha loggeado y por tanto puede acceder a las mejores ofertas de la base de datos, podrá visualizar todas las ofertas en la pestaña "ofertas", podrá acceder a su perfil en la pestaña en la cual pone su nombre y podrá cerrar sesión.
 
  * Ofertas
-![Ofertas](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertas2.png)
+![Ofertas](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertas2.PNG)
 En esta pestaña el usuario ya se ha loggeado y por tanto puede visualizar todas las ofertas guardadas en la base de datos, pudiendo acceder a cada una de ellas mediante el botón acceder. También podrá volver a la página de inicio, acceder a su perfil y cerrar sesión.
 
  * Oferta Particular
-![Oferta Particular](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertaParticular2.png)
+![Oferta Particular](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertaParticular2.PNG)
 En esta pestaña el usuario ya se ha loggeado y está visualizando una oferta en particular de la base de datos. Cada oferta tiene una serie de campos, entre los cuales se encuentran valoracion y comentarios. Estos dos campos podrán ser modificados por los usuarios clientes, es decir, un cliente podrá añadir un comentario a la oferta y borrarlo, y valorar la oferta.
 
  * Perfil Usuario
@@ -118,14 +118,14 @@ En esta pestaña el empresario ya se ha loggeado y está visualizando una oferta
 En esta pestaña el empresario ya se ha loggeado y está visualizando los datos de uno de los comercios que regenta, para poder modificar aquellos campos que sean editables.
 
  * Contraseña olvidada
- ![Contraseña olvidada](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/nuevaPass.png)
+ ![Contraseña olvidada](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/nuevaPass.PNG)
  En el caso de que un usuario olvide su contraseña si escribe su nombre de usuario y presiona aceptar recibirá en correo electrónico con   su nueva contraseña.
  * Error de login
- ![Error de login] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/loginError.png)
+ ![Error de login] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/loginError.PNG)
 Si iniciando sesión hubiera algún error o la información introducida no sea correcta se mostrará esta pantalla.
 
 * Error de registro
- ![Error de registro] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/registroError.png)
+ ![Error de registro] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/registroError.PNG)
 Si hubiera algún error a la hora de registrarse o lya exista un usuario con ese nombre se mostrará esta pantalla.
 
 ## Instrucciones para desplegar la aplicacion en una maquina virtual
