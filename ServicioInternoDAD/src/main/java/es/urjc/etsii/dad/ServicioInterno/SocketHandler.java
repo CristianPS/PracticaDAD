@@ -310,7 +310,6 @@ public class SocketHandler extends TextWebSocketHandler{
 		int tipo = Integer.parseInt(datos.substring(0, barraBaja));
 		switch(tipo) {
 			case 0:
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 				int separador = datos.indexOf("-");
 				long idAnuncio = Long.parseLong(datos.substring(2, separador));
 				String username = datos.substring(separador+1);
@@ -318,8 +317,6 @@ public class SocketHandler extends TextWebSocketHandler{
 				System.out.println(username);
 				//ServicioController.getVariables(idAnuncio, username);
 
-
-				//Igual no funciona
 
 				Usuario user = usuarioRepository.getByUsername(username);
 				Anuncio offer = anuncioRepository.getById(idAnuncio);
