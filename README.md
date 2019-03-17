@@ -121,11 +121,11 @@ En esta pestaña el empresario ya se ha loggeado y está visualizando los datos 
  ![Contraseña olvidada](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/nuevaPass.PNG)
  En el caso de que un usuario olvide su contraseña si escribe su nombre de usuario y presiona aceptar recibirá en correo electrónico con   su nueva contraseña.
  * Error de login
- ![Error de login] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/loginError.PNG)
+ ![Error de login](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/loginError.PNG)
 Si iniciando sesión hubiera algún error o la información introducida no sea correcta se mostrará esta pantalla.
 
 * Error de registro
- ![Error de registro] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/registroError.PNG)
+ ![Error de registro](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/registroError.PNG)
 Si hubiera algún error a la hora de registrarse o lya exista un usuario con ese nombre se mostrará esta pantalla.
 
 ## Instrucciones para desplegar la aplicacion en una maquina virtual
