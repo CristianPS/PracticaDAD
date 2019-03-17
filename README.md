@@ -40,7 +40,7 @@ La parte de los establecimientos será completamente privada. En ella podrán a�
 
 ## Diagrama de clases y templates
 
-![UML](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/imagenDC.png)
+![UML](https://github.com/CristianPS/PracticaDAD/blob/master/PracticaDAD/src/screenshots/imagenDC2.png)
 
 * Color marrón clarito: representa las templates del proyecto.
 * Color azul: representa los controladores anotados con @Controller.
