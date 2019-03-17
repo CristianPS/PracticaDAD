@@ -78,11 +78,11 @@ En esta pestaña se procederá al registro de un empresario. Para ello deberá i
 En esta pestaña el usuario ya se ha loggeado y por tanto puede acceder a las mejores ofertas de la base de datos, podrá visualizar todas las ofertas en la pestaña "ofertas", podrá acceder a su perfil en la pestaña en la cual pone su nombre y podrá cerrar sesión.
 
  * Ofertas
-![Ofertas](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertas.png)
+![Ofertas](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertas2.png)
 En esta pestaña el usuario ya se ha loggeado y por tanto puede visualizar todas las ofertas guardadas en la base de datos, pudiendo acceder a cada una de ellas mediante el botón acceder. También podrá volver a la página de inicio, acceder a su perfil y cerrar sesión.
 
  * Oferta Particular
-![Oferta Particular](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertaParticular.png)
+![Oferta Particular](https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/ofertaParticular2.png)
 En esta pestaña el usuario ya se ha loggeado y está visualizando una oferta en particular de la base de datos. Cada oferta tiene una serie de campos, entre los cuales se encuentran valoracion y comentarios. Estos dos campos podrán ser modificados por los usuarios clientes, es decir, un cliente podrá añadir un comentario a la oferta y borrarlo, y valorar la oferta.
 
  * Perfil Usuario
