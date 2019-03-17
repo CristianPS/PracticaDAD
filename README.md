@@ -127,4 +127,24 @@ Si iniciando sesión hubiera algún error o la información introducida no sea c
 * Error de registro
  ![Error de registro] (https://github.com/CristianPS/PracticaDAD/blob/Security/PracticaDAD/src/screenshots/registroError.png)
 Si hubiera algún error a la hora de registrarse o lya exista un usuario con ese nombre se mostrará esta pantalla.
- 
+
+## Instrucciones para desplegar la aplicacion en una maquina virtual
+
+* Paso 1: generamos los archivos jar de cada aplicación. Para ello, hacemos click derecho sobre el proyecto deseado, seleccionamos la opción Run as... -> Maven build... -> En el apartado Goals introducimos "clean package" y le damos a Run.
+
+* Paso 2: Instalamos Vagrant y VirtualBox.
+
+* Paso 3: Creamos una carpeta en Windows que se llame "vagrant" y dentro de ella creamos otra carpeta llamada "spring".
+
+* Paso 4: Ejecutamos la cmd de Windows y accedemos a la carpeta spring creada previamente. Cuando estemos dentro, ejecutamos el siguiente comando: vagrant init ubuntu/trusty64.
+
+* Paso 5: Modificamos el fichero creado previamente llamado Vagrantfile. Para ello descomentamos la siguiente linea -> config.vm.network "private_network", ip: "192.168.33.10", y añadimos estas dos -> config.vm.network "forwarded_port", guest: 7777, host: 7777, host_ip: "127.0.0.1" -> config.vm.network "forwarded_port", guest: 8443, host: 8443, host_ip: "127.0.0.1". Guardamos los cambios del archivo y lo cerramos.
+
+* Paso 6: Ejecutamos los siguientes comandos en el cmd en la carpeta "spring". -> vagrant up -> vagrant ssh.
+
+* Paso 7: Instalamos java dentro de la maquina virtual. Introducimos los siguientes comandos: -> sudo add-apt-repository ppa:webupd8team/java -y -> sudo apt-get update -> sudo apt-get install oracle-java8-installer
+
+* Paso 8: Tras ejecutar el comando -> vagrant ssh ya nos encontraremos dentro de la maquina virtual de ubuntu. Entonces tenemos que instalar mysql con el siguiente comando: -> sudo apt-get install mysql-server -> sudo apt-get install mysql-workbench. Cuando nos pidan introducir una contraseña introducimos la contraselña "pass". Posteriormente tenemos que crear la base de datos, para ello ejecutamos el siguiente comando: -> mysql -u root -p, e introducimos la contraseña "pass". Con esto nos encontraremos dentro de mysql, para crear la base de datos debemos introducir -> CREATE DATABASE <nombre de la BBDD>; y ya la tendriamos creada.
+
+* Paso 9: Ejecutamos el comando -> cd /vagrant, que es la carpeta que comparte la maquina virtual con la maquina host. Dentro de la carpeta spring de Windows debemos añadir los jar generados previamente para poder ejecutarlos. Para ejecutar cualquiera de los dos jar debemos poner -> java -jar <nombre del fichero jar> y ya se estaria ejecutando.
+
