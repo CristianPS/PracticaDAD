@@ -51,6 +51,8 @@ public class SocketHandler extends TextWebSocketHandler{
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private AnuncioRepository anuncioRepository;
+	@Autowired
+	private EmpresarioRepository empresarioRepository;
 
 	// Image properties
     private static final int qr_image_width = 400;
@@ -177,8 +179,8 @@ public class SocketHandler extends TextWebSocketHandler{
 
             // Se compone la parte del texto
             BodyPart texto = new MimeBodyPart();
-            texto.setText("Funciona");
-
+            texto.setText("Has recibido la oferta ( " + title + " )\nMuchas gracias por confiar en nosotros\n\nDepartamento de comunicaciones de la empresa FIESTA PAGA-NA\nCorreo de contacto: muchafiestapaga.na@gmail.com");
+            
             // Se compone el adjunto con la imagen
             BodyPart adjunto = new MimeBodyPart();
             adjunto.setDataHandler(new DataHandler(new FileDataSource(name + title + ".pdf")));
@@ -207,7 +209,7 @@ public class SocketHandler extends TextWebSocketHandler{
             Transport t = session.getTransport("smtp");
             t.connect("muchafiestapaga.na@gmail.com", "xcqsxmzxryjivxga");
             t.sendMessage(message, message.getAllRecipients());
-
+            
             // Cierre.
             t.close();
         }
@@ -234,7 +236,7 @@ public class SocketHandler extends TextWebSocketHandler{
 
             // Se compone la parte del texto
             BodyPart texto = new MimeBodyPart();
-            texto.setText("Su nueva contraseña es: " + pass);
+            texto.setText("Su nueva contraseña es: " + pass + "\nMuchas gracias por confiar en nosotros\n\nDepartamento de comunicaciones de la empresa FIESTA PAGA-NA\nCorreo de contacto: muchafiestapaga.na@gmail.com");
 
             // Una MultiParte para agrupar texto e imagen.
             MimeMultipart multiParte = new MimeMultipart();
@@ -244,7 +246,7 @@ public class SocketHandler extends TextWebSocketHandler{
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("yo@yo.com"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(name));
-            message.setSubject("FIESTA PAGA-NA nueva contraseña");
+            message.setSubject("FIESTA PAGA-NA Recuperación de contraseña");
             message.setContent(multiParte);
 
             // Lo enviamos.
@@ -261,7 +263,7 @@ public class SocketHandler extends TextWebSocketHandler{
         }
 	}
 	
-	public void getVariables(long idA, String username) throws DocumentException, IOException {
+	/*public void getVariables(long idA, String username) throws DocumentException, IOException {
 		Usuario user = usuarioRepository.getByUsername(username);
 		Anuncio offer = anuncioRepository.getById(idA);
 
@@ -269,7 +271,8 @@ public class SocketHandler extends TextWebSocketHandler{
 		enviarConGMail(user.getEmail(), offer.getTitle());
 
 		eliminarFicheros(user.getEmail(), offer.getTitle());
-	}
+	}*/
+	
     public static String getAlphaNumericString(int n) 
     { 
   
@@ -331,7 +334,40 @@ public class SocketHandler extends TextWebSocketHandler{
 			case 1:
 				String correo = datos.substring(2);
 				System.out.println(correo);
-				Usuario u = usuarioRepository.getByUsername(correo);
+				
+				//Un empresario tambien puede haber olvidado la contraseña
+				
+				Empresario e;
+				Usuario u;
+				
+				if(usuarioRepository.getByUsername(correo) != null)
+				{
+					u = usuarioRepository.getByUsername(correo);
+					System.out.println(u.getEmail());
+					
+					String generatedString = getAlphaNumericString(7);
+				    System.out.println(generatedString);
+					u.setPassword(generatedString);
+					usuarioRepository.save(u);
+					enviarConGMailPass(u.getEmail(),generatedString);
+				}
+				else
+				{
+					if(empresarioRepository.getByUsername(correo) != null)
+					{
+						e = empresarioRepository.getByUsername(correo);
+						System.out.println(e.getEmail());
+						
+						String generatedString = getAlphaNumericString(7);
+					    System.out.println(generatedString);
+						e.setPassword(generatedString);
+						empresarioRepository.save(e);
+						enviarConGMailPass(e.getEmail(),generatedString);
+					}
+				}
+				
+				break;
+				/*Usuario u = usuarioRepository.getByUsername(correo);
 				System.out.println(u.getEmail());
 
 			    String generatedString = getAlphaNumericString(7);
@@ -340,7 +376,7 @@ public class SocketHandler extends TextWebSocketHandler{
 				usuarioRepository.save(u);
 				enviarConGMailPass(u.getEmail(),generatedString);
 				
-				break;
+				break;*/
 		}
 		
 
