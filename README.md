@@ -130,9 +130,10 @@ Si hubiera algún error a la hora de registrarse o lya exista un usuario con ese
 
 ## Instrucciones para desplegar la aplicacion en una maquina virtual
 
-1. > Click derecho en el proyecto -> Run as... -> Maven build... -> Goals -> clean package -> Run
+1. Generamos los archivos jar de cada proyecto de la siguiente manera:
+   > Click derecho en el proyecto -> Run as... -> Maven build... -> Goals -> clean package -> Run
 
-     Con esto generaremos el archivo jar de nuestra aplicación.
+     
      
 2. Instalamos Vagrant y VirtualBox.
 
@@ -171,24 +172,24 @@ Si hubiera algún error a la hora de registrarse o lya exista un usuario con ese
    > mysql -u root -p 
 
      Introducimos la contraseña "pass". Con esto nos encontraremos dentro de mysql, para crear la base de datos debemos introducir 
-   > CREATE DATABASE <nombre de la BBDD>;
+   > CREATE DATABASE _nombre de la BBDD_;
 
 9. Nos metemos en la carpeta que comparte la VM con el host con el siguiente comando:
    > cd /vagrant 
     
    Dentro de la carpeta spring de Windows debemos añadir los jar generados previamente para poder ejecutarlos. Para ejecutar cualquiera de los dos jar debemos poner el siguiente comando:
-   > java -jar <nombre del fichero jar
+   > java -jar _nombre del fichero jar_
 
 ## Formato de los mensajes entre el Cliente y el Servicio Interno
 
 El cliente va a pasar mensajes al Servicio Interno en dos ocasiones: Cuando quiera obtener una oferta y cuando haya olvidado su contraseña. Para esto, tenemos que distinguir primero entre los dos tipos de mensajes. En el mensaje que se envía, lo primero que aparecerá será un 0 en el caso de obtener oferta o un 1 en el caso de haber olvidado la contraseña, y en cualquiera de los dos casos va un punto después.
 Una vez que ya hemos diferenciado entre los dos tipos de mensajes, vamos a pasar a describir cada uno por separado:
  * Obtener Oferta:
-   > 0._idOferta_-_username_
+   > 0_*idOferta*-_username_
    
    _idOferta_ es el ID que corresponde a la oferta que queramos obtener, y _username_ el nombre del usuario que quiere obtener la oferta, al que se le enviará un email con un PDF con la oferta y un código QR.
    
  * Contraseña Olvidada:
-   > 1._username_
+   > 1_*username*
    
    _username_ es el nombre del usuario que ha olvidado su contraseña, al que se le enviará un correo con la nueva contraseña.
