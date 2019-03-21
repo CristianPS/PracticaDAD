@@ -130,21 +130,65 @@ Si hubiera algún error a la hora de registrarse o lya exista un usuario con ese
 
 ## Instrucciones para desplegar la aplicacion en una maquina virtual
 
-* Paso 1: generamos los archivos jar de cada aplicación. Para ello, hacemos click derecho sobre el proyecto deseado, seleccionamos la opción Run as... -> Maven build... -> En el apartado Goals introducimos "clean package" y le damos a Run.
+1. > Click derecho en el proyecto -> Run as... -> Maven build... -> Goals -> clean package -> Run
 
-* Paso 2: Instalamos Vagrant y VirtualBox.
+     Con esto generaremos el archivo jar de nuestra aplicación.
+     
+2. Instalamos Vagrant y VirtualBox.
 
-* Paso 3: Creamos una carpeta en Windows que se llame "vagrant" y dentro de ella creamos otra carpeta llamada "spring".
+3. Creamos una carpeta en Windows que se llame "vagrant" y dentro de ella creamos otra carpeta llamada "spring".
 
-* Paso 4: Ejecutamos la cmd de Windows y accedemos a la carpeta spring creada previamente. Cuando estemos dentro, ejecutamos el siguiente comando: vagrant init ubuntu/trusty64.
+4. > Ejecutamos CMD -> cd ~/vagrant/spring -> vagrant init ubuntu/trusty64 
 
-* Paso 5: Modificamos el fichero creado previamente llamado Vagrantfile. Para ello descomentamos la siguiente linea -> config.vm.network "private_network", ip: "192.168.33.10", y añadimos estas dos -> config.vm.network "forwarded_port", guest: 7777, host: 7777, host_ip: "127.0.0.1" -> config.vm.network "forwarded_port", guest: 8443, host: 8443, host_ip: "127.0.0.1". Guardamos los cambios del archivo y lo cerramos.
+     Con este comando descargamos una máquina virtual de Ubuntu.
 
-* Paso 6: Ejecutamos los siguientes comandos en el cmd en la carpeta "spring". -> vagrant up -> vagrant ssh.
+5. Dentro de Vagrantfile descomentamos la siguiente línea y añadimos las dos siguientes:
+   > config.vm.network "private_network", ip: "192.168.33.10"
+   
+   > config.vm.network "forwarded_port", guest: 7777, host: 7777, host_ip: "127.0.0.1"
+   
+   > config.vm.network "forwarded_port", guest: 8443, host: 8443, host_ip: "127.0.0.1"
+   
+   Con esto hacemos que nuestra VM se pueda ver en la red privada, y que se redireccionen los puertos 7777 (Puerto del servicio Interno) y 8443 (puerto del Cliente) hacia la VM.
 
-* Paso 7: Instalamos java dentro de la maquina virtual. Introducimos los siguientes comandos: -> sudo add-apt-repository ppa:webupd8team/java -y -> sudo apt-get update -> sudo apt-get install oracle-java8-installer
+6. > cmd -> cd ~/vagrant/spring -> vagrant up -> vagrant ssh
 
-* Paso 8: Tras ejecutar el comando -> vagrant ssh ya nos encontraremos dentro de la maquina virtual de ubuntu. Entonces tenemos que instalar mysql con el siguiente comando: -> sudo apt-get install mysql-server -> sudo apt-get install mysql-workbench. Cuando nos pidan introducir una contraseña introducimos la contraselña "pass". Posteriormente tenemos que crear la base de datos, para ello ejecutamos el siguiente comando: -> mysql -u root -p, e introducimos la contraseña "pass". Con esto nos encontraremos dentro de mysql, para crear la base de datos debemos introducir -> CREATE DATABASE <nombre de la BBDD>; y ya la tendriamos creada.
+     Con esto iniciamos nuestra VM y nos conectamos a ella a través de SSH
 
-* Paso 9: Ejecutamos el comando -> cd /vagrant, que es la carpeta que comparte la maquina virtual con la maquina host. Dentro de la carpeta spring de Windows debemos añadir los jar generados previamente para poder ejecutarlos. Para ejecutar cualquiera de los dos jar debemos poner -> java -jar <nombre del fichero jar> y ya se estaria ejecutando.
+7. Instalamos java dentro de la maquina virtual
+   > sudo add-apt-repository ppa:webupd8team/java -y 
+   
+   > sudo apt-get update 
+   
+   > sudo apt-get install oracle-java8-installer
 
+8. Instalamos MySQL dentro de la máquina virtual 
+   > sudo apt-get install mysql-server 
+
+   > sudo apt-get install mysql-workbench 
+
+     Cuando nos pidan introducir una contraseña introducimos la contrasela "pass". Posteriormente tenemos que crear la base de datos, para ello ejecutamos el siguiente comando: 
+   > mysql -u root -p 
+
+     Introducimos la contraseña "pass". Con esto nos encontraremos dentro de mysql, para crear la base de datos debemos introducir 
+   > CREATE DATABASE <nombre de la BBDD>;
+
+9. Nos metemos en la carpeta que comparte la VM con el host con el siguiente comando:
+   > cd /vagrant 
+    
+   Dentro de la carpeta spring de Windows debemos añadir los jar generados previamente para poder ejecutarlos. Para ejecutar cualquiera de los dos jar debemos poner el siguiente comando:
+   > java -jar <nombre del fichero jar
+
+## Formato de los mensajes entre el Cliente y el Servicio Interno
+
+El cliente va a pasar mensajes al Servicio Interno en dos ocasiones: Cuando quiera obtener una oferta y cuando haya olvidado su contraseña. Para esto, tenemos que distinguir primero entre los dos tipos de mensajes. En el mensaje que se envía, lo primero que aparecerá será un 0 en el caso de obtener oferta o un 1 en el caso de haber olvidado la contraseña, y en cualquiera de los dos casos va un punto después.
+Una vez que ya hemos diferenciado entre los dos tipos de mensajes, vamos a pasar a describir cada uno por separado:
+ * Obtener Oferta:
+   > 0._idOferta_-_username_
+   
+   _idOferta_ es el ID que corresponde a la oferta que queramos obtener, y _username_ el nombre del usuario que quiere obtener la oferta, al que se le enviará un email con un PDF con la oferta y un código QR.
+   
+ * Contraseña Olvidada:
+   > 1._username_
+   
+   _username_ es el nombre del usuario que ha olvidado su contraseña, al que se le enviará un correo con la nueva contraseña.
