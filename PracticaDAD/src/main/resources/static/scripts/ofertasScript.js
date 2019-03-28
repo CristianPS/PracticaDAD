@@ -7,7 +7,7 @@
 });*/
 
 function connect() {
-	var ws = new WebSocket('ws://127.0.0.1:7777');
+	/*var ws = new WebSocket('ws://127.0.0.1:7777');
 	window.alert("En breves instantes recibirás un pdf con la oferta seleccionada en tu cuenta de correo")
 	ws.onopen = function(){
 		//window.alert("El correo se ha mandado correctamente");
@@ -21,13 +21,15 @@ function connect() {
 
 	ws.onerror = function() {
 		window.alert("Ha ocurrido un error");
-	};
-
-
+	};*/
+	
+	window.alert("En breves instantes recibirás un pdf con la oferta seleccionada en tu cuenta de correo");
+	document.getElementById("formOffer").action = "/obtenerOferta";
+	document.getElementById("formOffer").method = "post";
 }
 
 function connectPass() {
-	var ws = new WebSocket('ws://127.0.0.1:7777');	
+	/*var ws = new WebSocket('ws://127.0.0.1:7777');	
 	window.alert("En breves instantes recibirás tu nueva contraseña en tu cuenta de correo");
 	ws.onopen = function(){
 		var username = document.getElementById("username").value;
@@ -39,7 +41,10 @@ function connectPass() {
 
 	ws.onerror = function() {
 		window.alert("Ha ocurrido un error");
-	};
+	};*/
+	window.alert("En breves instantes recibirás tu nueva contraseña en tu cuenta de correo");
+	document.getElementById("formPass").action = "/nuevaPass";
+	document.getElementById("formPass").method = "post";
 }
 
 

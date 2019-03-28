@@ -2,6 +2,8 @@ package es.urjc.etsii.dad.Practica_DAD;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -11,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -33,6 +37,8 @@ public class UsuarioController {
 
 	private static String usuarioActual;
 	private static String empresarioActual;
+	
+	private WebSocketClient ws;
 
 	public static String getUsuarioActual()
 	{
@@ -259,8 +265,10 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/nuevaContraseña")
-	public String nuevaContraseña()
+	public String nuevaContraseña(Model model, HttpServletRequest request)
 	{
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());
 		return "nuevaPass";
 	}
 
@@ -329,5 +337,49 @@ public class UsuarioController {
 				return login(model,request);
 			}
 		}
+	}
+	
+	@RequestMapping("/nuevaPass")
+	public String nuevaPass(Model model, @RequestParam String username, HttpServletRequest request) throws URISyntaxException
+	{
+		System.out.println("FUNCAAAAAAAAAAA");
+		ws = new WebSocketClient(new URI("ws://127.0.0.1:7777")) {
+			
+			@Override
+			public void onOpen(ServerHandshake handshakedata) {
+				// TODO Auto-generated method stub
+				System.out.println("Todo guay 2");
+				
+				ws.send("1_" + username);
+				
+				//ws.send("Hola");
+				System.out.println("Mensaje mandado");
+			}
+			
+			@Override
+			public void onMessage(String message) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(Exception ex) {
+				// TODO Auto-generated method stub
+				ex.printStackTrace();
+			}
+			
+			@Override
+			public void onClose(int code, String reason, boolean remote) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		ws.connect();
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    	model.addAttribute("token", token.getToken());
+		System.out.println("FUNCAAAAAAAAAAA");
+		
+		return "login";
 	}
 }

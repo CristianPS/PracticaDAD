@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +14,8 @@ import java.util.Random;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
-import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -23,13 +25,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.java_websocket.WebSocket;
+import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Writer;
@@ -45,7 +45,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
-public class SocketHandler extends TextWebSocketHandler{
+public class SocketHandler{
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -58,16 +58,56 @@ public class SocketHandler extends TextWebSocketHandler{
     private static final int qr_image_width = 400;
     private static final int qr_image_height = 400;
     private static final String IMAGE_FORMAT = "png";
+    
+    private WebSocketServer ws;
+    
+    @PostConstruct
+    public void init() throws DocumentException, IOException
+    {    	
+    	ws = new SocketServer() {
+    		@Override
+    		public void onOpen(WebSocket conn, ClientHandshake handshake) {
+    			// TODO Auto-generated method stub
+    			System.out.println("Conexion iniciada del servidor");
+    			
+    		}
+    		@Override
+    		public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+    			// TODO Auto-generated method stub
+    			
+    		}
 
-	/*@Override
-	public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
-		System.err.println("Error en el cliente " + session);
-	}
+    		@Override
+    		public void onMessage(WebSocket conn, String message) {
+    			// TODO Auto-generated method stub
+    			
+    			System.out.println("Mensaje recibido " + message);
+    			try {
+					execute(message);
+				} catch (DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
 
-	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		System.out.println("Sesion " + session.getId() + "cerrada porque " + status.getReason());
-	}*/
+    		@Override
+    		public void onError(WebSocket conn, Exception ex) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+
+    		@Override
+    		public void onStart() {
+    			// TODO Auto-generated method stub
+    			
+    		}
+    	};
+    	
+    	ws.start();
+    }
 
 	public static void generarQR(Document document, String name, String title) throws IOException, DocumentException
     {
@@ -133,21 +173,10 @@ public class SocketHandler extends TextWebSocketHandler{
         PdfWriter.getInstance(document, new FileOutputStream(name + title + ".pdf"));
         document.open();
 
-        /*document.add(new Paragraph("Cachimba Premium por 10€", new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD)));
-        document.add(new Paragraph("Anubis", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
-        document.add(new Paragraph("C.C.Xanadú, Arroyomolinos (Madrid)", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
-        document.add(new Paragraph("Fecha de expiración: 18/09/2019", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
-        document.add(new Paragraph("\n"));
-        document.add(new Paragraph("Debes presentar este código QR en el establecimiento indicado para poder canjear la oferta", new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL)));
-        */
-
         document.add(new Paragraph(title, new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD)));
         document.add(new Paragraph(entName, new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
         document.add(new Paragraph(address + " (" + city + ")", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
         document.add(new Paragraph("Fecha de expiración: " + date, new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
-        //document.add(new Paragraph(a.getLocal().getEntName(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
-        //document.add(new Paragraph(a.getLocal().getAddress() + ", " + a.getLocal().getCity(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
-        //document.add(new Paragraph("Fecha de expiración: " + a.getDate(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL)));
         document.add(new Paragraph("\n"));
         document.add(new Paragraph("Debes presentar este código QR en el establecimiento indicado para poder canjear la oferta", new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL)));
 
@@ -155,8 +184,6 @@ public class SocketHandler extends TextWebSocketHandler{
         //Generamos el codigo QR y lo añadimos al PDF
 
         generarQR(document, name, title);
-
-        //eliminarFicheros();
 
         document.close();
 
@@ -192,18 +219,11 @@ public class SocketHandler extends TextWebSocketHandler{
             multiParte.addBodyPart(adjunto);
 
             // Construimos el mensaje
-            Address[] addresses = {new InternetAddress(name), new InternetAddress("ji.diazerrejon@outlook.es"), new InternetAddress("c.posada@alumnos.urjc.es")};
-
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("yo@yo.com"));
-            //message.addRecipient(Message.RecipientType.TO, new InternetAddress("ji.diazerrejon@outlook.es"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(name));
-            //message.addRecipients(Message.RecipientType.TO, addresses);
             message.setSubject("FIESTA PAGA-NA " + title);
             message.setContent(multiParte);
-            //message.setText("Hey que pasa primoooo, te estoy mandando esta puta mierda desde Java xdddd");
-            //message.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\sito\\Desktop\\prueba.pdf")));
-            //message.setFileName("prueba.pdf");
 
             // Lo enviamos.
             Transport t = session.getTransport("smtp");
@@ -263,16 +283,6 @@ public class SocketHandler extends TextWebSocketHandler{
         }
 	}
 	
-	/*public void getVariables(long idA, String username) throws DocumentException, IOException {
-		Usuario user = usuarioRepository.getByUsername(username);
-		Anuncio offer = anuncioRepository.getById(idA);
-
-		generarPDF(user.getEmail(), offer.getTitle(), offer.getLocal().getEntName(), offer.getLocal().getAddress(), offer.getLocal().getAddress(), offer.getDate());
-		enviarConGMail(user.getEmail(), offer.getTitle());
-
-		eliminarFicheros(user.getEmail(), offer.getTitle());
-	}*/
-	
     public static String getAlphaNumericString(int n) 
     { 
   
@@ -301,27 +311,26 @@ public class SocketHandler extends TextWebSocketHandler{
         // return the resultant string 
         return r.toString(); 
     }
-	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("Conectado a " + session.getId());
-	}
-
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		String datos = message.getPayload();
-		int barraBaja = datos.indexOf("_");
-		int tipo = Integer.parseInt(datos.substring(0, barraBaja));
+    
+    public void execute(String message) throws DocumentException, IOException
+    {
+    	System.out.println("Estoy ejecutando");
+    	
+    	//Funcionalidad del servicio interno
+		int barraBaja = message.indexOf("_");
+		int tipo = Integer.parseInt(message.substring(0, barraBaja));
 		switch(tipo) {
 			case 0:
-				int separador = datos.indexOf("-");
-				long idAnuncio = Long.parseLong(datos.substring(2, separador));
-				String username = datos.substring(separador+1);
-				System.out.println(idAnuncio);
-				System.out.println(username);
+				int separador = message.indexOf("-");
+				long idAnuncio = Long.parseLong(message.substring(2, separador));
+				String username = message.substring(separador+1);
 				//ServicioController.getVariables(idAnuncio, username);
 
+				System.out.println("ESTE ES EL ID DEL ANUNCIO " + idAnuncio);
+				System.out.println("ESTE ES EL USERNAME " + username);
 
 				Usuario user = usuarioRepository.getByUsername(username);
+				System.out.println("FUNCIONA USERNAME = " + user.getUsername());
 				Anuncio offer = anuncioRepository.getById(idAnuncio);
 
 				generarPDF(user.getEmail(), offer.getTitle(), offer.getLocal().getEntName(), offer.getLocal().getAddress(), offer.getLocal().getAddress(), offer.getDate());
@@ -332,7 +341,7 @@ public class SocketHandler extends TextWebSocketHandler{
 				break;
 				
 			case 1:
-				String correo = datos.substring(2);
+				String correo = message.substring(2);
 				System.out.println(correo);
 				
 				//Un empresario tambien puede haber olvidado la contraseña
@@ -367,20 +376,6 @@ public class SocketHandler extends TextWebSocketHandler{
 				}
 				
 				break;
-				/*Usuario u = usuarioRepository.getByUsername(correo);
-				System.out.println(u.getEmail());
-
-			    String generatedString = getAlphaNumericString(7);
-			    System.out.println(generatedString);
-				u.setPassword(generatedString);
-				usuarioRepository.save(u);
-				enviarConGMailPass(u.getEmail(),generatedString);
-				
-				break;*/
 		}
-		
-
-	}
-
-
+    }
 }

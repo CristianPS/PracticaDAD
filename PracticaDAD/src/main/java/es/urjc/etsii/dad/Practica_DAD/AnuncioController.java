@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.Base64;
 import java.util.Comparator;
@@ -18,8 +20,12 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.JComboBox;
 import javax.websocket.WebSocketContainer;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft;
+import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
@@ -41,6 +47,8 @@ public class AnuncioController {
 	private EmpresarioRepository empresarioRepository;
 
 	private String anuncioActual;
+	
+	private WebSocketClient ws;
 
 	@RequestMapping("/inicio")
 	public String CerrarSesion(Model model,  HttpServletRequest request)
@@ -357,5 +365,56 @@ public class AnuncioController {
 		}
 
 		return mostrarAnuncio(model, title, request);
+	}
+	
+	@RequestMapping("/obtenerOferta")
+	public String obtenerOferta(Model model, @RequestParam String title, @RequestParam String username, HttpServletRequest request) throws URISyntaxException, InterruptedException
+	{
+		ws = new WebSocketClient(new URI("ws://127.0.0.1:7777")) {
+			
+			@Override
+			public void onOpen(ServerHandshake handshakedata) {
+				// TODO Auto-generated method stub
+				System.out.println("Todo guay");
+				
+				Anuncio a = anuncioRepository.getByTitle(title);
+				long idA = a.getId();
+				
+				ws.send("0_" + idA + "-" + username);
+				
+				//ws.send("Hola");
+				System.out.println("Mensaje mandado");
+			}
+			
+			@Override
+			public void onMessage(String message) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(Exception ex) {
+				// TODO Auto-generated method stub
+				ex.printStackTrace();
+			}
+			
+			@Override
+			public void onClose(int code, String reason, boolean remote) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		ws.connect();
+		
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+    	model.addAttribute("token", token.getToken());
+		
+		List<Anuncio> anuncios = anuncioRepository.findAll();
+		model.addAttribute("anuncios", anuncios);
+		model.addAttribute("username", username);
+		model.addAttribute("busqueda", "Todas las ofertas");
+		
+		return "ofertas";
 	}
 }
