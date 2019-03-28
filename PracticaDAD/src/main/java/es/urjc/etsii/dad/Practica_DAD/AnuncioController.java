@@ -292,7 +292,7 @@ public class AnuncioController {
 
 		anuncioActual = title;
 
-		return "OfertaPropia";
+		return "ofertaPropia";
 	}
 
 	@RequestMapping("/nuevaOferta")
