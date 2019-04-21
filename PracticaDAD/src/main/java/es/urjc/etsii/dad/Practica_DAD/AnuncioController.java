@@ -11,9 +11,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -27,10 +30,15 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties.EhCache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -370,7 +378,7 @@ public class AnuncioController {
 	@RequestMapping("/obtenerOferta")
 	public String obtenerOferta(Model model, @RequestParam String title, @RequestParam String username, HttpServletRequest request) throws URISyntaxException, InterruptedException
 	{
-		ws = new WebSocketClient(new URI("ws://127.0.0.1:7777")) {
+		ws = new WebSocketClient(new URI("ws://192.168.99.100:7777")) {
 			
 			@Override
 			public void onOpen(ServerHandshake handshakedata) {
@@ -417,4 +425,24 @@ public class AnuncioController {
 		
 		return "ofertas";
 	}
+	
+	@Autowired
+    private CacheManager cacheManager;
+
+	 @RequestMapping(value="/cache", method=RequestMethod.GET)
+	    public void getCacheContent() {
+	        ConcurrentMapCacheManager cacheMgr = (ConcurrentMapCacheManager) cacheManager;
+	        ConcurrentMapCache cache = (ConcurrentMapCache) cacheMgr.getCache("anuncios");
+	        Collection keys = cache.getNativeCache().values();	        
+	        if (keys.isEmpty())
+	        	System.out.println("La caché está vacía.");
+	        else
+	        {
+	        	System.out.println("Mostrando anuncios en caché.");
+		        for (Object key: keys)
+		        {
+		        	System.out.println(key);
+		        }
+	        }
+	 }
 }

@@ -2,7 +2,9 @@ package es.urjc.etsii.dad.Practica_DAD;
 
 import java.util.List;
 
-
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.jpa.repository.Query;
 //import org.springframework.data.jpa.repository.Modifying;
@@ -11,11 +13,18 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+@CacheConfig(cacheNames="anuncios")
 public interface AnuncioRepository extends JpaRepository<Anuncio, Long>{
-	
+	@Cacheable
 	List<Anuncio> findByTitle(String title);
 	
+	@CacheEvict(allEntries=true)
+	Anuncio save (Anuncio anuncio);
+	@Cacheable
+	List<Anuncio> findAll();
+	@Cacheable
 	Anuncio getByTitle(String title);
+	@Cacheable
 	Anuncio getById (long id);
 	
 	@Modifying @Transactional
@@ -28,8 +37,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Long>{
 	
 	@Modifying @Transactional
 	@Query("update Anuncio u set u.date = ?1 where u.id = ?2")
-	void setDateById(String date, long id);
-	
+	void setDateById(String date, long id);	
 
 	@Modifying @Transactional
 	@Query("update Anuncio u set u.valoracion = ?1 where u.id = ?2")
