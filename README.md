@@ -213,3 +213,9 @@ Todos los dockers están dentro del mismo docker-machine que tiene la ip 192.168
  
 * Docker haproxy: 
  Expone el puerto 8443 que es el unico puerto al que puede acceder el usuario para ver la pagina web.
+ 
+ ## Vídeos de muestra del funcionamiento de la aplicación
+ 
+ * Primer vídeo: https://www.youtube.com/watch?v=4t7dO8xVBXU&feature=youtu.be
+ 
+ [![FIESTA_PAGA-NA 1](http://img.youtube.com/vi/4t7dO8xVBXU&feature=youtu.be/0.jpg)](http://www.youtube.com/watch?v=4t7dO8xVBXU&feature=youtu.be)
