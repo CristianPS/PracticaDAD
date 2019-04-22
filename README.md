@@ -193,3 +193,23 @@ Una vez que ya hemos diferenciado entre los dos tipos de mensajes, vamos a pasar
    > 1_*username*
    
    _username_ es el nombre del usuario que ha olvidado su contraseña, al que se le enviará un correo con la nueva contraseña.
+
+## Formación de los docker
+
+Tenemos 5 dockers, dos para las dos instancias de la aplicacion web, uno para el servicio interno, otro para la base de datos mysql y otro para el balanceador de carga haproxy.
+Todos los dockers están dentro del mismo docker-machine que tiene la ip 192.168.99.100.
+
+* Docker cliente1
+ Expone el puerto 8082 para que el balanceador de carga pueda verlo y comunicarse con él.
+ 
+* Docker cliente2
+ Expone el puerto 8083 para que el balanceador de carga pueda verlo y comunicarse con él.
+ 
+* Docker servicioInterno
+ Expone el puerto 7777 que es el usado para la comunicacion entre el servicio interno y los clientes a través de los websockets.
+ 
+* Docker mysql
+ Expone el puerto 3306 correspondiente con el puerto en el que se ejecuta la base de datos. Así se pueden comunicar con esta tanto los dos clientes como el servicio interno.
+ 
+* Docker haproxy
+ Expone el puerto 8443 que es el unico puerto al que puede acceder el usuario para ver la pagina web.
