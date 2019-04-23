@@ -42,7 +42,7 @@ public class PracticaDadApplication {
 		JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 		
 		joinConfig.getMulticastConfig().setEnabled(false);
-		joinConfig.getTcpIpConfig().setEnabled(true).setMembers(Collections.singletonList("127.0.0.1"/*"192.168.99.100"*/));
+		joinConfig.getTcpIpConfig().setEnabled(true).addMember("172.18.0.22").addMember("172.18.0.23");
 		
 		return config;
 	}

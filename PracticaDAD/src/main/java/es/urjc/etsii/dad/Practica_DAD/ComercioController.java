@@ -20,7 +20,7 @@ public class ComercioController {
 	private EmpresarioRepository empresarioRepository;
 	
 	@RequestMapping("/guardarComercio")
-	public String guardarComercio(Model model, @RequestParam String username, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, HttpServletRequest request)
+	public String guardarComercio(Model model, @RequestParam String entName, @RequestParam String address, @RequestParam String correo, @RequestParam String ciudad, @RequestParam String telephone, HttpServletRequest request)
 	{
     	CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
     	model.addAttribute("token", token.getToken());   
@@ -35,7 +35,7 @@ public class ComercioController {
 		c.setCity(ciudad);
 		c.setEmail(correo);
 		c.setTelephone(telephone);
-		
+		//model.addAttribute("username", request.getUserPrincipal().getName());
 		comercioRepository.save(c);
 		
 		/*model.addAttribute("username", username);

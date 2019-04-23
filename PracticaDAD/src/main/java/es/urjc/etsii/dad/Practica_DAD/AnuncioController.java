@@ -353,6 +353,8 @@ public class AnuncioController {
 		Anuncio a = anuncioRepository.getByTitle(title);
 		Comentario c = new Comentario(u, addComment, a);
 		comentarioRepository.save(c);
+		a.getComments().add(c);
+		anuncioRepository.save(a);
 
 		return mostrarAnuncio(model, title, request);
 	}
@@ -426,7 +428,7 @@ public class AnuncioController {
 		return "ofertas";
 	}
 	
-	@Autowired
+	/*@Autowired
     private CacheManager cacheManager;
 
 	 @RequestMapping(value="/cache", method=RequestMethod.GET)
@@ -444,5 +446,5 @@ public class AnuncioController {
 		        	System.out.println(key);
 		        }
 	        }
-	 }
+	 }*/
 }
